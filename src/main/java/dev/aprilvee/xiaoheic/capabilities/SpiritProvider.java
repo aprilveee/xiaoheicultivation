@@ -11,24 +11,24 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class QiProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
+public class SpiritProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
 
-    public static Capability<QiValue> QI = CapabilityManager.get(new CapabilityToken<QiValue>() {
+    public static Capability<SpiritCap> SPIRITCAP = CapabilityManager.get(new CapabilityToken<>() {
     });
 
-    private QiValue qi = null;
-    private final LazyOptional<QiValue> optional = LazyOptional.of(this::createQiValue);
+    private SpiritCap qi = null;
+    private final LazyOptional<SpiritCap> optional = LazyOptional.of(this::createQiValue);
 
-    private QiValue createQiValue() {
+    private SpiritCap createQiValue() {
         if(this.qi == null){
-            this.qi = new QiValue();
+            this.qi = new SpiritCap();
         }
         return this.qi;
     }
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == QI){
+        if(cap == SPIRITCAP){
             return optional.cast();
         }
 

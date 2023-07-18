@@ -8,8 +8,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -21,31 +19,29 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = main.MODID)// bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonEvents {
 
-
-
     @SubscribeEvent
     public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event){
         if(event.getObject() instanceof Player){
-            if(!event.getObject().getCapability(QiProvider.QI).isPresent()){
-                event.addCapability(new ResourceLocation(main.MODID, "qivalue"), new QiProvider());
-            }
+            if(!event.getObject().getCapability(SpiritProvider.SPIRITCAP).isPresent()){
+                event.addCapability(new ResourceLocation(main.MODID, "spiritvalues"), new SpiritProvider());
+            }/*
             if(!event.getObject().getCapability(MaxQiProvider.MAX_QI).isPresent()){
                 event.addCapability(new ResourceLocation(main.MODID, "maxqi"), new MaxQiProvider());
             }
             if(!event.getObject().getCapability(CultivationProvider.CULTIVATION).isPresent()){
                 event.addCapability(new ResourceLocation(main.MODID, "cultivation"), new CultivationProvider());
-            }
+            }*/
         }
     }
 
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event){
         if(event.isWasDeath()) {
-            event.getOriginal().getCapability(QiProvider.QI).ifPresent(oldStore -> {
-                event.getOriginal().getCapability(QiProvider.QI).ifPresent(newStore -> {
+            event.getOriginal().getCapability(SpiritProvider.SPIRITCAP).ifPresent(oldStore -> {
+                event.getOriginal().getCapability(SpiritProvider.SPIRITCAP).ifPresent(newStore -> {
                     newStore.copyFrom(oldStore);
                 });
-            });
+            });/*
             event.getOriginal().getCapability(MaxQiProvider.MAX_QI).ifPresent(oldStore -> {
                 event.getOriginal().getCapability(MaxQiProvider.MAX_QI).ifPresent(newStore -> {
                     newStore.copyFrom(oldStore);
@@ -55,7 +51,7 @@ public class CommonEvents {
                 event.getOriginal().getCapability(CultivationProvider.CULTIVATION).ifPresent(newStore -> {
                     newStore.copyFrom(oldStore);
                 });
-            });
+            });*/
         }
     }
 
@@ -69,28 +65,27 @@ public class CommonEvents {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if(event.side == LogicalSide.SERVER) {
 
-            event.player.getCapability(QiProvider.QI).ifPresent(qi ->
-                    event.player.getCapability(MaxQiProvider.MAX_QI).ifPresent(maxQi -> {//grab players max qi
+            event.player.getCapability(SpiritProvider.SPIRITCAP).ifPresent(spirit -> {//grab players qi and max qi
 
                         if(event.player.tickCount % 10 == 0){
-                            if (qi.getQi() < maxQi.getMaxQi()) {
-                                qi.addQi(1);
-                                event.player.sendSystemMessage(Component.literal("Qi: " + qi.getQi())
+                            if (spirit.getQi() < spirit.getMaxqi()) {
+                                spirit.addQi(1);
+                                event.player.sendSystemMessage(Component.literal("Qi: " + spirit.getQi())
                                         .withStyle(ChatFormatting.AQUA));
-                            }else if(qi.getQi() > maxQi.getMaxQi()){
-                            qi.set(maxQi.getMaxQi());
+                            }else if(spirit.getQi() > spirit.getMaxqi()){
+                            spirit.setQi(spirit.getMaxqi());
                             }
-            }}));
+            }});
         }
     }
 
     @SubscribeEvent //give cultivation when rclicking a sprite, then despawn the sprite
     public static void onEntityRightClick(PlayerInteractEvent.EntityInteractSpecific event){
         if(event.getTarget() instanceof Sprite){
-            event.getEntity().getCapability(CultivationProvider.CULTIVATION).ifPresent(cultivation -> {
-                cultivation.add(1);
-                event.getEntity().sendSystemMessage(Component.literal("cultivation: " + cultivation.get()));
+            event.getEntity().getCapability(SpiritProvider.SPIRITCAP).ifPresent(spirit -> {
                 event.getTarget().remove(Entity.RemovalReason.DISCARDED);
+                spirit.addCultivation(1);
+                event.getEntity().sendSystemMessage(Component.literal("cultivation: " + spirit.getCultivation()));
             });
         }
     }
