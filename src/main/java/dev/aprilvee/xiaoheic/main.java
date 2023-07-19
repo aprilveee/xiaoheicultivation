@@ -1,5 +1,6 @@
 package dev.aprilvee.xiaoheic;
 
+import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.registry.blocks;
 import dev.aprilvee.xiaoheic.registry.entities;
 import dev.aprilvee.xiaoheic.registry.items;
@@ -78,8 +79,9 @@ public class main
             LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
 
         LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
-
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
+
+        Messages.register();
     }
 
     // Add the example block item to the building blocks tab

@@ -3,8 +3,8 @@
   "biomes": "#minecraft:is_overworld",
   "spawners": {
     "type": "xiaoheic:sprite",
-    "weight": 8,
-    "minCount": 3,
+    "weight": 10,
+    "minCount": 4,
     "maxCount": 12
   }
 }

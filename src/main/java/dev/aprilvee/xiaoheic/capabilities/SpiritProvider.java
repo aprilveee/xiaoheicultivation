@@ -16,14 +16,14 @@ public class SpiritProvider implements ICapabilityProvider, INBTSerializable<Com
     public static Capability<SpiritCap> SPIRITCAP = CapabilityManager.get(new CapabilityToken<>() {
     });
 
-    private SpiritCap qi = null;
+    private SpiritCap spiritcap = null;
     private final LazyOptional<SpiritCap> optional = LazyOptional.of(this::createQiValue);
 
     private SpiritCap createQiValue() {
-        if(this.qi == null){
-            this.qi = new SpiritCap();
+        if(this.spiritcap == null){
+            this.spiritcap = new SpiritCap();
         }
-        return this.qi;
+        return this.spiritcap;
     }
 
     @Override

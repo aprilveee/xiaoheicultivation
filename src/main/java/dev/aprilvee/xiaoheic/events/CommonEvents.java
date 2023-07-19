@@ -3,6 +3,8 @@ package dev.aprilvee.xiaoheic.events;
 import dev.aprilvee.xiaoheic.capabilities.*;
 import dev.aprilvee.xiaoheic.entity.Sprite;
 import dev.aprilvee.xiaoheic.main;
+import dev.aprilvee.xiaoheic.network.Messages;
+import dev.aprilvee.xiaoheic.network.packet.TemplateC2SPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -41,25 +43,9 @@ public class CommonEvents {
                 event.getOriginal().getCapability(SpiritProvider.SPIRITCAP).ifPresent(newStore -> {
                     newStore.copyFrom(oldStore);
                 });
-            });/*
-            event.getOriginal().getCapability(MaxQiProvider.MAX_QI).ifPresent(oldStore -> {
-                event.getOriginal().getCapability(MaxQiProvider.MAX_QI).ifPresent(newStore -> {
-                    newStore.copyFrom(oldStore);
-                });
             });
-            event.getOriginal().getCapability(CultivationProvider.CULTIVATION).ifPresent(oldStore -> {
-                event.getOriginal().getCapability(CultivationProvider.CULTIVATION).ifPresent(newStore -> {
-                    newStore.copyFrom(oldStore);
-                });
-            });*/
         }
     }
-
-    /*@SubscribeEvent
-    public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
-        event.register(QiValue.class);
-        event.register(MaxQi.class);
-    }*/
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -89,5 +75,6 @@ public class CommonEvents {
             });
         }
     }
+
 
 }
