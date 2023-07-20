@@ -1,2 +1,2 @@
 # xiaoheicultivation
-minecraft mod! ^w^
+minecraf
