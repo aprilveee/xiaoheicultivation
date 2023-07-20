@@ -1,6 +1,9 @@
 package dev.aprilvee.xiaoheic.network;
 
 import dev.aprilvee.xiaoheic.main;
+import dev.aprilvee.xiaoheic.network.packet.CultivationS2C;
+import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
+import dev.aprilvee.xiaoheic.network.packet.QiSyncS2C;
 import dev.aprilvee.xiaoheic.network.packet.TemplateC2SPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,7 +34,24 @@ public class Messages {
                 .encoder(TemplateC2SPacket::toBytes)
                 .consumerMainThread(TemplateC2SPacket::handle)
                 .add();
-        //send this with Messages.sendToServer(new TemplateC2SPacket());
+        net.messageBuilder(QiSyncS2C.class, id(), NetworkDirection.PLAY_TO_CLIENT) //this adds a new packet to be sendable
+                .decoder(QiSyncS2C::new)
+                .encoder(QiSyncS2C::toBytes)
+                .consumerMainThread(QiSyncS2C::handle)
+                .add();
+        net.messageBuilder(MaxQiS2C.class, id(), NetworkDirection.PLAY_TO_CLIENT) //this adds a new packet to be sendable
+                .decoder(MaxQiS2C::new)
+                .encoder(MaxQiS2C::toBytes)
+                .consumerMainThread(MaxQiS2C::handle)
+                .add();
+        net.messageBuilder(CultivationS2C.class, id(), NetworkDirection.PLAY_TO_CLIENT) //this adds a new packet to be sendable
+                .decoder(CultivationS2C::new)
+                .encoder(CultivationS2C::toBytes)
+                .consumerMainThread(CultivationS2C::handle)
+                .add();
+        //send to server with Messages.sendToServer(new TemplateC2SPacket());
+        //send to client with Messages.sendToClient(new QiSyncS2C(qi.getQi()), player);
+
     }
 
     public static <MSG> void sendToServer(MSG message){

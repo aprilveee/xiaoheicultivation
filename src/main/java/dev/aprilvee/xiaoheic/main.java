@@ -1,5 +1,7 @@
 package dev.aprilvee.xiaoheic;
 
+import com.mojang.brigadier.CommandDispatcher;
+import dev.aprilvee.xiaoheic.command.commands;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.registry.blocks;
 import dev.aprilvee.xiaoheic.registry.entities;
@@ -7,6 +9,7 @@ import dev.aprilvee.xiaoheic.registry.items;
 import dev.aprilvee.xiaoheic.registry.misc;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -14,6 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -36,8 +40,6 @@ public class main
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
-
-
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
     public static final RegistryObject<CreativeModeTab> XIAOHEI_TAB = misc.CREATIVE_MODE_TABS.register("xiaohei_tab", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
@@ -59,6 +61,7 @@ public class main
         items.ITEMS.register(bus);
         entities.ENTITIES.register(bus);
         misc.CREATIVE_MODE_TABS.register(bus);
+
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

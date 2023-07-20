@@ -1,7 +1,6 @@
-package dev.aprilvee.xiaoheic.capabilities;
+package dev.aprilvee.xiaoheic.capability;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
 @AutoRegisterCapability

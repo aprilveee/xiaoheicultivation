@@ -1,10 +1,12 @@
 package dev.aprilvee.xiaoheic.events;
 
+import dev.aprilvee.xiaoheic.command.commands;
 import dev.aprilvee.xiaoheic.entity.Sprite;
 import dev.aprilvee.xiaoheic.main;
 import dev.aprilvee.xiaoheic.registry.entities;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,4 +28,6 @@ public class ModBusEvents {
                 Sprite::canSpawn,
                 SpawnPlacementRegisterEvent.Operation.OR);
     }
+
+
 }
