@@ -4,9 +4,14 @@ import dev.aprilvee.xiaoheic.client.gui.QiBar;
 import dev.aprilvee.xiaoheic.client.model.SpriteModel;
 import dev.aprilvee.xiaoheic.client.renderer.model.SpriteRenderer;
 import dev.aprilvee.xiaoheic.registry.entities;
+import dev.aprilvee.xiaoheic.util.Keybinds;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -17,6 +22,14 @@ public class ClientEvents {
     @Mod.EventBusSubscriber(modid = main.MODID, value = Dist.CLIENT)
     public static class ClientForgeEvents{
 
+
+
+        @SubscribeEvent
+        public static void onKeyInput(InputEvent event) {
+            if (Keybinds.CAST_SLOT1_KEY.consumeClick()) {
+                Minecraft.getInstance().player.sendSystemMessage(Component.literal("wowza!"));
+            }
+        }
     }
 
     @Mod.EventBusSubscriber(modid = main.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -34,6 +47,11 @@ public class ClientEvents {
         @SubscribeEvent
         public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event){
             event.registerLayerDefinition(SpriteModel.LAYER_LOCATION, SpriteModel::createBodyLayer);
+        }
+
+        @SubscribeEvent
+        public static void onKeyRegister(RegisterKeyMappingsEvent event) {
+            event.register(Keybinds.CAST_SLOT1_KEY);
         }
     }
 

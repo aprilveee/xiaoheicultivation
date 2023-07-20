@@ -50,8 +50,10 @@ public class main
                 output.accept(items.SPRITE_SPAWN_EGG.get());
             }).build());
 
+
     public main()
     {
+
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Register the commonSetup method for modloading

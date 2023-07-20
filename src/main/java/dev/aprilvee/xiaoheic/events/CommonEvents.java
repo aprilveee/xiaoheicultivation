@@ -62,7 +62,7 @@ public class CommonEvents {
                                 spirit.addQi(spirit.getMaxqi()/20);
                                 Messages.sendToClient(new QiSyncS2C(spirit.getQi()), event.player.getServer().getPlayerList().getPlayerByName(event.player.getName().getString()));
                                 //event.player.sendSystemMessage(Component.literal("Qi: " + spirit.getQi()).withStyle(ChatFormatting.AQUA));
-                            }else if(spirit.getQi() > spirit.getMaxqi()){
+                            }if(spirit.getQi() > spirit.getMaxqi()){
                                 spirit.setQi(spirit.getMaxqi());
                                 Messages.sendToClient(new QiSyncS2C(spirit.getQi()), event.player.getServer().getPlayerList().getPlayerByName(event.player.getName().getString()));
                             }
