@@ -1,6 +1,7 @@
 package dev.aprilvee.xiaoheic.events;
 
 import dev.aprilvee.xiaoheic.command.commands;
+import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.entity.Sprite;
 import dev.aprilvee.xiaoheic.main;
 import dev.aprilvee.xiaoheic.registry.entities;
