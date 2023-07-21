@@ -8,6 +8,7 @@ import dev.aprilvee.xiaoheic.registry.entities;
 import dev.aprilvee.xiaoheic.registry.items;
 import dev.aprilvee.xiaoheic.registry.misc;
 import com.mojang.logging.LogUtils;
+import dev.aprilvee.xiaoheic.spell.SpellList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
@@ -64,6 +65,7 @@ public class main
         entities.ENTITIES.register(bus);
         misc.CREATIVE_MODE_TABS.register(bus);
 
+        SpellList.initializeSpells();
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

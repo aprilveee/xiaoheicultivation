@@ -1,5 +1,6 @@
 package dev.aprilvee.xiaoheic.registry;
 
+import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.entity.Sprite;
 import dev.aprilvee.xiaoheic.main;
 import net.minecraft.world.entity.EntityType;
@@ -16,6 +17,12 @@ public class entities {
                     .fireImmune()
                     .sized(0.375f,0.375f) //this affects hitbox size!
                     .build("xiaoheic:sprite")
+    );
+    public static final RegistryObject<EntityType<BasicSpell>> BASIC_SPELL = ENTITIES.register("basicspell", () ->
+            EntityType.Builder.<BasicSpell>of(BasicSpell::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(0.35F,0.35F)
+                    .build("xiaoheic:basicspell")
     );
 
 }

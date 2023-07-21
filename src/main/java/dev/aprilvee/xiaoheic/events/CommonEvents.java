@@ -2,13 +2,13 @@ package dev.aprilvee.xiaoheic.events;
 
 import dev.aprilvee.xiaoheic.capability.*;
 import dev.aprilvee.xiaoheic.command.commands;
+import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.entity.Sprite;
 import dev.aprilvee.xiaoheic.main;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.CultivationS2C;
 import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
 import dev.aprilvee.xiaoheic.network.packet.QiSyncS2C;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,10 +28,15 @@ import net.minecraftforge.fml.common.Mod;
 public class CommonEvents {
 
     @SubscribeEvent
-    public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event){
+    public static void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event){
         if(event.getObject() instanceof Player){
             if(!event.getObject().getCapability(SpiritProvider.SPIRITCAP).isPresent()) {
                 event.addCapability(new ResourceLocation(main.MODID, "spiritvalues"), new SpiritProvider());
+            }
+        }
+        if(event.getObject() instanceof BasicSpell){
+            if(!event.getObject().getCapability(SpellProvider.SPELLCAP).isPresent()) {
+                //event.addCapability(new ResourceLocation(main.MODID, "spelltype"), new SpellProvider());
             }
         }
     }
@@ -56,16 +61,14 @@ public class CommonEvents {
         if(event.side == LogicalSide.SERVER) {
 
             event.player.getCapability(SpiritProvider.SPIRITCAP).ifPresent(spirit -> {//grab players qi and max qi
-                        if(event.player.tickCount % 10 == 0){
+                        if(event.player.tickCount % 5 == 0){
                             if (spirit.getQi() < spirit.getMaxqi() && spirit.getMaxqi() > 0) {
-                                spirit.addQi(5);
-                                spirit.addQi(spirit.getMaxqi()/20);
-                                Messages.sendToClient(new QiSyncS2C(spirit.getQi()), event.player.getServer().getPlayerList().getPlayerByName(event.player.getName().getString()));
-                                //event.player.sendSystemMessage(Component.literal("Qi: " + spirit.getQi()).withStyle(ChatFormatting.AQUA));
+                                spirit.addQi(4);
+                                spirit.addQi(spirit.getMaxqi()/50);
                             }if(spirit.getQi() > spirit.getMaxqi()){
                                 spirit.setQi(spirit.getMaxqi());
-                                Messages.sendToClient(new QiSyncS2C(spirit.getQi()), event.player.getServer().getPlayerList().getPlayerByName(event.player.getName().getString()));
                             }
+                            Messages.sendToClient(new QiSyncS2C(spirit.getQi()), event.player.getServer().getPlayerList().getPlayerByName(event.player.getName().getString()));
                         }});
         }
     }
