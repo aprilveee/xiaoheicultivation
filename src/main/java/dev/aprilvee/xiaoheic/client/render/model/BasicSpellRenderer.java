@@ -19,13 +19,13 @@ public class BasicSpellRenderer extends EntityRenderer<BasicSpell> {
     public BasicSpellRenderer(EntityRendererProvider.Context context) {
         //context = context.bakeLayer(new BasicSpellModel(context.bakeLayer(BasicSpellModel.LAYER_LOCATION)));
         super(context);
-        context.bakeLayer(BasicSpellModel.LAYER_LOCATION);
+        //context.bakeLayer(BasicSpellModel.LAYER_LOCATION);
     }
 
     public void render(BasicSpell spell, float yaw, PoseStack pose, MultiBufferSource buffer, int light){
-        pose.pushPose();
-        this.entityRenderDispatcher.render(spell, 0, 0, 0, 0F, 0, pose, buffer, light);
-        pose.popPose();
+        //pose.pushPose();
+        //this.entityRenderDispatcher.render(spell, 0, 0, 0, 0F, 0, pose, buffer, light);
+        //pose.popPose();
 
     }
 

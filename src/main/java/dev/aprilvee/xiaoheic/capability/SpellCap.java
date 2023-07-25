@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @AutoRegisterCapability
 public class SpellCap {
-    private SpellType type;
+    private SpellType type = SpellList.none;
 
 
 

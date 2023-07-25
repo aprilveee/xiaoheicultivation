@@ -14,6 +14,10 @@ public class Keybinds {
 
     public static final KeyMapping CAST_SLOT1_KEY = new KeyMapping(KEY_CAST_SLOT1, KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_R, KEY_CATEGORY_XIAOHEI);
-
-
+    public static final KeyMapping CAST_SLOT2_KEY = new KeyMapping(KEY_CAST_SLOT2, KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_T, KEY_CATEGORY_XIAOHEI);
+    public static final KeyMapping CAST_SLOT3_KEY = new KeyMapping(KEY_CAST_SLOT3, KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, KEY_CATEGORY_XIAOHEI);
+    public static final KeyMapping CAST_SLOT4_KEY = new KeyMapping(KEY_CAST_SLOT4, KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_H, KEY_CATEGORY_XIAOHEI);
 }

@@ -1,10 +1,7 @@
 package dev.aprilvee.xiaoheic.network;
 
 import dev.aprilvee.xiaoheic.main;
-import dev.aprilvee.xiaoheic.network.packet.CultivationS2C;
-import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
-import dev.aprilvee.xiaoheic.network.packet.QiSyncS2C;
-import dev.aprilvee.xiaoheic.network.packet.TemplateC2SPacket;
+import dev.aprilvee.xiaoheic.network.packet.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -48,6 +45,11 @@ public class Messages {
                 .decoder(CultivationS2C::new)
                 .encoder(CultivationS2C::toBytes)
                 .consumerMainThread(CultivationS2C::handle)
+                .add();
+        net.messageBuilder(SpellC2S.class, id(), NetworkDirection.PLAY_TO_SERVER) //this adds a new packet to be sendable
+                .decoder(SpellC2S::new)
+                .encoder(SpellC2S::toBytes)
+                .consumerMainThread(SpellC2S::handle)
                 .add();
         //send to server with Messages.sendToServer(new TemplateC2SPacket());
         //send to client with Messages.sendToClient(new QiSyncS2C(qi.getQi()), player);
