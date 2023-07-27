@@ -1,9 +1,13 @@
 package dev.aprilvee.xiaoheic.capability;
 
+import dev.aprilvee.xiaoheic.spell.SpellList;
 import dev.aprilvee.xiaoheic.spell.SpellType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
+import org.apache.commons.lang3.ArrayUtils;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,8 +17,8 @@ public class SpiritCap {
     private int qi;
     private int maxqi;
 
-    private float qiregen = 1; //these 5 are multipliers, be careful with them! strong!
-    private float maxqiX = 1;
+    private float maxqiX = 1; //these 5 are multipliers, be careful with them! strong!
+    private float qiregen = 1;
     private float spelldamage = 1;
     private float spellresist = 1;
     private float spellcost = 1;
@@ -23,14 +27,15 @@ public class SpiritCap {
     private String affinity2 = "none";
     private String type = "none";
 
+    public Set<SpellType> unlockedspells = new HashSet<>();
+    public SpellType[] selectedspells = {SpellList.none, SpellList.none, SpellList.none, SpellList.none, SpellList.none, SpellList.none};
+
     private float cultivation;
     private float metalattunement;
     private float waterattunement;
     private float woodattunement;
     private float fireattunement;
     private float earthattunement;
-
-    public Set<SpellType> unlockedspells = new HashSet<>();
 
     private float elementlimit = 250;
     private final int MIN_QI_VALUE = 0;
@@ -56,6 +61,14 @@ public class SpiritCap {
     public float getFire(){return fireattunement;}
     public float getEarth(){return earthattunement;}
     public float getElementlimit(){return elementlimit;}
+
+    public SpellType[] getSelectedspells() {
+        return selectedspells;
+    }
+    public Set<SpellType> getSpells() {
+        return unlockedspells;
+    }
+
 
     public void setQi(int set){
         this.qi = set;
@@ -94,6 +107,10 @@ public class SpiritCap {
         this.type = type;
     }
     public boolean isType(String type){return this.type == type;}
+
+    public void setSelectedspell(SpellType type, int index) {
+        this.selectedspells[index] = type;
+    }
 
     public void setSpells(Collection<SpellType> spells){
         this.unlockedspells = new HashSet<>(spells);
@@ -180,6 +197,8 @@ public class SpiritCap {
         this.spelldamage = source.spelldamage;
         this.spellresist = source.spellresist;
         this.spellcost = source.spellcost;
+        this.selectedspells = source.selectedspells;
+        this.unlockedspells = source.unlockedspells;
         this.cultivation = source.cultivation;
         this.metalattunement = source.metalattunement;
         this.waterattunement = source.waterattunement;
@@ -209,6 +228,10 @@ public class SpiritCap {
         nbt.putString("affinity", affinity);
         nbt.putString("affinity2", affinity2);
         nbt.putString("type", type);
+
+        CompoundTag spells = new CompoundTag();
+
+
     }
 
     public void loadNBTData(CompoundTag nbt){

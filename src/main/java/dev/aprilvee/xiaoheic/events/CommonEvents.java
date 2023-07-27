@@ -10,29 +10,26 @@ import dev.aprilvee.xiaoheic.network.packet.CultivationS2C;
 import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
 import dev.aprilvee.xiaoheic.network.packet.QiSyncS2C;
 import dev.aprilvee.xiaoheic.registry.entities;
-import dev.aprilvee.xiaoheic.spell.SpellList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.ConsoleInput;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
-import java.io.Console;
+import java.util.Objects;
 
-@Mod.EventBusSubscriber(modid = main.MODID)// bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = main.MODID)
 public class CommonEvents {
 
     @SubscribeEvent
@@ -42,11 +39,11 @@ public class CommonEvents {
                 event.addCapability(new ResourceLocation(main.MODID, "spiritvalues"), new SpiritProvider());
             }
         }
-        if(event.getObject() instanceof BasicSpell){
+        /*if(event.getObject() instanceof BasicSpell){
             if(!event.getObject().getCapability(SpellProvider.SPELLCAP).isPresent()) {
                 event.addCapability(new ResourceLocation(main.MODID, "spelltype"), new SpellProvider());
             }
-        }
+        }*/
     }
     @SubscribeEvent
     public static void registerComands(RegisterCommandsEvent event){
@@ -71,7 +68,9 @@ public class CommonEvents {
             event.player.getCapability(SpiritProvider.SPIRITCAP).ifPresent(spirit -> {//grab players qi and max qi
                         if(event.player.tickCount % 5 == 0){
                             if (spirit.getQi() < spirit.getMaxqi() && spirit.getMaxqi() > 0) {
-                                spirit.addQi((int)( (6+Math.pow(spirit.getMaxqi(),0.65)) * spirit.getQiregen()));
+                                int maxqi = spirit.getMaxqi();
+
+                                spirit.addQi((int)((maxqi/120 + (Math.pow(maxqi,0.5)) )* spirit.getQiregen()) - 5);
 
                             }if(spirit.getQi() > spirit.getMaxqi()){
                                 spirit.setQi(spirit.getMaxqi());
@@ -83,10 +82,11 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onProjectileImpact(ProjectileImpactEvent event){
-        event.getEntity().remove(Entity.RemovalReason.DISCARDED);
-        if(event.getEntity().getType() == entities.BASIC_SPELL.get()){
-            event.getEntity().sendSystemMessage(Component.literal("gwa gwa"));
-            event.getEntity().remove(Entity.RemovalReason.DISCARDED);
+        Projectile proj = event.getProjectile();
+        if(event.getProjectile() instanceof BasicSpell){
+
+            proj.remove(Entity.RemovalReason.DISCARDED);
+            Objects.requireNonNull(event.getProjectile().getOwner()).sendSystemMessage(Component.literal("rwawrarwrwara"));
         }
     }
 

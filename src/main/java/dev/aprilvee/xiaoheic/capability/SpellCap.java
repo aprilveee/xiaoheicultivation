@@ -9,9 +9,7 @@ import java.util.Objects;
 
 @AutoRegisterCapability
 public class SpellCap {
-    private SpellType type = SpellList.none;
-
-
+    public SpellType type;
 
     public SpellType getType(){
         return type;
@@ -26,13 +24,13 @@ public class SpellCap {
     }
 
     public void saveNBTData(CompoundTag nbt){
-        nbt.putString("spelltype", type.name);
+        nbt.putString("spelltype", type.iname);
 
     }
 
     public void loadNBTData(CompoundTag nbt){
         for (int i = 0; i < SpellList.spells.length; i++) {
-            if(Objects.equals(SpellList.spells[i].name, nbt.getString("spelltype"))){
+            if(Objects.equals(SpellList.spells[i].iname, nbt.getString("spelltype"))){
                 type = SpellList.spells[i];
             }
         }
