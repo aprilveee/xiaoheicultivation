@@ -8,6 +8,10 @@
 
   "key.xiaoheic.castslot1" : "Cast Spell in Slot 1",
 
+  "spell.xiaoheic.none": "null",
+  "spell.xiaoheic.fireball": "Fireball",
+
+
   "key.category.xiaoheic.xiaohei": "Xiaohei Cultivation",
   "itemGroup.xiaohei_tab": "§bXiaohei Spirit Cultivation"
 }

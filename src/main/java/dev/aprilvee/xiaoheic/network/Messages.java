@@ -31,22 +31,22 @@ public class Messages {
                 .encoder(TemplateC2SPacket::toBytes)
                 .consumerMainThread(TemplateC2SPacket::handle)
                 .add();
-        net.messageBuilder(QiSyncS2C.class, id(), NetworkDirection.PLAY_TO_CLIENT) //this adds a new packet to be sendable
+        net.messageBuilder(QiSyncS2C.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(QiSyncS2C::new)
                 .encoder(QiSyncS2C::toBytes)
                 .consumerMainThread(QiSyncS2C::handle)
                 .add();
-        net.messageBuilder(MaxQiS2C.class, id(), NetworkDirection.PLAY_TO_CLIENT) //this adds a new packet to be sendable
+        net.messageBuilder(MaxQiS2C.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(MaxQiS2C::new)
                 .encoder(MaxQiS2C::toBytes)
                 .consumerMainThread(MaxQiS2C::handle)
                 .add();
-        net.messageBuilder(CultivationS2C.class, id(), NetworkDirection.PLAY_TO_CLIENT) //this adds a new packet to be sendable
+        net.messageBuilder(CultivationS2C.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(CultivationS2C::new)
                 .encoder(CultivationS2C::toBytes)
                 .consumerMainThread(CultivationS2C::handle)
                 .add();
-        net.messageBuilder(SpellC2S.class, id(), NetworkDirection.PLAY_TO_SERVER) //this adds a new packet to be sendable
+        net.messageBuilder(SpellC2S.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(SpellC2S::new)
                 .encoder(SpellC2S::toBytes)
                 .consumerMainThread(SpellC2S::handle)

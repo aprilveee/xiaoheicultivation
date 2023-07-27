@@ -1,4 +1,4 @@
-package dev.aprilvee.xiaoheic.spell.list;
+package dev.aprilvee.xiaoheic.spell;
 
 import dev.aprilvee.xiaoheic.spell.SpellType;
 import net.minecraft.core.BlockPos;
