@@ -1,13 +1,10 @@
 package dev.aprilvee.xiaoheic.capability;
 
-import dev.aprilvee.xiaoheic.spell.SpellList;
-import dev.aprilvee.xiaoheic.spell.SpellType;
+import dev.aprilvee.xiaoheic.data.DataList;
+import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
-import org.apache.commons.lang3.ArrayUtils;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +25,7 @@ public class SpiritCap {
     private String type = "none";
 
     public Set<SpellType> unlockedspells = new HashSet<>();
-    public SpellType[] selectedspells = {SpellList.none, SpellList.none, SpellList.none, SpellList.none, SpellList.none, SpellList.none};
+    public SpellType[] selectedspells = {DataList.invalid, DataList.invalid, DataList.invalid, DataList.invalid, DataList.invalid, DataList.invalid};
 
     private float cultivation;
     private float metalattunement;

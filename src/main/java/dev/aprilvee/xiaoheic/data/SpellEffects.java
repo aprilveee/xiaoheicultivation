@@ -1,6 +1,6 @@
-package dev.aprilvee.xiaoheic.spell;
+package dev.aprilvee.xiaoheic.data;
 
-import dev.aprilvee.xiaoheic.spell.SpellType;
+import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;

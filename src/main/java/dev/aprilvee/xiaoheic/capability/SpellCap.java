@@ -1,7 +1,7 @@
 package dev.aprilvee.xiaoheic.capability;
 
-import dev.aprilvee.xiaoheic.spell.SpellList;
-import dev.aprilvee.xiaoheic.spell.SpellType;
+import dev.aprilvee.xiaoheic.data.DataList;
+import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
@@ -24,14 +24,14 @@ public class SpellCap {
     }
 
     public void saveNBTData(CompoundTag nbt){
-        nbt.putString("spelltype", type.iname);
+        nbt.putString("spelltype", type.id);
 
     }
 
     public void loadNBTData(CompoundTag nbt){
-        for (int i = 0; i < SpellList.spells.length; i++) {
-            if(Objects.equals(SpellList.spells[i].iname, nbt.getString("spelltype"))){
-                type = SpellList.spells[i];
+        for (int i = 0; i < DataList.spells.length; i++) {
+            if(Objects.equals(DataList.spells[i].id, nbt.getString("spelltype"))){
+                type = DataList.spells[i];
             }
         }
     }

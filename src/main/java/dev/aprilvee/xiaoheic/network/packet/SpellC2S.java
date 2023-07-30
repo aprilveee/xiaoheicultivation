@@ -1,21 +1,13 @@
 package dev.aprilvee.xiaoheic.network.packet;
 
-import dev.aprilvee.xiaoheic.capability.SpellCap;
-import dev.aprilvee.xiaoheic.capability.SpellProvider;
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
-import dev.aprilvee.xiaoheic.registry.entities;
-import dev.aprilvee.xiaoheic.spell.SpellList;
-import dev.aprilvee.xiaoheic.spell.SpellType;
+import dev.aprilvee.xiaoheic.data.DataList;
+import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -28,7 +20,7 @@ public class SpellC2S {
     }
 
     public SpellC2S(FriendlyByteBuf buf){
-        this.type = SpellList.spells[buf.readInt()];
+        this.type = DataList.spells[buf.readInt()];
     }
 
     public void toBytes(FriendlyByteBuf buf){

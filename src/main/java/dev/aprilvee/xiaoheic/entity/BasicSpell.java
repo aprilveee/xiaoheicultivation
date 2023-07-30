@@ -1,13 +1,10 @@
 package dev.aprilvee.xiaoheic.entity;
 
-import dev.aprilvee.xiaoheic.capability.SpellCap;
-import dev.aprilvee.xiaoheic.capability.SpellProvider;
 import dev.aprilvee.xiaoheic.registry.entities;
-import dev.aprilvee.xiaoheic.spell.SpellList;
-import dev.aprilvee.xiaoheic.spell.SpellType;
+import dev.aprilvee.xiaoheic.data.DataList;
+import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Position;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -18,7 +15,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
@@ -27,12 +23,10 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
-import java.util.Objects;
-
 public class BasicSpell extends Projectile {
     private static EntityDataAccessor<Integer> index = SynchedEntityData.defineId(BasicSpell.class, EntityDataSerializers.INT);
     //public int index = 0;
-    public SpellType type = SpellList.none;
+    public SpellType type = DataList.invalid;
     private int lifetime = 0;
 
     public BasicSpell(EntityType<BasicSpell> entity, Level level) {
@@ -52,9 +46,6 @@ public class BasicSpell extends Projectile {
 
     }
 
-    public void setType(SpellType type) {
-        this.type = type;
-    }
 
 
     public SpellType getSpellType() {
@@ -63,6 +54,11 @@ public class BasicSpell extends Projectile {
 
     public void tick(){
         super.tick();
+
+        if(this.lifetime >= 200){
+            this.discard();
+        }
+
         Vec3 v = this.getDeltaMovement();
         double vx = this.getX() + v.x;
         double vy = this.getY() + v.y;
@@ -70,24 +66,13 @@ public class BasicSpell extends Projectile {
         ProjectileUtil.rotateTowardsMovement(this, 0.2F);
         this.setPos(vx,vy,vz);
 
+        this.level().addParticle(DataList.spells[this.entityData.get(index)].particle, vx, vy, vz, v.x, v.y, v.z);
 
-        this.level().addParticle(SpellList.spells[this.entityData.get(index)].particle, vx, vy, vz, v.x, v.y, v.z);
-        if(this.level().isClientSide){
-            if(this.level().getNearestPlayer(this, 50) != null){
-                this.level().getNearestPlayer(this, 50).sendSystemMessage(Component.literal(String.valueOf(this.entityData.get(index))));
-            }
-        }
-
-        //sendSystemMessage(this.type.name);
-
-        /*SpellCap sp = this.getCapability(SpellProvider.SPELLCAP).orElse(null);
-        if(sp.getType() != null){
-            this.level().addParticle(sp.getType().particle, vx, vy, vz, v.x, v.y, v.z);
-        }*/
+        //hit detection
 
 
 
-        //lifetime += 1;
+        ++this.lifetime;
     }
 
     public void move(MoverType p_36749_, Vec3 p_36750_) {
