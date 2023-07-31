@@ -1,5 +1,6 @@
 package dev.aprilvee.xiaoheic.entity;
 
+import dev.aprilvee.xiaoheic.data.SpellEffects;
 import dev.aprilvee.xiaoheic.registry.entities;
 import dev.aprilvee.xiaoheic.data.DataList;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
@@ -12,20 +13,26 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
+import javax.annotation.Nullable;
+
 public class BasicSpell extends Projectile {
     private static EntityDataAccessor<Integer> index = SynchedEntityData.defineId(BasicSpell.class, EntityDataSerializers.INT);
-    //public int index = 0;
     public SpellType type = DataList.invalid;
     private int lifetime = 0;
 
@@ -33,68 +40,124 @@ public class BasicSpell extends Projectile {
         super(entity, level);
     }
 
-    public BasicSpell(Level level, double x, double y, double z){
+    public BasicSpell(Level level, double x, double y, double z) {
         this(entities.BASIC_SPELL.get(), level);
-        setPos(x,y,z);
+        setPos(x, y, z);
     }
 
-    public BasicSpell(Level level, Position position, int ind){
-        this(level, position.x(),position.y(),position.z());
+    public BasicSpell(Level level, Position position, int ind) {
+        this(level, position.x(), position.y(), position.z());
         this.entityData.set(index, ind);
-
-        level.getServer().getPlayerList().getPlayerByName("Dev").sendSystemMessage(Component.literal(String.valueOf(this.entityData.get(index))));
-
     }
-
 
 
     public SpellType getSpellType() {
         return type;
     }
 
-    public void tick(){
+    public void tick() { // DataList.spells[this.entityData.get(index)]
         super.tick();
 
-        if(this.lifetime >= 200){
+        if (this.lifetime >= DataList.spells[this.getIndex()].lifetime) {
             this.discard();
         }
 
-        Vec3 v = this.getDeltaMovement();
-        double vx = this.getX() + v.x;
-        double vy = this.getY() + v.y;
-        double vz = this.getZ() + v.z;
+        Vec3 pos = this.position();
+        Vec3 velocity = this.getDeltaMovement();
+        Vec3 newpos = pos.add(velocity);
+        Vec3 hitpos = newpos;
+        HitResult hitresult = this.level().clip(new ClipContext(pos, newpos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+
+        if (hitresult.getType() != HitResult.Type.MISS) {
+            hitpos = hitresult.getLocation();
+        }
+
+        //hit detection is all in this while statement
+        //why, may you ask? well, to that, my answer is
+        while (!this.isRemoved()) {
+            EntityHitResult entityhitresult = this.findHitEntity(pos, newpos);
+            if (entityhitresult != null) {
+                hitresult = entityhitresult;
+            }
+
+            if (hitresult != null && hitresult.getType() == HitResult.Type.ENTITY) { //teamkill prevention, from vaniller code
+                Entity entity = ((EntityHitResult)hitresult).getEntity();
+                Entity entity1 = this.getOwner();
+                if (entity instanceof Player && entity1 instanceof Player && !((Player)entity1).canHarmPlayer((Player)entity)) {
+                    hitresult = null;
+                    entityhitresult = null;
+                }else if(entity == entity1){ //self damage prevention
+                    hitresult = null;
+                    entityhitresult = null;
+                }
+
+            }
+
+            if (hitresult != null && hitresult.getType() != HitResult.Type.MISS) {
+                this.discard();
+                if (net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult))
+                    break;
+                this.onHit(hitresult);
+                //this.hasImpulse = true;
+            }
+
+                this.level().addParticle(DataList.spells[this.entityData.get(index)].particle, hitpos.x, hitpos.y, hitpos.z, velocity.x/20, velocity.y/20, velocity.z/20);
+
+            if (entityhitresult == null) {
+                break;
+            }
+
+            hitresult = null;
+        }
+
+
         ProjectileUtil.rotateTowardsMovement(this, 0.2F);
-        this.setPos(vx,vy,vz);
-
-        this.level().addParticle(DataList.spells[this.entityData.get(index)].particle, vx, vy, vz, v.x, v.y, v.z);
-
-        //hit detection
-
-
+        this.setPos(newpos.x, newpos.y, newpos.z);
 
         ++this.lifetime;
     }
 
-    public void move(MoverType p_36749_, Vec3 p_36750_) {
-        super.move(p_36749_, p_36750_);
-        }
-
+    @Nullable
+    protected EntityHitResult findHitEntity(Vec3 pos, Vec3 newpos) {
+        return ProjectileUtil.getEntityHitResult(this.level(), this, pos, newpos, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(2.0D), this::canHitEntity);
+    }
 
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
-    public static boolean canSpawn(EntityType<BasicSpell> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random){
-        return false;
+    public Integer getIndex() {
+        return this.entityData.get(index);
     }
 
     @Override
     protected void onHitEntity(EntityHitResult ray) {
         super.onHitEntity(ray);
-        this.remove(RemovalReason.DISCARDED);
+        switch(DataList.spells[this.getIndex()].id){
+            case "fireball":
+                SpellEffects.fireballEntity(this.getOwner(), ray.getEntity());
+                this.discard();
+                break;
+
+            default: this.discard(); break;
+        }
     }
 
+    @Override
+    protected void onHitBlock(BlockHitResult hit){
+        super.onHitBlock(hit);
+
+        switch(DataList.spells[this.getIndex()].id){
+            case "fireball":
+                SpellEffects.fireballBlock(this.getOwner(), hit.getBlockPos());
+                this.discard();
+                break;
+
+            default: this.discard();
+                break;
+        }
+    }
 
 
     protected void defineSynchedData() {

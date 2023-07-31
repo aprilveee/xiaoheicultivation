@@ -109,6 +109,9 @@ public class DataList {
         invalid.name = Component.translatable("spell.xiaoheic.none");
         invalid.id = "none";
         invalid.qiCost = 0;
+        invalid.pQiCost = 0;
+        invalid.flyspeed = 0;
+        invalid.lifetime = 60;
         invalid.element = neutral;
         invalid.offensive = false;
         invalid.particle = ParticleTypes.ELECTRIC_SPARK;
@@ -118,6 +121,9 @@ public class DataList {
         fireball.name = Component.translatable("spell.xiaoheic.fireball");
         fireball.id = "fireball";
         fireball.qiCost = 150;
+        fireball.pQiCost = 0.04F;
+        fireball.flyspeed = 1.5F;
+        fireball.lifetime = 400;
         fireball.element = fire;
         fireball.offensive = true;
         fireball.particle = ParticleTypes.FLAME;

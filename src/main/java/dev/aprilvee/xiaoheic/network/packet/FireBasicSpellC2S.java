@@ -12,14 +12,14 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class SpellC2S {
+public class FireBasicSpellC2S {
     private final SpellType type;
 
-    public SpellC2S(SpellType type){
+    public FireBasicSpellC2S(SpellType type){
         this.type = type;
     }
 
-    public SpellC2S(FriendlyByteBuf buf){
+    public FireBasicSpellC2S(FriendlyByteBuf buf){
         this.type = DataList.spells[buf.readInt()];
     }
 
@@ -34,14 +34,14 @@ public class SpellC2S {
             ServerPlayer player = context.getSender();
             ServerLevel level = player.serverLevel();
             SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
-            if(sp.getQi() >= type.qiCost && sp.getMaxqi() >= type.qiCost ){
-                sp.subQi(type.qiCost);
+            int qicost = (int) (type.qiCost + type.pQiCost * sp.getMaxqi());
+            if(sp.getQi() >= qicost && sp.getMaxqi() >= qicost){
+                sp.subQi(qicost);
 
                 BasicSpell spell = new BasicSpell(player.level(), player.getEyePosition(), type.index);
 
                 spell.setOwner(player);
-                spell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F,1.0F, 0.0F);
-
+                spell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, type.flyspeed, 0.0F);
                 level.addFreshEntity(spell);
 
 

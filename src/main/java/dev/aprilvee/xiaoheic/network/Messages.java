@@ -46,10 +46,10 @@ public class Messages {
                 .encoder(CultivationS2C::toBytes)
                 .consumerMainThread(CultivationS2C::handle)
                 .add();
-        net.messageBuilder(SpellC2S.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(SpellC2S::new)
-                .encoder(SpellC2S::toBytes)
-                .consumerMainThread(SpellC2S::handle)
+        net.messageBuilder(FireBasicSpellC2S.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(FireBasicSpellC2S::new)
+                .encoder(FireBasicSpellC2S::toBytes)
+                .consumerMainThread(FireBasicSpellC2S::handle)
                 .add();
         //send to server with Messages.sendToServer(new TemplateC2SPacket());
         //send to client with Messages.sendToClient(new QiSyncS2C(qi.getQi()), player);

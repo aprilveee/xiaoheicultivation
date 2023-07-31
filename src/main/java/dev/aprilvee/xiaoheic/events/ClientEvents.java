@@ -6,7 +6,7 @@ import dev.aprilvee.xiaoheic.client.model.SpriteModel;
 import dev.aprilvee.xiaoheic.client.render.model.BasicSpellRenderer;
 import dev.aprilvee.xiaoheic.client.render.model.SpriteRenderer;
 import dev.aprilvee.xiaoheic.network.Messages;
-import dev.aprilvee.xiaoheic.network.packet.SpellC2S;
+import dev.aprilvee.xiaoheic.network.packet.FireBasicSpellC2S;
 import dev.aprilvee.xiaoheic.registry.entities;
 import dev.aprilvee.xiaoheic.data.DataList;
 import dev.aprilvee.xiaoheic.util.Keybinds;
@@ -29,10 +29,10 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onKeyInput(InputEvent event) {
             if (Keybinds.CAST_SLOT1_KEY.consumeClick()) {
-                Messages.sendToServer(new SpellC2S(DataList.invalid));
+                Messages.sendToServer(new FireBasicSpellC2S(DataList.invalid));
             }
             if (Keybinds.CAST_SLOT2_KEY.consumeClick()) {
-                Messages.sendToServer(new SpellC2S(DataList.fireball));
+                Messages.sendToServer(new FireBasicSpellC2S(DataList.fireball));
             }
 
         }

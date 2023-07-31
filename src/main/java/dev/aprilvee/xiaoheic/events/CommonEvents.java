@@ -2,6 +2,9 @@ package dev.aprilvee.xiaoheic.events;
 
 import dev.aprilvee.xiaoheic.capability.*;
 import dev.aprilvee.xiaoheic.command.commands;
+import dev.aprilvee.xiaoheic.data.DataList;
+import dev.aprilvee.xiaoheic.data.SpellEffects;
+import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.entity.Sprite;
 import dev.aprilvee.xiaoheic.main;
@@ -16,6 +19,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
@@ -82,11 +86,24 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onProjectileImpact(ProjectileImpactEvent event){
-        Projectile proj = event.getProjectile();
         if(event.getProjectile() instanceof BasicSpell){
+            BasicSpell spell = (BasicSpell) event.getProjectile();
+            SpellType type = DataList.spells[spell.getIndex()];
 
-            proj.remove(Entity.RemovalReason.DISCARDED);
-            Objects.requireNonNull(event.getProjectile().getOwner()).sendSystemMessage(Component.literal("rwawrarwrwara"));
+            /*if(event.getRayTraceResult().getType() == HitResult.Type.ENTITY){
+                switch (type.id){
+                    case "fireball":
+                        SpellEffects.fireballEntity(spell.getOwner(), event.getRayTraceResult());
+                        break;
+                    default: break;
+
+            }
+
+
+            }*/
+
+
+            //proj.remove(Entity.RemovalReason.DISCARDED);
         }
     }
 
