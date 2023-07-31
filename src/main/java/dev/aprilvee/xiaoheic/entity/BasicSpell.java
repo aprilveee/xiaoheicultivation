@@ -1,28 +1,22 @@
 package dev.aprilvee.xiaoheic.entity;
 
-import dev.aprilvee.xiaoheic.data.SpellEffects;
+import dev.aprilvee.xiaoheic.spell.SpellEffects;
 import dev.aprilvee.xiaoheic.registry.entities;
 import dev.aprilvee.xiaoheic.data.DataList;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Position;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -86,7 +80,7 @@ public class BasicSpell extends Projectile {
                 if (entity instanceof Player && entity1 instanceof Player && !((Player)entity1).canHarmPlayer((Player)entity)) {
                     hitresult = null;
                     entityhitresult = null;
-                }else if(entity == entity1){ //self damage prevention
+                }else if(entity == this.getOwner()){ //self damage prevention
                     hitresult = null;
                     entityhitresult = null;
                 }
@@ -134,13 +128,13 @@ public class BasicSpell extends Projectile {
     @Override
     protected void onHitEntity(EntityHitResult ray) {
         super.onHitEntity(ray);
-        switch(DataList.spells[this.getIndex()].id){
-            case "fireball":
+        switch (DataList.spells[this.getIndex()].id) {
+            case "fireball" -> {
                 SpellEffects.fireballEntity(this.getOwner(), ray.getEntity());
                 this.discard();
-                break;
-
-            default: this.discard(); break;
+            }
+            case "snowshot" -> SpellEffects.snowshotE(this.getOwner(), ray.getEntity());
+            default -> this.discard();
         }
     }
 
@@ -148,14 +142,13 @@ public class BasicSpell extends Projectile {
     protected void onHitBlock(BlockHitResult hit){
         super.onHitBlock(hit);
 
-        switch(DataList.spells[this.getIndex()].id){
-            case "fireball":
+        switch (DataList.spells[this.getIndex()].id) {
+            case "fireball" -> {
                 SpellEffects.fireballBlock(this.getOwner(), hit.getBlockPos());
                 this.discard();
-                break;
-
-            default: this.discard();
-                break;
+            }
+            case "snowshot" -> SpellEffects.snowshotB(this.getOwner(), hit.getBlockPos());
+            default -> this.discard();
         }
     }
 

@@ -51,6 +51,11 @@ public class Messages {
                 .encoder(FireBasicSpellC2S::toBytes)
                 .consumerMainThread(FireBasicSpellC2S::handle)
                 .add();
+        net.messageBuilder(HandleCastC2S.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(HandleCastC2S::new)
+                .encoder(HandleCastC2S::toBytes)
+                .consumerMainThread(HandleCastC2S::handle)
+                .add();
         //send to server with Messages.sendToServer(new TemplateC2SPacket());
         //send to client with Messages.sendToClient(new QiSyncS2C(qi.getQi()), player);
 

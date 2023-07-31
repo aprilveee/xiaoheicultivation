@@ -27,6 +27,8 @@ public class DataList {
 
     public static SpellType invalid;
     public static SpellType fireball;
+    public static SpellType snowshot;
+
 
     public static SType[] types;
     public static Affinity[] affinities;
@@ -110,24 +112,41 @@ public class DataList {
         invalid.id = "none";
         invalid.qiCost = 0;
         invalid.pQiCost = 0;
-        invalid.flyspeed = 0;
-        invalid.lifetime = 60;
+        invalid.firingtype = "none";
         invalid.element = neutral;
         invalid.offensive = false;
-        invalid.particle = ParticleTypes.ELECTRIC_SPARK;
+        invalid.particle = ParticleTypes.EFFECT;
 
         fireball = new SpellType();
         fireball.index = 1;
         fireball.name = Component.translatable("spell.xiaoheic.fireball");
         fireball.id = "fireball";
         fireball.qiCost = 150;
-        fireball.pQiCost = 0.04F;
+        fireball.pQiCost = 0.025f;
+        fireball.firingtype = "proj"; //====
+        fireball.projcount = 1;
+        fireball.accuracy = 2;
+        fireball.gravity = 0;
         fireball.flyspeed = 1.5F;
-        fireball.lifetime = 400;
+        fireball.lifetime = 400; //====
         fireball.element = fire;
         fireball.offensive = true;
         fireball.particle = ParticleTypes.FLAME;
 
-        spells = new SpellType[]{invalid, fireball};
+        snowshot = new SpellType();
+        snowshot.index = 2;
+        snowshot.id = "snowshot";
+        snowshot.qiCost = 450;
+        snowshot.pQiCost = 0.03f;
+        snowshot.firingtype = "proj"; ////
+        snowshot.projcount = 3;
+        snowshot.accuracy = 10;
+        snowshot.flyspeed = 2;
+        snowshot.lifetime = 200; ////
+        snowshot.element = water;
+        snowshot.offensive = true;
+        snowshot.particle = ParticleTypes.SNOWFLAKE;
+
+        spells = new SpellType[]{invalid, fireball, snowshot};
     }
 }

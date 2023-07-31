@@ -25,7 +25,7 @@ public class SpiritCap {
     private String type = "none";
 
     public Set<SpellType> unlockedspells = new HashSet<>();
-    public SpellType[] selectedspells = {DataList.invalid, DataList.invalid, DataList.invalid, DataList.invalid, DataList.invalid, DataList.invalid};
+    public SpellType[] selectedspells = {DataList.fireball, DataList.snowshot, DataList.invalid, DataList.invalid, DataList.invalid, DataList.invalid};
 
     private float cultivation;
     private float metalattunement;
@@ -66,6 +66,13 @@ public class SpiritCap {
         return unlockedspells;
     }
 
+
+    public int getQiRegen(){
+        return( (int)((this.maxqi/160 + (Math.pow(this.maxqi,0.48)) )* this.qiregen) - 5 );
+    }
+    public int getSpellCost(SpellType type){
+        return (int) ((type.qiCost + type.pQiCost * this.maxqi) * this.spellcost);
+    }
 
     public void setQi(int set){
         this.qi = set;
