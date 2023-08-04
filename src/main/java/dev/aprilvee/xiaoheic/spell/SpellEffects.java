@@ -16,9 +16,7 @@ public class SpellEffects {
         target.hurt(target.damageSources().onFire(),5F);
     }
     public static void fireballBlock(Entity caster, BlockPos pos){
-        if(caster != null){
-            caster.sendSystemMessage(Component.literal("haha missed stupid"));
-        }
+
     }
 
     public static void snowshotE(Entity caster, Entity target) {
@@ -29,8 +27,6 @@ public class SpellEffects {
         }
     }
     public static void snowshotB(Entity caster, BlockPos pos){
-        if(caster != null){
-            caster.sendSystemMessage(Component.literal("haha missed stupid"));
-        }
+
     }
 }

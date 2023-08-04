@@ -13,7 +13,7 @@ public class entities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, main.MODID);
 
     public static final RegistryObject<EntityType<Sprite>> SPRITE = ENTITIES.register("sprite",
-            () -> EntityType.Builder.<Sprite>of(Sprite::new, MobCategory.AMBIENT)
+            () -> EntityType.Builder.<Sprite>of(Sprite::new, MobCategory.CREATURE)
                     .fireImmune()
                     .sized(0.375f,0.375f) //this affects hitbox size!
                     .build("xiaoheic:sprite")

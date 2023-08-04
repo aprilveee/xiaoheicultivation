@@ -11,6 +11,7 @@ public class SpriteRenderer extends MobRenderer<Sprite, SpriteModel<Sprite>> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(main.MODID, "textures/entity/sprite.png");
     public SpriteRenderer(EntityRendererProvider.Context context) {
         super(context, new SpriteModel(context.bakeLayer(SpriteModel.LAYER_LOCATION)), 0.0F); //float here is shadow size!
+
     }
 
     @Override

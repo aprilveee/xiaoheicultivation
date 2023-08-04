@@ -80,21 +80,19 @@ public class BasicSpell extends Projectile {
                 if (entity instanceof Player && entity1 instanceof Player && !((Player)entity1).canHarmPlayer((Player)entity)) {
                     hitresult = null;
                     entityhitresult = null;
-                }else if(entity == this.getOwner()){ //self damage prevention
-                    hitresult = null;
+                }else if(entity == this.getOwner()){    //self damage prevention, doesn't seem to sync with client?
+                    hitresult = null;                   //fix later
                     entityhitresult = null;
                 }
 
             }
 
             if (hitresult != null && hitresult.getType() != HitResult.Type.MISS) {
-                this.discard();
                 if (net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult))
                     break;
                 this.onHit(hitresult);
                 //this.hasImpulse = true;
             }
-
                 this.level().addParticle(DataList.spells[this.entityData.get(index)].particle, hitpos.x, hitpos.y, hitpos.z, velocity.x/20, velocity.y/20, velocity.z/20);
 
             if (entityhitresult == null) {
@@ -127,14 +125,16 @@ public class BasicSpell extends Projectile {
 
     @Override
     protected void onHitEntity(EntityHitResult ray) {
-        super.onHitEntity(ray);
-        switch (DataList.spells[this.getIndex()].id) {
-            case "fireball" -> {
-                SpellEffects.fireballEntity(this.getOwner(), ray.getEntity());
-                this.discard();
+        if(ray.getEntity() != this.getOwner()) {
+            super.onHitEntity(ray);
+            switch (DataList.spells[this.getIndex()].id) {
+                case "fireball" -> {
+                    SpellEffects.fireballEntity(this.getOwner(), ray.getEntity());
+                    this.discard();
+                }
+                case "snowshot" -> SpellEffects.snowshotE(this.getOwner(), ray.getEntity());
+                default -> this.discard();
             }
-            case "snowshot" -> SpellEffects.snowshotE(this.getOwner(), ray.getEntity());
-            default -> this.discard();
         }
     }
 

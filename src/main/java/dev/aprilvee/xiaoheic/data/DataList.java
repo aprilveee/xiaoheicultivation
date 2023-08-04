@@ -121,14 +121,14 @@ public class DataList {
         fireball.index = 1;
         fireball.name = Component.translatable("spell.xiaoheic.fireball");
         fireball.id = "fireball";
-        fireball.qiCost = 150;
-        fireball.pQiCost = 0.025f;
-        fireball.firingtype = "proj"; //====
+        fireball.qiCost = 250;
+        fireball.pQiCost = 0.02f;
+        fireball.firingtype = "proj"; ////
         fireball.projcount = 1;
         fireball.accuracy = 2;
         fireball.gravity = 0;
         fireball.flyspeed = 1.5F;
-        fireball.lifetime = 400; //====
+        fireball.lifetime = 400; ////
         fireball.element = fire;
         fireball.offensive = true;
         fireball.particle = ParticleTypes.FLAME;
@@ -136,11 +136,12 @@ public class DataList {
         snowshot = new SpellType();
         snowshot.index = 2;
         snowshot.id = "snowshot";
-        snowshot.qiCost = 450;
-        snowshot.pQiCost = 0.03f;
+        snowshot.qiCost = 850;
+        snowshot.pQiCost = 0.02f;
         snowshot.firingtype = "proj"; ////
         snowshot.projcount = 3;
         snowshot.accuracy = 10;
+        snowshot.gravity = 0;
         snowshot.flyspeed = 2;
         snowshot.lifetime = 200; ////
         snowshot.element = water;
