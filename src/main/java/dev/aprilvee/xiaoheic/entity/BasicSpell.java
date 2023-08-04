@@ -27,7 +27,6 @@ import javax.annotation.Nullable;
 
 public class BasicSpell extends Projectile {
     private static EntityDataAccessor<Integer> index = SynchedEntityData.defineId(BasicSpell.class, EntityDataSerializers.INT);
-    public SpellType type = DataList.invalid;
     private int lifetime = 0;
 
     public BasicSpell(EntityType<BasicSpell> entity, Level level) {
@@ -42,11 +41,6 @@ public class BasicSpell extends Projectile {
     public BasicSpell(Level level, Position position, int ind) {
         this(level, position.x(), position.y(), position.z());
         this.entityData.set(index, ind);
-    }
-
-
-    public SpellType getSpellType() {
-        return type;
     }
 
     public void tick() { // DataList.spells[this.entityData.get(index)]
@@ -127,14 +121,17 @@ public class BasicSpell extends Projectile {
     protected void onHitEntity(EntityHitResult ray) {
         if(ray.getEntity() != this.getOwner()) {
             super.onHitEntity(ray);
-            switch (DataList.spells[this.getIndex()].id) {
-                case "fireball" -> {
-                    SpellEffects.fireballEntity(this.getOwner(), ray.getEntity());
-                    this.discard();
+                switch (DataList.spells[this.getIndex()].id) {
+                    case "fireball" -> {
+                        SpellEffects.fireballEntity(this.getOwner(), ray.getEntity());
+                        this.discard();
+                    }
+                    case "snowshot" -> {SpellEffects.snowshotE(this.getOwner(), ray.getEntity());
+                        this.discard();
+                    }
+                    default -> this.discard();
                 }
-                case "snowshot" -> SpellEffects.snowshotE(this.getOwner(), ray.getEntity());
-                default -> this.discard();
-            }
+
         }
     }
 

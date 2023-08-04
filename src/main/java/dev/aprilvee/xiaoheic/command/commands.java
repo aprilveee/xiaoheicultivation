@@ -6,6 +6,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
+import dev.aprilvee.xiaoheic.cultivation.EnvironmentQi;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
 import dev.aprilvee.xiaoheic.network.packet.QiSyncS2C;
@@ -13,6 +14,8 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+
+import java.util.Arrays;
 
 public class commands {
 
@@ -26,18 +29,17 @@ public class commands {
                 .then(Commands.argument("amount", IntegerArgumentType.integer())
                         .executes(context -> setmaxqi(context.getSource().getPlayerOrException(), IntegerArgumentType.getInteger(context, "amount")))
                 ));
+        dispatcher.register(Commands.literal("xrun")
+                .then(Commands.argument("function", StringArgumentType.string())
+                        .executes(context -> xrun(context.getSource().getPlayerOrException(), StringArgumentType.getString(context, "function")))
+                ));
+
         dispatcher.register(Commands.literal("xset")
                 .then(Commands.argument("value", StringArgumentType.string())
                         .then(Commands.argument("amount", FloatArgumentType.floatArg())
                                 .executes(context -> xset(context.getSource().getPlayerOrException(), StringArgumentType.getString(context, "value"),
                                         FloatArgumentType.getFloat(context, "amount")))
-                        )
-
-
-                )
-
-
-        );
+                        )));
 
     }
 
@@ -53,6 +55,19 @@ public class commands {
         Messages.sendToClient(new MaxQiS2C(qi.getMaxqi()), player);
         return 1;
     }
+
+    public static int xrun(ServerPlayer plaer, String input){
+        switch(input){
+            case "enviroqi":
+                plaer.sendSystemMessage(Component.literal(Arrays.toString(EnvironmentQi.getEnviroQi(plaer.blockPosition(), plaer.level(), 8))));
+
+                return 1;
+            default:
+                plaer.sendSystemMessage(Component.literal("Invalid input"));
+                return 1;
+        }
+    }
+
     public static int xset(ServerPlayer player, String value, float in){
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         switch (value){
@@ -74,7 +89,7 @@ public class commands {
 
             case "elementlimit": sp.setElementlimit(in); return 1;
             default:
-                player.sendSystemMessage(Component.literal("fucking whore"));
+                player.sendSystemMessage(Component.literal("Invalid input"));
                 return 1;
 
         }
