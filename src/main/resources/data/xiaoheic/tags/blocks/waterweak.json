@@ -1,7 +1,17 @@
 {
-  "replace": false,
   "values": [
-    
-
+	"#minecraft:ice",
+	"#minecraft:snow",
+	
+	"minecraft:lily_pad",
+	"minecraft:crying_obsidian",
+	"minecraft:lily_pad",
+	"minecraft:prismarine",
+	"minecraft:prismarine_bricks",
+	"minecraft:dark_prismarine",
+	"minecraft:sea_lantern",
+	"minecraft:seagrass",
+	"minecraft:sea_pickle",
+	"minecraft:kelp"
   ]
 }

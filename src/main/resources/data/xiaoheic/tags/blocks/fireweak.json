@@ -1,7 +1,17 @@
 {
-  "replace": false,
   "values": [
-    
-
+	"#minecraft:fire",
+	"#minecraft:base_stone_nether",
+	"#minecraft:soul_fire_base_blocks",
+	
+	"#forge:sand",
+	"#forge:sandstone",
+	"#forge:glass",
+	"#forge:obsidian",
+	"#forge:ores/netherite_scrap",
+	
+	"minecraft:nether_bricks",
+	"minecraft:magma_block",
+	"minecraft:glowstone"
   ]
 }

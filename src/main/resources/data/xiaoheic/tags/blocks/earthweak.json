@@ -1,7 +1,22 @@
 {
-  "replace": false,
   "values": [
-    
-
+    "#minecraft:dirt",
+	"#minecraft:stone_bricks",
+	"#minecraft:terracotta",
+	"#minecraft:base_stone_nether",
+	
+	"#forge:sand",
+	"#forge:sandstone",
+	"#forge:gravel",
+	"#forge:stone",
+	"#forge:cobblestone",
+	"#forge:end_stones",
+	"#forge:ores",
+	"#forge:netherrack",
+	
+	"minecraft:medium_amethyst_bud",
+	"minecraft:small_amethyst_bud",
+	"minecraft:bricks",
+	"minecraft:clay"
   ]
 }
