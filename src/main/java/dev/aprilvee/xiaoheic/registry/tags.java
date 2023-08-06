@@ -33,6 +33,7 @@ public class tags {
     public static final TagKey<Block> fire = BlockTags.create(new ResourceLocation(main.MODID,"fire"));
     public static final TagKey<Block> firestrong = BlockTags.create(new ResourceLocation(main.MODID,"firestrong"));
 
+    public static final TagKey<Block> earthveryweak = BlockTags.create(new ResourceLocation(main.MODID,"earthveryweak"));
     public static final TagKey<Block> earthweak = BlockTags.create(new ResourceLocation(main.MODID,"earthweak"));
     public static final TagKey<Block> earth = BlockTags.create(new ResourceLocation(main.MODID,"earth"));
     public static final TagKey<Block> earthstrong = BlockTags.create(new ResourceLocation(main.MODID,"earthstrong"));

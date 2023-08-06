@@ -9,6 +9,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.tags.ITagManager;
 
 public class EnvironmentQi {
+    static float veryhigh = 18;
+    static float high = 6;
+    static float moderate = 2;
+    static float low = 0.25f;
+    static float verylow = 0.04f;
 
     public static float[] getEnviroQi(BlockPos pos, Level level, int diameter){
         float[] qi = new float[7];
@@ -53,39 +58,40 @@ public class EnvironmentQi {
         ITagManager<Block> tag = ForgeRegistries.BLOCKS.tags();
         ITagManager<Fluid> fluidtag = ForgeRegistries.FLUIDS.tags();
 
-            if(tag.getTag(tags.spiritvstrong).contains(block)){ qi[0] = 15;
-            } else if(tag.getTag(tags.spiritstrong).contains(block)){ qi[0] = 5;
-            } else if(tag.getTag(tags.spirit).contains(block)){ qi[0] = 2;
-            } else if(tag.getTag(tags.spiritweak).contains(block)){ qi[0] = 0.25f;
+            if(tag.getTag(tags.spiritvstrong).contains(block)){ qi[0] = veryhigh;
+            } else if(tag.getTag(tags.spiritstrong).contains(block)){ qi[0] = high;
+            } else if(tag.getTag(tags.spirit).contains(block)){ qi[0] = moderate;
+            } else if(tag.getTag(tags.spiritweak).contains(block)){ qi[0] = low;
             }
 
-            if(tag.getTag(tags.metalstrong).contains(block)){ qi[1] = 5;
-            } else if(tag.getTag(tags.metal).contains(block)){ qi[1] = 2;
-            } else if(tag.getTag(tags.metalweak).contains(block)){ qi[1] = 0.25f;
+            if(tag.getTag(tags.metalstrong).contains(block)){ qi[1] = high;
+            } else if(tag.getTag(tags.metal).contains(block)){ qi[1] = moderate;
+            } else if(tag.getTag(tags.metalweak).contains(block)){ qi[1] = low;
             }
 
-            if(tag.getTag(tags.waterstrong).contains(block)){qi[2] = 5;
-            } else if(tag.getTag(tags.water).contains(block)){qi[2] = 2;
-            } else if(tag.getTag(tags.waterweak).contains(block)){qi[2] = 0.25f;
+            if(tag.getTag(tags.waterstrong).contains(block)){qi[2] = high;
+            } else if(tag.getTag(tags.water).contains(block)){qi[2] = moderate;
+            } else if(tag.getTag(tags.waterweak).contains(block)){qi[2] = low;
             }
 
-            if(tag.getTag(tags.woodstrong).contains(block)){qi[3] = 5;
-            } else if(tag.getTag(tags.wood).contains(block)){qi[3] = 2f;
-            } else if(tag.getTag(tags.woodweak).contains(block)){qi[3] = 0.25f;
+            if(tag.getTag(tags.woodstrong).contains(block)){qi[3] = high;
+            } else if(tag.getTag(tags.wood).contains(block)){qi[3] = moderate;
+            } else if(tag.getTag(tags.woodweak).contains(block)){qi[3] = low;
             }
 
-            if(tag.getTag(tags.firestrong).contains(block)){qi[4] = 5;
-            } else if(tag.getTag(tags.fire).contains(block)){qi[4] = 2;
-            } else if(tag.getTag(tags.fireweak).contains(block)){qi[4] = 0.25f;
+            if(tag.getTag(tags.firestrong).contains(block)){qi[4] = high;
+            } else if(tag.getTag(tags.fire).contains(block)){qi[4] = moderate;
+            } else if(tag.getTag(tags.fireweak).contains(block)){qi[4] = low;
             }
 
-            if(tag.getTag(tags.earthstrong).contains(block)){qi[5] = 5;
-            } else if(tag.getTag(tags.earth).contains(block)){qi[5] = 2;
-            } else if(tag.getTag(tags.earthweak).contains(block)){qi[5] = 0.25f;
+            if(tag.getTag(tags.earthstrong).contains(block)){qi[5] = high;
+            } else if(tag.getTag(tags.earth).contains(block)){qi[5] = moderate;
+            } else if(tag.getTag(tags.earthweak).contains(block)){qi[5] = low;
+            } else if(tag.getTag(tags.earthveryweak).contains(block)){qi[5] = verylow;
             }
 
-            if(fluidtag.getTag(tags.waterfluid).contains(fluid)){qi[2] += 0.25f;
-            }else if(fluidtag.getTag(tags.lava).contains(fluid)){qi[4] += 2;
+            if(fluidtag.getTag(tags.waterfluid).contains(fluid)){qi[2] += low;
+            }else if(fluidtag.getTag(tags.lava).contains(fluid)){qi[4] += moderate;
             }
 
         if(tag.getTag(tags.solid).contains(block)){qi[6] = 1;} //crampedness

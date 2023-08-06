@@ -1,7 +1,5 @@
 {
-  "values": [
-    "#minecraft:deepslate_ore_replaceables",
-	
+  "values": [	
 	"#forge:obsidian",
 	
 	"minecraft:crying_obsidian",

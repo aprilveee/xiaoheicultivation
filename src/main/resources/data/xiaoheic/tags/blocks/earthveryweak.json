@@ -1,0 +1,20 @@
+{
+  "values": [
+    "#minecraft:dirt",
+	"#minecraft:stone_bricks",
+	"#minecraft:terracotta",
+	"#minecraft:base_stone_nether",
+	
+	"#forge:sand",
+	"#forge:sandstone",
+	"#forge:gravel",
+	"#forge:stone",
+	"#forge:cobblestone",
+	"#forge:end_stones",
+	"#forge:ores",
+	"#forge:netherrack",
+	
+	"minecraft:bricks",
+	"minecraft:clay"
+  ]
+}
