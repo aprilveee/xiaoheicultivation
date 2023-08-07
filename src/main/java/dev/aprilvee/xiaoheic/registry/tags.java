@@ -39,6 +39,6 @@ public class tags {
     public static final TagKey<Block> earthstrong = BlockTags.create(new ResourceLocation(main.MODID,"earthstrong"));
 
     public static final TagKey<Fluid> waterfluid = FluidTags.create(new ResourceLocation("minecraft","water"));
-    public static final TagKey<Fluid> lava = FluidTags.create(new ResourceLocation("minecraft","water"));
+    public static final TagKey<Fluid> lava = FluidTags.create(new ResourceLocation("minecraft","lava"));
 
 }

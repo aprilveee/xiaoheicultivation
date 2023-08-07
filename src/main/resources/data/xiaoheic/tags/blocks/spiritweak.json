@@ -1,6 +1,9 @@
 {
   "values": [
 	"#minecraft:soul_fire_base_blocks",
+	"#minecraft:crimson_stems",
+	"#minecraft:warped_stems",
+	
 	"minecraft:soul_fire"
   ]
 }

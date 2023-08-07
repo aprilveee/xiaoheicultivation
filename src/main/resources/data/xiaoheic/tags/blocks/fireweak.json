@@ -3,6 +3,9 @@
 	"#minecraft:fire",
 	"#minecraft:base_stone_nether",
 	"#minecraft:soul_fire_base_blocks",
+	"#minecraft:crimson_stems",
+	"#minecraft:warped_stems",
+	"#minecraft:wart_blocks",
 	
 	"#forge:sand",
 	"#forge:sandstone",

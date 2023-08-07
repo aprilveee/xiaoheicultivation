@@ -1,12 +1,17 @@
 package dev.aprilvee.xiaoheic.cultivation;
 
 import dev.aprilvee.xiaoheic.registry.tags;
+import dev.aprilvee.xiaoheic.util.xiaoheiutils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.tags.ITagManager;
+
+import java.util.Arrays;
 
 public class EnvironmentQi {
     static float veryhigh = 18;
@@ -31,13 +36,13 @@ public class EnvironmentQi {
             for(int y = 0; y < diameter; y++){ //top to bottom
                 for(int z = 0; z < diameter; z++) { //left to right
                     result = getSpirit(currentPos, level);
-                    qi[0] += result[0];
-                    qi[1] += result[1];
-                    qi[2] += result[2];
-                    qi[3] += result[3];
-                    qi[4] += result[4];
-                    qi[5] += result[5];
-                    qi[6] += result[6];
+                    qi[0] += result[0];//spirit
+                    qi[1] += result[1];//metal
+                    qi[2] += result[2];//water
+                    qi[3] += result[3];//wood
+                    qi[4] += result[4];//fire
+                    qi[5] += result[5];//earth
+                    qi[6] += result[6];//crampedness
                     currentPos = currentPos.offset(0, 0 , -1);
                     //shift block z
                 }
@@ -50,13 +55,37 @@ public class EnvironmentQi {
         return qi;
     }
 
+    public static float[] processSpirit(float[] input, int diameter){
+        //input[0] spirit, input[1-5] element, input[6] crampedness
+        float[] result = {input[0], 0, 1,      0, 0, 0, 0, 0};
+        //spirit, element magnitude, feng shui, element percentage
+        float[] element = {input[1], input[2], input[3], input[4], input[5]};
+        int volume = (int) Math.pow(diameter,3);
+        float crampedness = input[6]/volume;
+        result[1] = xiaoheiutils.sumArrayf(element); //magnitude
+
+        for(int i = 0;i<5;i++){
+            result[i+3] = (element[i]/result[1]);
+        }
+
+        if(crampedness >= 0.8f){
+            result[0] *= 1 - crampedness;
+            result[1] *= 1 - crampedness;
+        }else if(crampedness >= 0.5f){
+            result[0] *= 0.8f - crampedness/4;
+            result[1] *= 0.8f - crampedness/4;
+        }
+
+        return result;
+    }
+
     public static float[] getSpirit(BlockPos pos, Level level){
         //i think that i am commiting crimes
         Block block = level.getBlockState(pos).getBlock();
         Fluid fluid = level.getFluidState(pos).getType();
         float[] qi = {0, 0, 0, 0, 0, 0, 0};
         ITagManager<Block> tag = ForgeRegistries.BLOCKS.tags();
-        ITagManager<Fluid> fluidtag = ForgeRegistries.FLUIDS.tags();
+        //ITagManager<Fluid> fluidtag = ForgeRegistries.FLUIDS.tags();
 
             if(tag.getTag(tags.spiritvstrong).contains(block)){ qi[0] = veryhigh;
             } else if(tag.getTag(tags.spiritstrong).contains(block)){ qi[0] = high;
@@ -90,8 +119,8 @@ public class EnvironmentQi {
             } else if(tag.getTag(tags.earthveryweak).contains(block)){qi[5] = verylow;
             }
 
-            if(fluidtag.getTag(tags.waterfluid).contains(fluid)){qi[2] += low;
-            }else if(fluidtag.getTag(tags.lava).contains(fluid)){qi[4] += moderate;
+            if(fluid == Fluids.WATER) {qi[2] += low;
+            }else if(fluid == Fluids.LAVA){qi[4] += moderate;
             }
 
         if(tag.getTag(tags.solid).contains(block)){qi[6] = 1;} //crampedness

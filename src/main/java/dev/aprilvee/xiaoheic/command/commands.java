@@ -59,7 +59,8 @@ public class commands {
     public static int xrun(ServerPlayer plaer, String input){
         switch(input){
             case "enviroqi":
-                plaer.sendSystemMessage(Component.literal(Arrays.toString(EnvironmentQi.getEnviroQi(plaer.blockPosition(), plaer.level(), 7))));
+
+                plaer.sendSystemMessage(Component.literal(Arrays.toString(EnvironmentQi.processSpirit(EnvironmentQi.getEnviroQi(plaer.blockPosition(), plaer.level(),7),7))));
 
                 return 1;
             default:
