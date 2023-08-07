@@ -3,7 +3,6 @@ package dev.aprilvee.xiaoheic.network.packet;
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
-import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.spell.FireSpell;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
@@ -31,7 +30,7 @@ public class HandleCastC2S {
             ServerPlayer player = context.getSender();
             ServerLevel level = player.serverLevel();
             SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
-            SpellType type = sp.selectedspells[key];
+            SpellType type = (SpellType) sp.selectedspells[key];
 
             switch (type.firingtype){
                 case "proj":

@@ -5,6 +5,7 @@ import dev.aprilvee.xiaoheic.util.xiaoheiutils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidType;
@@ -69,11 +70,11 @@ public class EnvironmentQi {
         }
 
         if(crampedness >= 0.8f){
-            result[0] *= 1 - crampedness;
-            result[1] *= 1 - crampedness;
-        }else if(crampedness >= 0.5f){
-            result[0] *= 0.8f - crampedness/4;
-            result[1] *= 0.8f - crampedness/4;
+            result[0] *= 1 - crampedness/2;
+            result[1] *= 1 - crampedness/2;
+        }else if(crampedness >= 0.6f){
+            result[0] *= 1 - crampedness/4;
+            result[1] *= 1 - crampedness/4;
         }
 
         return result;
@@ -87,6 +88,7 @@ public class EnvironmentQi {
         ITagManager<Block> tag = ForgeRegistries.BLOCKS.tags();
         //ITagManager<Fluid> fluidtag = ForgeRegistries.FLUIDS.tags();
 
+        if(block != Blocks.AIR && fluid != Fluids.EMPTY){
             if(tag.getTag(tags.spiritvstrong).contains(block)){ qi[0] = veryhigh;
             } else if(tag.getTag(tags.spiritstrong).contains(block)){ qi[0] = high;
             } else if(tag.getTag(tags.spirit).contains(block)){ qi[0] = moderate;
@@ -123,7 +125,10 @@ public class EnvironmentQi {
             }else if(fluid == Fluids.LAVA){qi[4] += moderate;
             }
 
-        if(tag.getTag(tags.solid).contains(block)){qi[6] = 1;} //crampedness
+            if(tag.getTag(tags.solid).contains(block)){qi[6] = 1;} //crampedness
+        }
+
+
         return qi;
     }
 }

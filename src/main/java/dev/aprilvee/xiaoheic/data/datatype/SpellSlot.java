@@ -8,6 +8,7 @@ public class SpellSlot {
     public String id;
     public int qiCost;
     public float pQiCost;
+    public int sustaintick;
 
     public Element element;
     public SType type;

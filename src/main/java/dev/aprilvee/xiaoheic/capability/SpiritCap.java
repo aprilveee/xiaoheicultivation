@@ -1,6 +1,7 @@
 package dev.aprilvee.xiaoheic.capability;
 
 import dev.aprilvee.xiaoheic.data.DataList;
+import dev.aprilvee.xiaoheic.data.datatype.SpellSlot;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
@@ -24,8 +25,8 @@ public class SpiritCap {
     private String affinity2 = "none";
     private String type = "none";
 
-    public Set<SpellType> unlockedspells = new HashSet<>();
-    public SpellType[] selectedspells = {DataList.fireball, DataList.snowshot, DataList.invalid, DataList.invalid, DataList.invalid, DataList.invalid};
+    public Set<SpellSlot> unlockedspells = new HashSet<>();
+    public SpellSlot[] selectedspells = {DataList.fireball, DataList.snowshot, DataList.invalid, DataList.invalid, DataList.invalid, DataList.invalid};
 
     private float cultivation;
     private float metalattunement;
@@ -59,10 +60,10 @@ public class SpiritCap {
     public float getEarth(){return earthattunement;}
     public float getElementlimit(){return elementlimit;}
 
-    public SpellType[] getSelectedspells() {
+    public SpellSlot[] getSelectedspells() {
         return selectedspells;
     }
-    public Set<SpellType> getSpells() {
+    public Set<SpellSlot> getSpells() {
         return unlockedspells;
     }
 

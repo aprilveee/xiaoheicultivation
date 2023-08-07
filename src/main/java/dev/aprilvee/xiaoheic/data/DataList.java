@@ -6,6 +6,14 @@ import net.minecraft.network.chat.Component;
 
 public class DataList {
 
+    public static State mortal;
+    public static State sprite;
+    public static State attunement;
+    public static State realmshaping;
+
+    public static SpellType invalid;
+    public static SpellType fireball;
+    public static SpellType snowshot;
 
     public static SType notype;
     public static SType elemental;
@@ -15,19 +23,95 @@ public class DataList {
     public static SType mind;
     public static SType spatial;
 
-    public static SpellType invalid;
-    public static SpellType fireball;
-    public static SpellType snowshot;
-
     public static Affinity[] affinities;
-    public static Element[] elements;
+    public static State[] states;
     public static SpellType[] spells;
 
     public static void init(){
         initializeSpells();
+        initializeStates();
         initializeTypes();
     }
 
+    public static void initializeStates(){
+
+        mortal = new State();
+
+        mortal.index = 0;
+        mortal.id = "mortal";
+        mortal.limit = 1;
+
+        sprite = new State();
+        sprite.index = 1;
+        sprite.id = "sprite";
+        sprite.limit = 120;
+
+        attunement = new State();
+        attunement.index = 2;
+        attunement.id = "attunement";
+        attunement.limit = 380;
+        attunement.hasLimit = true;
+
+        realmshaping = new State();
+        realmshaping.index = 3;
+        realmshaping.id = "realmshaping";
+        realmshaping.limit = 1000;
+        realmshaping.hasLimit = true;
+
+        states = new State[]{mortal, sprite, attunement, realmshaping};
+
+    }
+
+    public static void initializeSpells(){
+        invalid = new SpellType();
+        invalid.index = 0;
+        invalid.name = Component.translatable("spell.xiaoheic.none");
+        invalid.id = "none";
+        invalid.qiCost = 0;
+        invalid.pQiCost = 0;
+        invalid.isSpell = false;
+        invalid.firingtype = "none";
+        invalid.element = Element.NONE;
+        invalid.offensive = false;
+        invalid.particle = ParticleTypes.EFFECT;
+
+        fireball = new SpellType();
+        fireball.index = 1;
+        fireball.name = Component.translatable("spell.xiaoheic.fireball");
+        fireball.id = "fireball";
+        fireball.qiCost = 250;
+        fireball.pQiCost = 0.02f;
+        fireball.isSpell = true;
+        fireball.firingtype = "proj"; ////
+        fireball.casttype = CastType.activespell;
+        fireball.projcount = 1;
+        fireball.accuracy = 2;
+        fireball.gravity = 0;
+        fireball.flyspeed = 1.5F;
+        fireball.lifetime = 400; ////
+        fireball.element = Element.FIRE;
+        fireball.offensive = true;
+        fireball.particle = ParticleTypes.FLAME;
+
+        snowshot = new SpellType();
+        snowshot.index = 2;
+        snowshot.id = "snowshot";
+        snowshot.qiCost = 850;
+        snowshot.pQiCost = 0.02f;
+        snowshot.isSpell = true;
+        snowshot.firingtype = "proj"; ////
+        snowshot.casttype = CastType.activespell;
+        snowshot.projcount = 3;
+        snowshot.accuracy = 10;
+        snowshot.gravity = 0;
+        snowshot.flyspeed = 2;
+        snowshot.lifetime = 200; ////
+        snowshot.element = Element.WATER;
+        snowshot.offensive = true;
+        snowshot.particle = ParticleTypes.SNOWFLAKE;
+
+        spells = new SpellType[]{invalid, fireball, snowshot};
+    }
 
     public static void initializeTypes(){
         notype = new SType();
@@ -52,54 +136,6 @@ public class DataList {
         mind.id = "mind";
         spatial.index = 6;
         spatial.id = "spatial";
-    }
-
-    public static void initializeSpells(){
-        invalid = new SpellType();
-        invalid.index = 0;
-        invalid.name = Component.translatable("spell.xiaoheic.none");
-        invalid.id = "none";
-        invalid.qiCost = 0;
-        invalid.pQiCost = 0;
-        invalid.firingtype = "none";
-        invalid.element = Element.NONE;
-        invalid.offensive = false;
-        invalid.particle = ParticleTypes.EFFECT;
-
-        fireball = new SpellType();
-        fireball.index = 1;
-        fireball.name = Component.translatable("spell.xiaoheic.fireball");
-        fireball.id = "fireball";
-        fireball.qiCost = 250;
-        fireball.pQiCost = 0.02f;
-        fireball.firingtype = "proj"; ////
-        fireball.casttype = CastType.activespell;
-        fireball.projcount = 1;
-        fireball.accuracy = 2;
-        fireball.gravity = 0;
-        fireball.flyspeed = 1.5F;
-        fireball.lifetime = 400; ////
-        fireball.element = Element.FIRE;
-        fireball.offensive = true;
-        fireball.particle = ParticleTypes.FLAME;
-
-        snowshot = new SpellType();
-        snowshot.index = 2;
-        snowshot.id = "snowshot";
-        snowshot.qiCost = 850;
-        snowshot.pQiCost = 0.02f;
-        snowshot.firingtype = "proj"; ////
-        snowshot.casttype = CastType.activespell;
-        snowshot.projcount = 3;
-        snowshot.accuracy = 10;
-        snowshot.gravity = 0;
-        snowshot.flyspeed = 2;
-        snowshot.lifetime = 200; ////
-        snowshot.element = Element.WATER;
-        snowshot.offensive = true;
-        snowshot.particle = ParticleTypes.SNOWFLAKE;
-
-        spells = new SpellType[]{invalid, fireball, snowshot};
     }
 
 
