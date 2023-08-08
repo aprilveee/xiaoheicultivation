@@ -1,5 +1,9 @@
 package dev.aprilvee.xiaoheic.client;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+@OnlyIn(Dist.CLIENT)
 public class ClientCapData {
     private static int qi;
     private static int maxqi;

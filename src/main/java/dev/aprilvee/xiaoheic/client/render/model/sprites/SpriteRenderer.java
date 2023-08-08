@@ -1,4 +1,4 @@
-package dev.aprilvee.xiaoheic.client.render.model;
+package dev.aprilvee.xiaoheic.client.render.model.sprites;
 
 import dev.aprilvee.xiaoheic.client.model.SpriteModel;
 import dev.aprilvee.xiaoheic.entity.Sprite;
@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 public class SpriteRenderer extends MobRenderer<Sprite, SpriteModel<Sprite>> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(main.MODID, "textures/entity/sprite.png");
     public SpriteRenderer(EntityRendererProvider.Context context) {
-        super(context, new SpriteModel(context.bakeLayer(SpriteModel.LAYER_LOCATION)), 0.0F); //float here is shadow size!
+        super(context, new SpriteModel<>(context.bakeLayer(SpriteModel.LAYER_LOCATION)), 0.0F); //float here is shadow size!
 
     }
 

@@ -21,6 +21,9 @@ public class EnvironmentQi {
     static float low = 0.25f;
     static float verylow = 0.04f;
 
+    public static void spawnSprites(float[] qi,BlockPos pos, Level level, int diameter){
+    }
+
     public static float[] getEnviroQi(BlockPos pos, Level level, int diameter){
         float[] qi = new float[7];
         float[] result;
@@ -88,7 +91,7 @@ public class EnvironmentQi {
         ITagManager<Block> tag = ForgeRegistries.BLOCKS.tags();
         //ITagManager<Fluid> fluidtag = ForgeRegistries.FLUIDS.tags();
 
-        if(block != Blocks.AIR && fluid != Fluids.EMPTY){
+        if(block != Blocks.AIR || fluid != Fluids.EMPTY){
             if(tag.getTag(tags.spiritvstrong).contains(block)){ qi[0] = veryhigh;
             } else if(tag.getTag(tags.spiritstrong).contains(block)){ qi[0] = high;
             } else if(tag.getTag(tags.spirit).contains(block)){ qi[0] = moderate;

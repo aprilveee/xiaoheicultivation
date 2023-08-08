@@ -4,7 +4,7 @@ import dev.aprilvee.xiaoheic.client.gui.QiBar;
 import dev.aprilvee.xiaoheic.client.model.BasicSpellModel;
 import dev.aprilvee.xiaoheic.client.model.SpriteModel;
 import dev.aprilvee.xiaoheic.client.render.model.BasicSpellRenderer;
-import dev.aprilvee.xiaoheic.client.render.model.SpriteRenderer;
+import dev.aprilvee.xiaoheic.client.render.model.sprites.*;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.HandleCastC2S;
 import dev.aprilvee.xiaoheic.registry.entities;
@@ -15,6 +15,7 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import dev.aprilvee.xiaoheic.main;
@@ -25,9 +26,8 @@ public class ClientEvents {
     public static class ClientForgeEvents{
 
 
-        @SubscribeEvent
-        public static void onKeyInput(InputEvent event) {
-
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
+        public static void spellcastKeyInput(InputEvent event) {
 
             if (Keybinds.CAST_SLOT1_KEY.consumeClick()) {
                 Messages.sendToServer(new HandleCastC2S(0));
@@ -51,6 +51,11 @@ public class ClientEvents {
         @SubscribeEvent
         public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event){
             EntityRenderers.register(entities.SPRITE.get(), SpriteRenderer::new);
+            EntityRenderers.register(entities.METALSPRITE.get(), MetalSpriteRenderer::new);
+            EntityRenderers.register(entities.WATERSPRITE.get(), WaterSpriteRenderer::new);
+            EntityRenderers.register(entities.WOODSPRITE.get(), WoodSpriteRenderer::new);
+            EntityRenderers.register(entities.FIRESPRITE.get(), FireSpriteRenderer::new);
+            EntityRenderers.register(entities.EARTHSPRITE.get(), EarthSpriteRenderer::new);
             EntityRenderers.register(entities.BASIC_SPELL.get(), BasicSpellRenderer::new);
         }
 

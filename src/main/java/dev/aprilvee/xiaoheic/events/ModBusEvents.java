@@ -1,8 +1,7 @@
 package dev.aprilvee.xiaoheic.events;
 
 import dev.aprilvee.xiaoheic.command.commands;
-import dev.aprilvee.xiaoheic.entity.BasicSpell;
-import dev.aprilvee.xiaoheic.entity.Sprite;
+import dev.aprilvee.xiaoheic.entity.*;
 import dev.aprilvee.xiaoheic.main;
 import dev.aprilvee.xiaoheic.registry.entities;
 import net.minecraft.network.chat.Component;
@@ -21,6 +20,11 @@ public class ModBusEvents {
     @SubscribeEvent
     public static void entityAttributes(EntityAttributeCreationEvent event){
         event.put(entities.SPRITE.get(), Sprite.createAttributes().build());
+        event.put(entities.METALSPRITE.get(), MetalSprite.createAttributes().build());
+        event.put(entities.WATERSPRITE.get(), WaterSprite.createAttributes().build());
+        event.put(entities.WOODSPRITE.get(), WoodSprite.createAttributes().build());
+        event.put(entities.FIRESPRITE.get(), FireSprite.createAttributes().build());
+        event.put(entities.EARTHSPRITE.get(), EarthSprite.createAttributes().build());
     }
 
     @SubscribeEvent

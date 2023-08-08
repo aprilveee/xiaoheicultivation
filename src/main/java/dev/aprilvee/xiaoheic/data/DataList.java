@@ -82,8 +82,8 @@ public class DataList {
         fireball.qiCost = 250;
         fireball.pQiCost = 0.02f;
         fireball.isSpell = true;
-        fireball.firingtype = "proj"; ////
         fireball.casttype = CastType.activespell;
+        fireball.firingtype = "proj"; ////
         fireball.projcount = 1;
         fireball.accuracy = 2;
         fireball.gravity = 0;
@@ -99,8 +99,9 @@ public class DataList {
         snowshot.qiCost = 850;
         snowshot.pQiCost = 0.02f;
         snowshot.isSpell = true;
-        snowshot.firingtype = "proj"; ////
         snowshot.casttype = CastType.activespell;
+        snowshot.cooldown = 20;
+        snowshot.firingtype = "proj"; ////
         snowshot.projcount = 3;
         snowshot.accuracy = 10;
         snowshot.gravity = 0;
