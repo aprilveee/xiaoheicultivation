@@ -30,7 +30,6 @@ public class EnvironmentQi {
         spawnSprites(qi, pos, level, diameter);
     }
 
-
     public static void spawnSprites(float[] qi,BlockPos pos, LevelAccessor level, int diameter){
         int sprites;
         float elementsprites;
@@ -46,11 +45,11 @@ public class EnvironmentQi {
         }
 
         for(int i=0;i<sprites;i++){
-            //spawn regular sprite
+            //todo spawn regular sprite
+
         }
 
-
-        //this should take in
+        //todo get random valid position near block
     }
 
 
