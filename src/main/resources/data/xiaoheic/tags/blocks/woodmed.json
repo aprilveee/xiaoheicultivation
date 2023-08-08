@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:logs",
+	"#minecraft:mangrove_logs",
+	
+	"minecraft:bamboo",
+	"minecraft:mangrove_roots"
+  ]
+}
