@@ -6,11 +6,9 @@ import dev.aprilvee.xiaoheic.util.ClinkerMathUtils;
 import dev.aprilvee.xiaoheic.util.xiaoheiutils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -35,6 +33,11 @@ public class EnvironmentQi {
         float elementsprites;
         float rand = ClinkerMathUtils.getRandomFloatBetween(new Random(), 0.8f, 1.2f);
         float score = (qi[1] + qi[0]*4) * (qi[0]/40 + 1) * rand;
+        int radius;
+        if(diameter % 2 != 0){
+            radius = (diameter - 1)/2;
+        }else{radius = diameter/2;}
+
 
         sprites = Math.round(score/60);
         elementsprites = qi[1]/80;
@@ -49,7 +52,6 @@ public class EnvironmentQi {
 
         }
 
-        //todo get random valid position near block
     }
 
 
