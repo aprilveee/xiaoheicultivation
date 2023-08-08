@@ -13,6 +13,9 @@
 	"minecraft:mushroom_stem",
 	"minecraft:bamboo_sapling",
 	"minecraft:lily_pad",
-	"minecraft:vine"
+	"minecraft:vine",
+	"minecraft:melon",
+	"minecraft:kelp",
+	"minecraft:kelp_plant"
   ]
 }

@@ -1,10 +1,7 @@
 {
   "values": [
-	"#forge:ores/diamond",
-	"#forge:ores/netherite_scrap",
-	"#forge:storage_blocks/iron",
-	"#forge:storage_blocks/gold",
-	"#forge:storage_blocks/diamond",
-	"#forge:storage_blocks/netherite"
+	"#xiaoheic:metalweak",
+	"#xiaoheic:metalmed",
+	"#xiaoheic:metalstrong"
   ]
 }

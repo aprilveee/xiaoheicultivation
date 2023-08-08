@@ -1,6 +1,7 @@
 package dev.aprilvee.xiaoheic.capability;
 
 import dev.aprilvee.xiaoheic.data.DataList;
+import dev.aprilvee.xiaoheic.data.datatype.SType;
 import dev.aprilvee.xiaoheic.data.datatype.SpellSlot;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import net.minecraft.nbt.CompoundTag;
@@ -23,7 +24,7 @@ public class SpiritCap {
 
     private String affinity = "none";
     private String affinity2 = "none";
-    private String type = "none";
+    private SType type = DataList.notype;
 
     public Set<SpellSlot> unlockedspells = new HashSet<>();
     public SpellSlot[] selectedspells = {DataList.fireball, DataList.snowshot, DataList.empty, DataList.empty, DataList.empty, DataList.empty};
@@ -51,7 +52,7 @@ public class SpiritCap {
 
     public String getAffinty(){return affinity;}
     public String getAffinty2(){return affinity2;}
-    public String getType(){return type;}
+    public SType getType(){return type;}
     public float getCultivation(){return cultivation;}
     public float getMetal(){return metalattunement;}
     public float getWater(){return waterattunement;}
@@ -59,6 +60,7 @@ public class SpiritCap {
     public float getFire(){return fireattunement;}
     public float getEarth(){return earthattunement;}
     public float getElementlimit(){return elementlimit;}
+    public SpellSlot getSpellslot(int index){return selectedspells[index];}
 
     public SpellSlot[] getSelectedspells() {
         return selectedspells;
@@ -108,10 +110,10 @@ public class SpiritCap {
         this.affinity2 = affinity2;
     }
 
-    public void setType(String type){
+    public void setType(SType type){
         this.type = type;
     }
-    public boolean isType(String type){return this.type == type;}
+    public boolean isType(SType type){return this.type == type;}
 
     public void setSelectedspell(SpellType type, int index) {
         this.selectedspells[index] = type;
@@ -232,7 +234,8 @@ public class SpiritCap {
         nbt.putFloat("elementlimit", elementlimit);
         nbt.putString("affinity", affinity);
         nbt.putString("affinity2", affinity2);
-        nbt.putString("type", type);
+
+        nbt.putInt("type", type.index);
 
         CompoundTag spells = new CompoundTag();
 
@@ -256,6 +259,7 @@ public class SpiritCap {
         elementlimit = nbt.getFloat("elementlimit");
         affinity = nbt.getString("affinity");
         affinity2 = nbt.getString("affinity2");
-        type = nbt.getString("type");
+
+        type = DataList.types[nbt.getInt("type")];
     }
 }

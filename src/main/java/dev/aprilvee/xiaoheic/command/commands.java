@@ -7,6 +7,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.cultivation.EnvironmentQi;
+import dev.aprilvee.xiaoheic.data.datatype.Element;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
 import dev.aprilvee.xiaoheic.network.packet.QiSyncS2C;
@@ -31,8 +32,9 @@ public class commands {
                 ));
         dispatcher.register(Commands.literal("xrun")
                 .then(Commands.argument("function", StringArgumentType.string())
-                        .executes(context -> xrun(context.getSource().getPlayerOrException(), StringArgumentType.getString(context, "function")))
-                ));
+                        .then(Commands.argument("input", IntegerArgumentType.integer())
+                                .executes(context -> xrun(context.getSource().getPlayerOrException(), StringArgumentType.getString(context, "function"), IntegerArgumentType.getInteger(context, "input")))
+                        )));
 
         dispatcher.register(Commands.literal("xset")
                 .then(Commands.argument("value", StringArgumentType.string())
@@ -56,20 +58,22 @@ public class commands {
         return 1;
     }
 
-    public static int xrun(ServerPlayer plaer, String input){
-        switch(input){
+    public static int xrun(ServerPlayer plaer, String function, int input){
+        switch(function){
             case "rawenviroqi":
-                plaer.sendSystemMessage(Component.literal(Arrays.toString(EnvironmentQi.getEnviroQi(plaer.blockPosition(), plaer.level(),7))));
+                plaer.sendSystemMessage(Component.literal(Arrays.toString(EnvironmentQi.getEnviroQi(plaer.blockPosition(), plaer.level(),input))));
                 return 1;
             case "enviroqi":
-                plaer.sendSystemMessage(Component.literal(Arrays.toString(EnvironmentQi.getQi(EnvironmentQi.getEnviroQi(plaer.blockPosition(), plaer.level(),7),7))));
+                plaer.sendSystemMessage(Component.literal(Arrays.toString(EnvironmentQi.getQi(EnvironmentQi.getEnviroQi(plaer.blockPosition(), plaer.level(),input),input))));
                 return 1;
             case "spawnsprite":
-                EnvironmentQi.channelSpirit(plaer.blockPosition(), plaer.level(), 7);
+                EnvironmentQi.canSpawnSprite(plaer.blockPosition(), plaer.level(), Element.NONE);
+            case "channelsprite":
+                EnvironmentQi.channelSpirit(plaer.blockPosition(), plaer.level(), input);
                 return 1;
             default:
                 plaer.sendSystemMessage(Component.literal("Invalid input"));
-                return 1;
+                return 0;
         }
     }
 

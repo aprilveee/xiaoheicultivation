@@ -1,10 +1,7 @@
 {
-  "replace": false,
   "values": [
-    "#minecraft:logs",
-	"#minecraft:mangrove_logs",
-	
-	"minecraft:bamboo",
-	"minecraft:mangrove_roots"
+	"#xiaoheic:woodweak",
+	"#xiaoheic:woodmed",
+	"#xiaoheic:woodstrong"
   ]
 }

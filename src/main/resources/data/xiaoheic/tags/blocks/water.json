@@ -1,7 +1,7 @@
 {
   "values": [
-	"minecraft:blue_ice",
-	"minecraft:packed_ice",
-	"minecraft:powder_snow"
+	"#xiaoheic:waterweak",
+	"#xiaoheic:watermed",
+	"#xiaoheic:waterstrong"
   ]
 }

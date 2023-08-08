@@ -3,7 +3,6 @@ package dev.aprilvee.xiaoheic.entity;
 import dev.aprilvee.xiaoheic.spell.SpellEffects;
 import dev.aprilvee.xiaoheic.registry.entities;
 import dev.aprilvee.xiaoheic.data.DataList;
-import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import net.minecraft.core.Position;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;

@@ -12,36 +12,36 @@ public class entities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, main.MODID);
 
     public static final RegistryObject<EntityType<Sprite>> SPRITE = ENTITIES.register("sprite",
-            () -> EntityType.Builder.<Sprite>of(Sprite::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.<Sprite>of(Sprite::new, MobCategory.AMBIENT)
                     .fireImmune()
                     .sized(0.375f,0.375f) //this affects hitbox size!
                     .build("xiaoheic:sprite")
     );
     public static final RegistryObject<EntityType<MetalSprite>> METALSPRITE = ENTITIES.register("metalsprite",
-            () -> EntityType.Builder.<MetalSprite>of(MetalSprite::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.<MetalSprite>of(MetalSprite::new, MobCategory.AMBIENT)
                     .sized(0.375f,0.375f) //this affects hitbox size!
                     .build("xiaoheic:metalsprite")
     );
 
     public static final RegistryObject<EntityType<WaterSprite>> WATERSPRITE = ENTITIES.register("watersprite",
-            () -> EntityType.Builder.<WaterSprite>of(WaterSprite::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.<WaterSprite>of(WaterSprite::new, MobCategory.AMBIENT)
                     .sized(0.375f,0.375f) //this affects hitbox size!
                     .build("xiaoheic:watersprite")
     );
 
     public static final RegistryObject<EntityType<WoodSprite>> WOODSPRITE = ENTITIES.register("woodsprite",
-            () -> EntityType.Builder.<WoodSprite>of(WoodSprite::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.<WoodSprite>of(WoodSprite::new, MobCategory.AMBIENT)
                     .sized(0.375f,0.375f) //this affects hitbox size!
                     .build("xiaoheic:woodsprite")
     );
     public static final RegistryObject<EntityType<FireSprite>> FIRESPRITE = ENTITIES.register("firesprite",
-            () -> EntityType.Builder.<FireSprite>of(FireSprite::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.<FireSprite>of(FireSprite::new, MobCategory.AMBIENT)
                     .fireImmune()
                     .sized(0.375f,0.375f) //this affects hitbox size!
                     .build("xiaoheic:firesprite")
     );
     public static final RegistryObject<EntityType<EarthSprite>> EARTHSPRITE = ENTITIES.register("earthsprite",
-            () -> EntityType.Builder.<EarthSprite>of(EarthSprite::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.<EarthSprite>of(EarthSprite::new, MobCategory.AMBIENT)
                     .fireImmune()
                     .sized(0.375f,0.375f) //this affects hitbox size!
                     .build("xiaoheic:earthsprite")

@@ -24,6 +24,7 @@ public class DataList {
     public static SType spatial;
 
     public static Affinity[] affinities;
+    public static SType[] types;
     public static State[] states;
     public static SpellType[] spells;
 
@@ -137,6 +138,7 @@ public class DataList {
         mind.id = "mind";
         spatial.index = 6;
         spatial.id = "spatial";
+        types = new SType[]{notype, elemental, instrument, creation, spiritual, mind, spatial};
     }
 
 

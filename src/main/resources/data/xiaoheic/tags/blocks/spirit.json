@@ -1,7 +1,8 @@
 {
-  "replace": false,
   "values": [
-    
-
+	"#xiaoheic:spiritweak",
+	"#xiaoheic:spiritmed",
+	"#xiaoheic:spiritstrong",
+	"#xiaoheic:spiritvstrong"
   ]
 }

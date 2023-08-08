@@ -1,15 +1,22 @@
 package dev.aprilvee.xiaoheic.cultivation;
 
+import dev.aprilvee.xiaoheic.data.datatype.Element;
 import dev.aprilvee.xiaoheic.registry.tags;
+import dev.aprilvee.xiaoheic.util.ClinkerMathUtils;
 import dev.aprilvee.xiaoheic.util.xiaoheiutils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.tags.ITagManager;
+
+import java.util.Random;
 
 public class EnvironmentQi {
     static float veryhigh = 18;
@@ -23,11 +30,32 @@ public class EnvironmentQi {
         spawnSprites(qi, pos, level, diameter);
     }
 
-    public static void spawnSprites(float[] qi,BlockPos pos, Level level, int diameter){
+
+    public static void spawnSprites(float[] qi,BlockPos pos, LevelAccessor level, int diameter){
+        int sprites;
+        float elementsprites;
+        float rand = ClinkerMathUtils.getRandomFloatBetween(new Random(), 0.8f, 1.2f);
+        float score = (qi[1] + qi[0]*4) * (qi[0]/40 + 1) * rand;
+
+        sprites = Math.round(score/60);
+        elementsprites = qi[1]/80;
+        sprites -= Math.round(elementsprites);
+
+        if(score > 60){
+            sprites = 1;
+        }
+
+        for(int i=0;i<sprites;i++){
+            //spawn regular sprite
+        }
+
+
         //this should take in
     }
 
-    public static float[] getEnviroQi(BlockPos pos, Level level, int diameter){
+
+
+    public static float[] getEnviroQi(BlockPos pos, LevelAccessor level, int diameter){
         float[] qi = new float[7];
         float[] result;
         int radius;
@@ -62,6 +90,7 @@ public class EnvironmentQi {
         return qi;
     }
 
+    //0spirit, 1element magnitude, 2feng shui, 3-7element percentage
     public static float[] getQi(float[] input, int diameter){
         //input[0] spirit, input[1-5] element, input[6] crampedness
         float[] result = {input[0], 0, 1,      0, 0, 0, 0, 0};
@@ -69,7 +98,7 @@ public class EnvironmentQi {
         float[] element = {input[1], input[2], input[3], input[4], input[5]};
         int volume = (int) Math.pow(diameter,3);
         float crampedness = input[6]/volume;
-        result[1] = xiaoheiutils.sumArrayf(element); //magnitude
+        result[1] = xiaoheiutils.sumArray(element); //magnitude
 
         for(int i = 0;i<5;i++){
             result[i+3] = (element[i]/result[1]);
@@ -86,7 +115,7 @@ public class EnvironmentQi {
         return result;
     }
 
-    public static float[] getElement(BlockPos pos, Level level){
+    public static float[] getElement(BlockPos pos, LevelAccessor level){
         //i think that i am commiting crimes
         Block block = level.getBlockState(pos).getBlock();
         Fluid fluid = level.getFluidState(pos).getType();
@@ -94,47 +123,79 @@ public class EnvironmentQi {
         ITagManager<Block> tag = ForgeRegistries.BLOCKS.tags();
         //ITagManager<Fluid> fluidtag = ForgeRegistries.FLUIDS.tags();
 
-        if(block != Blocks.AIR || fluid != Fluids.EMPTY){
+        if(tag.getTag(tags.elemental).contains(block)){
+
+            if(tag.getTag(tags.spirit).contains(block)){
             if(tag.getTag(tags.spiritvstrong).contains(block)){ qi[0] = veryhigh;
             } else if(tag.getTag(tags.spiritstrong).contains(block)){ qi[0] = high;
-            } else if(tag.getTag(tags.spirit).contains(block)){ qi[0] = moderate;
+            } else if(tag.getTag(tags.spiritmed).contains(block)){ qi[0] = moderate;
             } else if(tag.getTag(tags.spiritweak).contains(block)){ qi[0] = low;
+            }}
+
+            if(tag.getTag(tags.metal).contains(block)) {
+                if(tag.getTag(tags.metalstrong).contains(block)){ qi[1] = high;
+                } else if(tag.getTag(tags.metalmed).contains(block)){ qi[1] = moderate;
+                } else if(tag.getTag(tags.metalweak).contains(block)){ qi[1] = low;
+                }
             }
 
-            if(tag.getTag(tags.metalstrong).contains(block)){ qi[1] = high;
-            } else if(tag.getTag(tags.metal).contains(block)){ qi[1] = moderate;
-            } else if(tag.getTag(tags.metalweak).contains(block)){ qi[1] = low;
+            if(tag.getTag(tags.water).contains(block)) {
+                if(tag.getTag(tags.waterstrong).contains(block)){qi[2] = high;
+                } else if(tag.getTag(tags.watermed).contains(block)){qi[2] = moderate;
+                } else if(tag.getTag(tags.waterweak).contains(block)){qi[2] = low;
+                }
             }
 
-            if(tag.getTag(tags.waterstrong).contains(block)){qi[2] = high;
-            } else if(tag.getTag(tags.water).contains(block)){qi[2] = moderate;
-            } else if(tag.getTag(tags.waterweak).contains(block)){qi[2] = low;
+            if (tag.getTag(tags.wood).contains(block)) {
+                if(tag.getTag(tags.woodstrong).contains(block)){qi[3] = high;
+                } else if(tag.getTag(tags.woodmed).contains(block)){qi[3] = moderate;
+                } else if(tag.getTag(tags.woodweak).contains(block)){qi[3] = low;
+                }
             }
 
-            if(tag.getTag(tags.woodstrong).contains(block)){qi[3] = high;
-            } else if(tag.getTag(tags.wood).contains(block)){qi[3] = moderate;
-            } else if(tag.getTag(tags.woodweak).contains(block)){qi[3] = low;
+            if(tag.getTag(tags.fire).contains(block)) {
+                if(tag.getTag(tags.firestrong).contains(block)){qi[4] = high;
+                } else if(tag.getTag(tags.firemed).contains(block)){qi[4] = moderate;
+                } else if(tag.getTag(tags.fireweak).contains(block)){qi[4] = low;
+                }
             }
 
-            if(tag.getTag(tags.firestrong).contains(block)){qi[4] = high;
-            } else if(tag.getTag(tags.fire).contains(block)){qi[4] = moderate;
-            } else if(tag.getTag(tags.fireweak).contains(block)){qi[4] = low;
+            if (tag.getTag(tags.earth).contains(block)) {
+                if(tag.getTag(tags.earthstrong).contains(block)){qi[5] = high;
+                } else if(tag.getTag(tags.earthmed).contains(block)){qi[5] = moderate;
+                } else if(tag.getTag(tags.earthweak).contains(block)){qi[5] = low;
+                } else if(tag.getTag(tags.earthveryweak).contains(block)){qi[5] = verylow;
+                }
             }
-
-            if(tag.getTag(tags.earthstrong).contains(block)){qi[5] = high;
-            } else if(tag.getTag(tags.earth).contains(block)){qi[5] = moderate;
-            } else if(tag.getTag(tags.earthweak).contains(block)){qi[5] = low;
-            } else if(tag.getTag(tags.earthveryweak).contains(block)){qi[5] = verylow;
-            }
-
-            if(fluid == Fluids.WATER) {qi[2] += low;
-            }else if(fluid == Fluids.LAVA){qi[4] += moderate;
-            }
-
-            if(tag.getTag(tags.solid).contains(block)){qi[6] = 1;} //crampedness
         }
-
-
+        if(tag.getTag(tags.solid).contains(block)){qi[6] = 1;} //crampedness
+        if(fluid == Fluids.WATER) {qi[2] += low;
+        }else if(fluid == Fluids.LAVA){qi[4] += moderate;
+        }
         return qi;
+    }
+
+    //do not use
+    @Deprecated
+    public static boolean canSpawnSprite(BlockPos pos, LevelAccessor level, Element element){
+        if(element == Element.NONE){
+            float[] qi = getQi(getEnviroQi(pos, level, 5), 5);
+            float score = (qi[1] * (qi[0]/30 + 0.8f) + qi[0]*4)/50;
+            level.getServer().getPlayerList().getPlayerByName("Dev").sendSystemMessage(Component.literal(String.valueOf(score)));
+            return score >= new Random().nextFloat();
+            //neutral sprite spawning
+
+        }else{
+            int index;
+            switch (element){
+                case METAL -> index = 3;
+                case WATER -> index = 4;
+                case WOOD -> index = 5;
+                case FIRE -> index = 6;
+                case EARTH -> index = 7;
+                default -> {return false;}
+            }
+            return false;
+        }
     }
 }

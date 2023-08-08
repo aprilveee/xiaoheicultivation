@@ -1,5 +1,7 @@
 package dev.aprilvee.xiaoheic.entity;
 
+import dev.aprilvee.xiaoheic.cultivation.EnvironmentQi;
+import dev.aprilvee.xiaoheic.data.datatype.Element;
 import dev.aprilvee.xiaoheic.registry.entities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;

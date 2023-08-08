@@ -33,7 +33,7 @@ public class WaterSprite extends PathfinderMob {
 
     @Override
     protected void registerGoals() { //this is its ai!
-        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 0.6D, 40)); //swimmy
+        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.6D, 40)); //swimmy
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.4D)); //float is stroll speed!
     }
 
