@@ -26,7 +26,7 @@ public class SpiritCap {
     private String type = "none";
 
     public Set<SpellSlot> unlockedspells = new HashSet<>();
-    public SpellSlot[] selectedspells = {DataList.fireball, DataList.snowshot, DataList.invalid, DataList.invalid, DataList.invalid, DataList.invalid};
+    public SpellSlot[] selectedspells = {DataList.fireball, DataList.snowshot, DataList.empty, DataList.empty, DataList.empty, DataList.empty};
 
     private float cultivation;
     private float metalattunement;

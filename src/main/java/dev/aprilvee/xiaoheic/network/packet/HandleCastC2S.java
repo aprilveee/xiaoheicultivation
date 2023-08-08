@@ -2,6 +2,7 @@ package dev.aprilvee.xiaoheic.network.packet;
 
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
+import dev.aprilvee.xiaoheic.data.datatype.AbilityType;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import dev.aprilvee.xiaoheic.spell.FireSpell;
 import net.minecraft.network.FriendlyByteBuf;
@@ -30,13 +31,30 @@ public class HandleCastC2S {
             ServerPlayer player = context.getSender();
             ServerLevel level = player.serverLevel();
             SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
-            SpellType type = (SpellType) sp.selectedspells[key];
 
-            switch (type.firingtype){
-                case "proj":
-                    FireSpell.BasicSpell(player, level, type);break;
-                default: break;
+            if(sp.selectedspells[key] instanceof SpellType type){
+
+                switch (type.firingtype){
+                    case "proj":
+                        FireSpell.BasicSpell(player, level, type);break;
+                    default: break;
+                }
+
+            }else if(sp.selectedspells[key] instanceof AbilityType type){
+                switch (type.id){
+                    default -> {break;}
+                }
+
+
+                switch (type.casttype){ //can probably won't need this switvh
+                    case activespell -> {}
+                    case sustainspell -> {}
+                    case passivetoggle -> {}
+                    default -> {break;}
+
+                }
             }
+
 
         });
         return true;

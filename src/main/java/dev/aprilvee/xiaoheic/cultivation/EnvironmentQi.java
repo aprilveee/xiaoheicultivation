@@ -8,11 +8,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.tags.ITagManager;
-
-import java.util.Arrays;
 
 public class EnvironmentQi {
     static float veryhigh = 18;
@@ -21,7 +18,13 @@ public class EnvironmentQi {
     static float low = 0.25f;
     static float verylow = 0.04f;
 
+    public static void channelSpirit(BlockPos pos, Level level, int diameter){
+        float[] qi = getQi(getEnviroQi(pos, level, diameter), diameter);
+        spawnSprites(qi, pos, level, diameter);
+    }
+
     public static void spawnSprites(float[] qi,BlockPos pos, Level level, int diameter){
+        //this should take in
     }
 
     public static float[] getEnviroQi(BlockPos pos, Level level, int diameter){
@@ -39,7 +42,7 @@ public class EnvironmentQi {
         for(int x = 0; x < diameter; x++){ //forward to back
             for(int y = 0; y < diameter; y++){ //top to bottom
                 for(int z = 0; z < diameter; z++) { //left to right
-                    result = getSpirit(currentPos, level);
+                    result = getElement(currentPos, level);
                     qi[0] += result[0];//spirit
                     qi[1] += result[1];//metal
                     qi[2] += result[2];//water
@@ -59,7 +62,7 @@ public class EnvironmentQi {
         return qi;
     }
 
-    public static float[] processSpirit(float[] input, int diameter){
+    public static float[] getQi(float[] input, int diameter){
         //input[0] spirit, input[1-5] element, input[6] crampedness
         float[] result = {input[0], 0, 1,      0, 0, 0, 0, 0};
         //spirit, element magnitude, feng shui, element percentage
@@ -83,7 +86,7 @@ public class EnvironmentQi {
         return result;
     }
 
-    public static float[] getSpirit(BlockPos pos, Level level){
+    public static float[] getElement(BlockPos pos, Level level){
         //i think that i am commiting crimes
         Block block = level.getBlockState(pos).getBlock();
         Fluid fluid = level.getFluidState(pos).getType();

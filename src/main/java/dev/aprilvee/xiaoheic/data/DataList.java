@@ -11,7 +11,7 @@ public class DataList {
     public static State attunement;
     public static State realmshaping;
 
-    public static SpellType invalid;
+    public static SpellType empty;
     public static SpellType fireball;
     public static SpellType snowshot;
 
@@ -63,17 +63,17 @@ public class DataList {
     }
 
     public static void initializeSpells(){
-        invalid = new SpellType();
-        invalid.index = 0;
-        invalid.name = Component.translatable("spell.xiaoheic.none");
-        invalid.id = "none";
-        invalid.qiCost = 0;
-        invalid.pQiCost = 0;
-        invalid.isSpell = false;
-        invalid.firingtype = "none";
-        invalid.element = Element.NONE;
-        invalid.offensive = false;
-        invalid.particle = ParticleTypes.EFFECT;
+        empty = new SpellType();
+        empty.index = 0;
+        empty.name = Component.translatable("spell.xiaoheic.none");
+        empty.id = "none";
+        empty.qiCost = 0;
+        empty.pQiCost = 0;
+        empty.isSpell = false;
+        empty.firingtype = "none";
+        empty.element = Element.NONE;
+        empty.offensive = false;
+        empty.particle = ParticleTypes.EFFECT;
 
         fireball = new SpellType();
         fireball.index = 1;
@@ -111,7 +111,7 @@ public class DataList {
         snowshot.offensive = true;
         snowshot.particle = ParticleTypes.SNOWFLAKE;
 
-        spells = new SpellType[]{invalid, fireball, snowshot};
+        spells = new SpellType[]{empty, fireball, snowshot};
     }
 
     public static void initializeTypes(){

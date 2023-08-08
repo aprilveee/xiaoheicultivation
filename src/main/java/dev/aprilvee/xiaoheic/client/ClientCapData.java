@@ -1,7 +1,14 @@
 package dev.aprilvee.xiaoheic.client;
 
+import dev.aprilvee.xiaoheic.data.DataList;
+import dev.aprilvee.xiaoheic.data.datatype.SpellSlot;
+import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientCapData {
@@ -15,6 +22,8 @@ public class ClientCapData {
     private static float fireattunement;
     private static float earthattunement;
 
+    private static Set<SpellSlot> unlockedspells = new HashSet<>();
+    private static SpellSlot[] selectedspells = {DataList.fireball, DataList.snowshot, DataList.empty, DataList.empty, DataList.empty, DataList.empty};
 
     public static int getQi(){
         return qi;
@@ -27,9 +36,21 @@ public class ClientCapData {
     public static float getFire(){return fireattunement;}
     public static float getEarth(){return earthattunement;}
 
-    public static void setQi(int input){
-        ClientCapData.qi = input;
+
+    public static void setSelectedspell(SpellType type, int index) {
+        selectedspells[index] = type;
     }
+    public static SpellSlot getSelectedSpell(int index){
+        return selectedspells[index];
+    }
+
+    public static void setSpells(Collection<SpellType> spells){
+        unlockedspells = new HashSet<>(spells);
+    }
+    public static void addSpell(SpellType spell){ unlockedspells.add(spell);}
+    public static boolean hasSpell(SpellType spell){return unlockedspells.contains(spell);}
+
+    public static void setQi(int input){ClientCapData.qi = input;}
     public static void setMaxqi(int set){
         ClientCapData.maxqi = set;
     }

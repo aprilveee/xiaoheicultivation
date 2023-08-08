@@ -1,5 +1,7 @@
 package dev.aprilvee.xiaoheic.events;
 
+import dev.aprilvee.xiaoheic.capability.SpiritProvider;
+import dev.aprilvee.xiaoheic.client.ClientCapData;
 import dev.aprilvee.xiaoheic.client.gui.QiBar;
 import dev.aprilvee.xiaoheic.client.model.BasicSpellModel;
 import dev.aprilvee.xiaoheic.client.model.SpriteModel;
@@ -9,6 +11,7 @@ import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.HandleCastC2S;
 import dev.aprilvee.xiaoheic.registry.entities;
 import dev.aprilvee.xiaoheic.util.Keybinds;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
