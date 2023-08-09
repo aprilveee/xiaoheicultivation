@@ -3,7 +3,7 @@ package dev.aprilvee.xiaoheic.data.datatype;
 import dev.aprilvee.xiaoheic.data.DataList;
 import net.minecraft.network.chat.Component;
 
-public class SpellSlot {
+public abstract class SpellSlot {
     public int index;
     public Component name;
     public String id;
