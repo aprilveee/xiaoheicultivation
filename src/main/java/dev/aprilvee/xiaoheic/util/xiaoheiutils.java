@@ -17,7 +17,7 @@ public class xiaoheiutils {
 
 
     public static BlockPos getValidRandBlockPos(BlockPos pos, LevelAccessor level, Element element, int radius){
-        BlockPos checkpos = null;
+        BlockPos checkpos;
         BlockPos belowpos;
         ITagManager<Fluid> tag = ForgeRegistries.FLUIDS.tags();
         Random rand = new Random();

@@ -20,11 +20,11 @@ import net.minecraftforge.registries.tags.ITagManager;
 import java.util.Random;
 
 public class EnvironmentQi {
-    static float veryhigh = 18;
-    static float high = 6;
-    static float moderate = 2;
-    static float low = 0.25f;
-    static float verylow = 0.04f;
+    static final float veryhigh = 18;
+    static final float high = 6;
+    static final float moderate = 2;
+    static final float low = 0.25f;
+    static final float verylow = 0.04f;
 
     public static void channelSpirit(BlockPos pos, Level level, int diameter){
         float[] qi = getQi(getEnviroQi(pos, level, diameter), diameter);
@@ -41,8 +41,7 @@ public class EnvironmentQi {
             radius = (diameter - 1)/2;
         }else{radius = diameter/2;}
 
-
-        sprites = Math.round(score/60);
+        sprites = Math.round(score/80);
         //elementsprites = qi[1]/80;
         //sprites -= Math.round(elementsprites);
 
@@ -69,8 +68,6 @@ public class EnvironmentQi {
         }else{radius = diameter/2;}
         BlockPos starterPos = pos.offset(radius,radius,radius);
         BlockPos currentPos = starterPos;
-
-        //level.getBlockState(currentPos).getBlock();
 
         for(int x = 0; x < diameter; x++){ //forward to back
             for(int y = 0; y < diameter; y++){ //top to bottom

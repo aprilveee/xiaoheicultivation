@@ -6,10 +6,10 @@ import net.minecraft.network.chat.Component;
 
 public class DataList {
 
-    public static State mortal;
-    public static State sprite;
-    public static State attunement;
-    public static State realmshaping;
+    public static CState mortal;
+    public static CState sprite;
+    public static CState attunement;
+    public static CState realmshaping;
 
     public static SpellType empty;
     public static SpellType fireball;
@@ -25,7 +25,7 @@ public class DataList {
 
     public static Affinity[] affinities;
     public static SType[] types;
-    public static State[] states;
+    public static CState[] states;
     public static SpellType[] spells;
 
     public static void init(){
@@ -36,30 +36,30 @@ public class DataList {
 
     public static void initializeStates(){
 
-        mortal = new State();
+        mortal = new CState();
 
         mortal.index = 0;
         mortal.id = "mortal";
         mortal.limit = 1;
 
-        sprite = new State();
+        sprite = new CState();
         sprite.index = 1;
         sprite.id = "sprite";
         sprite.limit = 120;
 
-        attunement = new State();
+        attunement = new CState();
         attunement.index = 2;
         attunement.id = "attunement";
         attunement.limit = 380;
         attunement.hasLimit = true;
 
-        realmshaping = new State();
+        realmshaping = new CState();
         realmshaping.index = 3;
         realmshaping.id = "realmshaping";
         realmshaping.limit = 1000;
         realmshaping.hasLimit = true;
 
-        states = new State[]{mortal, sprite, attunement, realmshaping};
+        states = new CState[]{mortal, sprite, attunement, realmshaping};
 
     }
 

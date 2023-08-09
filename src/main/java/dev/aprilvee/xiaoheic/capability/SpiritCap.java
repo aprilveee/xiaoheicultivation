@@ -4,6 +4,7 @@ import dev.aprilvee.xiaoheic.data.DataList;
 import dev.aprilvee.xiaoheic.data.datatype.SType;
 import dev.aprilvee.xiaoheic.data.datatype.SpellSlot;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
+import dev.aprilvee.xiaoheic.data.datatype.CState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
@@ -25,11 +26,12 @@ public class SpiritCap {
     private String affinity = "none";
     private String affinity2 = "none";
     private SType type = DataList.notype;
+    public CState state = DataList.mortal;
 
     public Set<SpellSlot> unlockedspells = new HashSet<>();
     public SpellSlot[] selectedspells = {DataList.fireball, DataList.snowshot, DataList.empty, DataList.empty, DataList.empty, DataList.empty};
 
-    private float cultivation;
+    private int cultivation;
     private float metalattunement;
     private float waterattunement;
     private float woodattunement;
@@ -37,8 +39,6 @@ public class SpiritCap {
     private float earthattunement;
 
     private float elementlimit = 250;
-    private final int MIN_QI_VALUE = 0;
-    private final int MAX_QI_VALUE = Integer.MAX_VALUE;
 
     public int getQi(){
         return qi;
@@ -125,13 +125,13 @@ public class SpiritCap {
     public void addSpell(SpellType spell){ this.unlockedspells.add(spell);}
     public boolean hasSpell(SpellType spell){return this.unlockedspells.contains(spell);}
 
-    public void setCultivation(float set){
+    public void setCultivation(int set){
         this.cultivation = set;
     }
-    public void addCultivation(float add){
-        this.cultivation = Math.min(cultivation + add, Float.MAX_VALUE);
+    public void addCultivation(int add){
+        this.cultivation = Math.min(cultivation + add, Integer.MAX_VALUE);
     }
-    public void subCultivation(float sub){
+    public void subCultivation(int sub){
         this.cultivation = Math.max(cultivation - sub, 0);
     }
 
@@ -199,13 +199,16 @@ public class SpiritCap {
     public void copyFrom(SpiritCap source){
         this.qi = source.qi;
         this.maxqi = source.maxqi;
+
         this.maxqiX = source.maxqiX;
         this.qiregen = source.qiregen;
         this.spelldamage = source.spelldamage;
         this.spellresist = source.spellresist;
         this.spellcost = source.spellcost;
+
         this.selectedspells = source.selectedspells;
         this.unlockedspells = source.unlockedspells;
+
         this.cultivation = source.cultivation;
         this.metalattunement = source.metalattunement;
         this.waterattunement = source.waterattunement;
@@ -213,29 +216,35 @@ public class SpiritCap {
         this.fireattunement = source.fireattunement;
         this.earthattunement = source.earthattunement;
         this.elementlimit = source.elementlimit;
+
         this.affinity = source.affinity;
         this.affinity2 = source.affinity2;
+        this.type = source.type;
+        this.state = source.state;
     }
 
     public void saveNBTData(CompoundTag nbt){
         nbt.putInt("qi", qi);
         nbt.putInt("maxqi", maxqi);
+
+        nbt.putString("affinity", affinity);
+        nbt.putString("affinity2", affinity2);
+        nbt.putInt("type", type.index);
+        nbt.putInt("state", state.index);
+
         nbt.putFloat("maxqiX", maxqiX);
         nbt.putFloat("qiregen", qiregen);
         nbt.putFloat("spelldamage", spelldamage);
         nbt.putFloat("spellresist", spellresist);
         nbt.putFloat("spellcost", spellcost);
-        nbt.putFloat("cultivation", cultivation);
+
+        nbt.putInt("cultivation", cultivation);
         nbt.putFloat("metalattunement", metalattunement);
         nbt.putFloat("waterattunement", waterattunement);
         nbt.putFloat("woodattunement", woodattunement);
         nbt.putFloat("fireattunement", fireattunement);
         nbt.putFloat("earthattunement", earthattunement);
         nbt.putFloat("elementlimit", elementlimit);
-        nbt.putString("affinity", affinity);
-        nbt.putString("affinity2", affinity2);
-
-        nbt.putInt("type", type.index);
 
         CompoundTag spells = new CompoundTag();
 
@@ -245,21 +254,26 @@ public class SpiritCap {
     public void loadNBTData(CompoundTag nbt){
         qi = nbt.getInt("qi");
         maxqi = nbt.getInt("maxqi");
+
+        affinity = nbt.getString("affinity");
+        affinity2 = nbt.getString("affinity2");
+        type = DataList.types[nbt.getInt("type")];
+        state = DataList.states[nbt.getInt("state")];
+
         maxqiX = nbt.getFloat("maxqiX");
         qiregen = nbt.getFloat("qiregen");
         spelldamage = nbt.getFloat("spelldamage");
         spellresist = nbt.getFloat("spellresist");
         spellcost = nbt.getFloat("spellcost");
-        cultivation = nbt.getFloat("cultivation");
+
+        cultivation = nbt.getInt("cultivation");
         metalattunement = nbt.getFloat("metalattunement");
         waterattunement = nbt.getFloat("waterattunement");
         woodattunement = nbt.getFloat("woodattunement");
         fireattunement = nbt.getFloat("fireattunement");
         earthattunement = nbt.getFloat("earthattunement");
         elementlimit = nbt.getFloat("elementlimit");
-        affinity = nbt.getString("affinity");
-        affinity2 = nbt.getString("affinity2");
 
-        type = DataList.types[nbt.getInt("type")];
+
     }
 }

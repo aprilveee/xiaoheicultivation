@@ -77,26 +77,26 @@ public class commands {
         }
     }
 
-    public static int xset(ServerPlayer player, String value, float in){
+    public static int xset(ServerPlayer player, String value, float input){
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         switch (value){
-            case "qi": sp.setQi((int) in);Messages.sendToClient(new QiSyncS2C(sp.getQi()), player);return 1;
-            case "maxqi": sp.setMaxqi((int) in);Messages.sendToClient(new MaxQiS2C(sp.getMaxqi()), player); return 1;
+            case "qi": sp.setQi((int) input);Messages.sendToClient(new QiSyncS2C(sp.getQi()), player);return 1;
+            case "maxqi": sp.setMaxqi((int) input);Messages.sendToClient(new MaxQiS2C(sp.getMaxqi()), player); return 1;
 
-            case "maxqix": sp.setMaxqiX(in); return 1;
-            case "qiregen": sp.setQiregen(in); return 1;
-            case "spelldamage": sp.setSpelldamage(in); return 1;
-            case "spellresist": sp.setSpellresist(in); return 1;
-            case "spellcost": sp.setSpellcost(in); return 1;
+            case "maxqix": sp.setMaxqiX(input); return 1;
+            case "qiregen": sp.setQiregen(input); return 1;
+            case "spelldamage": sp.setSpelldamage(input); return 1;
+            case "spellresist": sp.setSpellresist(input); return 1;
+            case "spellcost": sp.setSpellcost(input); return 1;
 
-            case "exp": sp.setCultivation(in); return 1;
-            case "metal": sp.setMetal(in); return 1;
-            case "water": sp.setWater(in); return 1;
-            case "wood": sp.setWood(in); return 1;
-            case "fire": sp.setFire(in); return 1;
-            case "earth": sp.setEarth(in); return 1;
+            case "exp": sp.setCultivation((int) input); return 1;
+            case "metal": sp.setMetal(input); return 1;
+            case "water": sp.setWater(input); return 1;
+            case "wood": sp.setWood(input); return 1;
+            case "fire": sp.setFire(input); return 1;
+            case "earth": sp.setEarth(input); return 1;
 
-            case "elementlimit": sp.setElementlimit(in); return 1;
+            case "elementlimit": sp.setElementlimit(input); return 1;
             default:
                 player.sendSystemMessage(Component.literal("Invalid input"));
                 return 1;
