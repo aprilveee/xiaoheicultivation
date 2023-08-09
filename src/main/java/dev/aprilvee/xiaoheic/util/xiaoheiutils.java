@@ -21,19 +21,21 @@ public class xiaoheiutils {
         BlockPos belowpos;
         ITagManager<Fluid> tag = ForgeRegistries.FLUIDS.tags();
         Random rand = new Random();
+        int counter = 0;
         boolean valid = false;
         do {
+            counter++;
             checkpos = pos.offset(rand.nextInt(radius),rand.nextInt(radius),rand.nextInt(radius));
             belowpos = pos.below();
 
-            if(level.getBlockState(pos).isSuffocating(level, checkpos) &&
+            if(!level.getBlockState(pos).isSuffocating(level, checkpos) &&
                     level.getBlockState(belowpos).isFaceSturdy(level, belowpos, Direction.UP)) {
                 switch (element) {
                     case FIRE -> valid = !tag.getTag(tags.waterfluid).contains(level.getFluidState(checkpos).getType());
                     case EARTH -> valid = true;
                     default -> valid = !tag.getTag(tags.lava).contains(level.getFluidState(checkpos).getType());
                 }
-            }
+            }else if (counter > 30){valid = true;}
         }while(!valid);
         return checkpos;
     }

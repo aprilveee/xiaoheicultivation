@@ -1,11 +1,14 @@
 package dev.aprilvee.xiaoheic.cultivation;
 
 import dev.aprilvee.xiaoheic.data.datatype.Element;
+import dev.aprilvee.xiaoheic.entity.Sprite;
 import dev.aprilvee.xiaoheic.registry.tags;
 import dev.aprilvee.xiaoheic.util.ClinkerMathUtils;
 import dev.aprilvee.xiaoheic.util.xiaoheiutils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -32,7 +35,7 @@ public class EnvironmentQi {
         int sprites;
         float elementsprites;
         float rand = ClinkerMathUtils.getRandomFloatBetween(new Random(), 0.8f, 1.2f);
-        float score = (qi[1] + qi[0]*4) * (qi[0]/40 + 1) * rand;
+        float score = qi[1] * (qi[0]/80 + 1) + qi[0] * rand;
         int radius;
         if(diameter % 2 != 0){
             radius = (diameter - 1)/2;
@@ -40,17 +43,18 @@ public class EnvironmentQi {
 
 
         sprites = Math.round(score/60);
-        elementsprites = qi[1]/80;
-        sprites -= Math.round(elementsprites);
+        //elementsprites = qi[1]/80;
+        //sprites -= Math.round(elementsprites);
 
-        if(score > 60){
+        if(score < 80){
             sprites = 1;
         }
 
         for(int i=0;i<sprites;i++){
-            //todo spawn regular sprite
-
+            Sprite sprite = new Sprite((Level) level, xiaoheiutils.getValidRandBlockPos(pos, level, Element.NONE, radius));
+            level.addFreshEntity(sprite);
         }
+        level.getServer().getPlayerList().getPlayerByName("Dev").sendSystemMessage(Component.literal(score + ", " + sprites));
 
     }
 

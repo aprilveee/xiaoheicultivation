@@ -68,7 +68,7 @@ public class commands {
                 return 1;
             case "spawnsprite":
                 EnvironmentQi.canSpawnSprite(plaer.blockPosition(), plaer.level(), Element.NONE);
-            case "channelsprite":
+            case "channelspirit":
                 EnvironmentQi.channelSpirit(plaer.blockPosition(), plaer.level(), input);
                 return 1;
             default:
