@@ -1,14 +1,19 @@
 package dev.aprilvee.xiaoheic.registry;
 
 import dev.aprilvee.xiaoheic.main;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
 public class tags {
+
+    public static TagKey<EntityType<?>> sprites = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(main.MODID,"sprites"));
 
     public static final TagKey<Block> solid = BlockTags.create(new ResourceLocation(main.MODID,"solid"));
     public static final TagKey<Block> elemental = BlockTags.create(new ResourceLocation(main.MODID,"hasqi"));

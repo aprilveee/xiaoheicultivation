@@ -2,6 +2,7 @@ package dev.aprilvee.xiaoheic.events;
 
 import dev.aprilvee.xiaoheic.capability.*;
 import dev.aprilvee.xiaoheic.command.commands;
+import dev.aprilvee.xiaoheic.cultivation.Cultivation;
 import dev.aprilvee.xiaoheic.data.DataList;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
@@ -11,6 +12,7 @@ import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.CultivationS2C;
 import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
 import dev.aprilvee.xiaoheic.network.packet.QiSyncS2C;
+import dev.aprilvee.xiaoheic.registry.tags;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -102,12 +104,20 @@ public class CommonEvents {
 
     @SubscribeEvent //give cultivation when rclicking a sprite, then despawn the sprite
     public static void onEntityRightClick(PlayerInteractEvent.EntityInteractSpecific event){
-        if(event.getTarget() instanceof Sprite){
-            event.getEntity().getCapability(SpiritProvider.SPIRITCAP).ifPresent(spirit -> {
-                event.getTarget().remove(Entity.RemovalReason.DISCARDED);
-                spirit.addCultivation(1);
-                event.getEntity().sendSystemMessage(Component.literal("cultivation: " + spirit.getCultivation()));
-            });
+        if(event.getTarget().getType().getTags().toList().contains(tags.sprites)){
+
+            SpiritCap sp = event.getEntity().getCapability(SpiritProvider.SPIRITCAP).orElse(null);
+            Cultivation.addCXP(event.getEntity(), 1);
+            event.getEntity().sendSystemMessage(Component.literal(event.getTarget().getType().toString()));
+            switch(event.getTarget().getType().toString()){
+                case "entity.xiaoheic.sprite": event.getTarget().discard(); break;
+                case "entity.xiaoheic.metalsprite": sp.addMetal(1); break;
+                case "entity.xiaoheic.watersprite": sp.addWater(1); break;
+                case "entity.xiaoheic.woodsprite": sp.addWood(1); break;
+                case "entity.xiaoheic.firesprite": sp.addFire(1); event.getEntity().sendSystemMessage(Component.literal("fire:" + sp.getFire()));break;
+                case "entity.xiaoheic.earthsprite": sp.addEarth(1); break;
+            }
+            event.getTarget().discard();
         }
     }
 

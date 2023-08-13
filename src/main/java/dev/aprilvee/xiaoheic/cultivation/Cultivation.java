@@ -13,13 +13,16 @@ public class Cultivation {
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
 
         sp.addCultivation(amt);
-        checkLimit(player);
 
-        if(sp.getCultivation() > sp.state.limit){
+        if(sp.getCultivation() >= sp.state.limit){
             if(sp.state.hasLimit){
-                sp.setCultivation(sp.state.limit);
+                if(limitBroken(sp, player.getCapability(StatisticsProvider.STATSCAP).orElse(null))){
+                    breakLimit(sp, player);
+                }else{
+                    sp.setCultivation(sp.state.limit);
+                }
             }else{
-                breakLimit(sp);
+                breakLimit(sp, player);
             }
         }
 
@@ -30,7 +33,7 @@ public class Cultivation {
         StatisticsCap stats = player.getCapability(StatisticsProvider.STATSCAP).orElse(null);
 
         if(sp.getCultivation() >= sp.state.limit && sp.state.hasLimit){
-            if(limitBroken(sp, stats)){breakLimit(sp);
+            if(limitBroken(sp, stats)){breakLimit(sp, player);
             return true;}
         }
         return false;
@@ -42,13 +45,27 @@ public class Cultivation {
             case "attunement":
                 return sp.getMetal() >= 100 || sp.getWater() >= 100 || sp.getWood() >= 100 || sp.getFire() >= 100 || sp.getEarth() >= 100;
             case "realmshaping":
+                return false;
+            default:
+                throw new IllegalStateException("Unexpected state value: " + sp.state.id);
+        }
+    }
+    //call *ONLY* on advancing state
+    public static void newStateReward(SpiritCap sp, Player player){
+        switch(sp.state.id){ //should add qi and enable mechanics, do qi later
+            case "sprite": sp.canCast = true;
+            case "attunement": sp.canCultivate = true;
+            case "realmshaping":
+            default:
+                throw new IllegalStateException("Unexpected state value: " + sp.state.id);
+
         }
 
-        return false;
     }
 
-    public static void breakLimit(SpiritCap sp){
+    public static void breakLimit(SpiritCap sp, Player player){
         sp.state = DataList.states[sp.state.index+1];
+        newStateReward(sp, player);
     }
 
 }

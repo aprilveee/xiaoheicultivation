@@ -28,17 +28,22 @@ public class SpiritCap {
     private SType type = DataList.notype;
     public CState state = DataList.mortal;
 
-    public Set<SpellSlot> unlockedspells = new HashSet<>();
+    public Set<SpellSlot> unlockedspells = new HashSet<>(); //todo: nbt save/load unlocked spells and selected spells, using index
     public SpellSlot[] selectedspells = {DataList.fireball, DataList.snowshot, DataList.empty, DataList.empty, DataList.empty, DataList.empty};
 
     private int cultivation;
-    private float metalattunement;
-    private float waterattunement;
-    private float woodattunement;
-    private float fireattunement;
-    private float earthattunement;
+    private int metalattunement;
+    private int waterattunement;
+    private int woodattunement;
+    private int fireattunement;
+    private int earthattunement;
 
-    private float elementlimit = 250;
+    private int elementlimit = 100;
+
+    //unlocked mechanics section
+    public boolean canCast = false;
+    public boolean canCultivate = false;
+    public boolean hasSpiritRealm = false;
 
     public int getQi(){
         return qi;
@@ -53,13 +58,13 @@ public class SpiritCap {
     public String getAffinty(){return affinity;}
     public String getAffinty2(){return affinity2;}
     public SType getType(){return type;}
-    public float getCultivation(){return cultivation;}
-    public float getMetal(){return metalattunement;}
-    public float getWater(){return waterattunement;}
-    public float getWood(){return woodattunement;}
-    public float getFire(){return fireattunement;}
-    public float getEarth(){return earthattunement;}
-    public float getElementlimit(){return elementlimit;}
+    public int getCultivation(){return cultivation;}
+    public int getMetal(){return metalattunement;}
+    public int getWater(){return waterattunement;}
+    public int getWood(){return woodattunement;}
+    public int getFire(){return fireattunement;}
+    public int getEarth(){return earthattunement;}
+    public int getElementlimit(){return elementlimit;}
     public SpellSlot getSpellslot(int index){return selectedspells[index];}
 
     public SpellSlot[] getSelectedspells() {
@@ -135,64 +140,64 @@ public class SpiritCap {
         this.cultivation = Math.max(cultivation - sub, 0);
     }
 
-    public void setMetal(float set){
+    public void setMetal(int set){
         this.metalattunement = set;
     }
-    public void addMetal(float add){
+    public void addMetal(int add){
         this.metalattunement = Math.min(metalattunement + add, elementlimit);
     }
-    public void subMetal(float sub){
+    public void subMetal(int sub){
         this.metalattunement = Math.max(metalattunement - sub, 0);
     }
 
-    public void setWater(float set){
+    public void setWater(int set){
         this.waterattunement = set;
     }
-    public void addWater(float add){
-        this.waterattunement = Math.min( + add, elementlimit);
+    public void addWater(int add){
+        this.waterattunement = Math.min(waterattunement + add, elementlimit);
     }
-    public void subWater(float sub){
-        this.waterattunement = Math.max( - sub, 0);
+    public void subWater(int sub){
+        this.waterattunement = Math.max(waterattunement - sub, 0);
     }
 
-    public void setWood(float set){
+    public void setWood(int set){
         this.woodattunement = set;
     }
-    public void addWood(float add){
-        this.woodattunement = Math.min( + add, elementlimit);
+    public void addWood(int add){
+        this.woodattunement = Math.min(woodattunement + add, elementlimit);
     }
-    public void subWood(float sub){
-        this.woodattunement = Math.max( - sub, 0);
+    public void subWood(int sub){
+        this.woodattunement = Math.max(woodattunement - sub, 0);
     }
 
-    public void setFire(float set){
+    public void setFire(int set){
         this.fireattunement = set;
     }
-    public void addFire(float add){
-        this.fireattunement = Math.min( + add, elementlimit);
+    public void addFire(int add){
+        this.fireattunement = Math.min(fireattunement + add, elementlimit);
     }
-    public void subFire(float sub){
-        this.fireattunement = Math.max( - sub, 0);
+    public void subFire(int sub){
+        this.fireattunement = Math.max(fireattunement - sub, 0);
     }
 
-    public void setEarth(float set){
+    public void setEarth(int set){
         this.earthattunement = set;
     }
-    public void addEarth(float add){
-        this.earthattunement = Math.min( + add, elementlimit);
+    public void addEarth(int add){
+        this.earthattunement = Math.min(earthattunement + add, elementlimit);
     }
-    public void subEarth(float sub){
-        this.earthattunement = Math.max( - sub, 0);
+    public void subEarth(int sub){
+        this.earthattunement = Math.max(earthattunement - sub, 0);
     }
 
-    public void setElementlimit(float set){
+    public void setElementlimit(int set){
         this.elementlimit = set;
     }
-    public void addElementLimit(float add){
-        this.elementlimit = Math.min( + add, 1000);
+    public void addElementLimit(int add){
+        this.elementlimit = Math.min(elementlimit + add, 1000);
     }
-    public void subElementLimit(float sub){
-        this.elementlimit = Math.max( - sub, 0);
+    public void subElementLimit(int sub){
+        this.elementlimit = Math.max(elementlimit - sub, 0);
     }
 
 
@@ -239,12 +244,12 @@ public class SpiritCap {
         nbt.putFloat("spellcost", spellcost);
 
         nbt.putInt("cultivation", cultivation);
-        nbt.putFloat("metalattunement", metalattunement);
-        nbt.putFloat("waterattunement", waterattunement);
-        nbt.putFloat("woodattunement", woodattunement);
-        nbt.putFloat("fireattunement", fireattunement);
-        nbt.putFloat("earthattunement", earthattunement);
-        nbt.putFloat("elementlimit", elementlimit);
+        nbt.putInt("metalattunement", metalattunement);
+        nbt.putInt("waterattunement", waterattunement);
+        nbt.putInt("woodattunement", woodattunement);
+        nbt.putInt("fireattunement", fireattunement);
+        nbt.putInt("earthattunement", earthattunement);
+        nbt.putInt("elementlimit", elementlimit);
 
         CompoundTag spells = new CompoundTag();
 
@@ -267,12 +272,12 @@ public class SpiritCap {
         spellcost = nbt.getFloat("spellcost");
 
         cultivation = nbt.getInt("cultivation");
-        metalattunement = nbt.getFloat("metalattunement");
-        waterattunement = nbt.getFloat("waterattunement");
-        woodattunement = nbt.getFloat("woodattunement");
-        fireattunement = nbt.getFloat("fireattunement");
-        earthattunement = nbt.getFloat("earthattunement");
-        elementlimit = nbt.getFloat("elementlimit");
+        metalattunement = nbt.getInt("metalattunement");
+        waterattunement = nbt.getInt("waterattunement");
+        woodattunement = nbt.getInt("woodattunement");
+        fireattunement = nbt.getInt("fireattunement");
+        earthattunement = nbt.getInt("earthattunement");
+        elementlimit = nbt.getInt("elementlimit");
 
 
     }

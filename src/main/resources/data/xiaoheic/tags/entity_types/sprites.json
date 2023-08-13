@@ -1,0 +1,10 @@
+{
+  "values": [
+    "xiaoheic:sprite",
+	"xiaoheic:metalsprite",
+	"xiaoheic:watersprite",
+	"xiaoheic:woodsprite",
+	"xiaoheic:firesprite",
+	"xiaoheic:earthsprite"
+  ]
+}

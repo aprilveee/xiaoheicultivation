@@ -90,17 +90,16 @@ public class commands {
             case "spellcost": sp.setSpellcost(input); return 1;
 
             case "exp": sp.setCultivation((int) input); return 1;
-            case "metal": sp.setMetal(input); return 1;
-            case "water": sp.setWater(input); return 1;
-            case "wood": sp.setWood(input); return 1;
-            case "fire": sp.setFire(input); return 1;
-            case "earth": sp.setEarth(input); return 1;
+            case "metal": sp.setMetal((int) input); return 1;
+            case "water": sp.setWater((int) input); return 1;
+            case "wood": sp.setWood((int) input); return 1;
+            case "fire": sp.setFire((int) input); return 1;
+            case "earth": sp.setEarth((int) input); return 1;
 
-            case "elementlimit": sp.setElementlimit(input); return 1;
+            case "elementlimit": sp.setElementlimit((int) input); return 1;
             default:
                 player.sendSystemMessage(Component.literal("Invalid input"));
                 return 1;
-
         }
 
     }
