@@ -1,7 +1,7 @@
 package dev.aprilvee.xiaoheic.cultivation;
 
 import dev.aprilvee.xiaoheic.data.datatype.Element;
-import dev.aprilvee.xiaoheic.entity.Sprite;
+import dev.aprilvee.xiaoheic.entity.sprite.Sprite;
 import dev.aprilvee.xiaoheic.registry.tags;
 import dev.aprilvee.xiaoheic.util.ClinkerMathUtils;
 import dev.aprilvee.xiaoheic.util.xiaoheiutils;

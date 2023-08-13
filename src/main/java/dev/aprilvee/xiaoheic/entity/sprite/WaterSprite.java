@@ -1,5 +1,7 @@
-package dev.aprilvee.xiaoheic.entity;
+package dev.aprilvee.xiaoheic.entity.sprite;
 
+import dev.aprilvee.xiaoheic.capability.SpiritCap;
+import dev.aprilvee.xiaoheic.cultivation.Cultivation;
 import dev.aprilvee.xiaoheic.registry.entities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -9,39 +11,51 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraftforge.fluids.FluidType;
 
-public class WoodSprite extends PathfinderMob {
+public class WaterSprite extends PathfinderMob implements ISprite {
 
-    public WoodSprite(EntityType<WoodSprite> type, Level level) {
+    public WaterSprite(EntityType<WaterSprite> type, Level level) {
         super(type, level);
     }
 
-    public WoodSprite(Level level, double x, double y, double z){
-        this(entities.WOODSPRITE.get(), level);
+    public WaterSprite(Level level, double x, double y, double z){
+        this(entities.WATERSPRITE.get(), level);
         setPos(x,y,z);
     }
 
-    public WoodSprite(Level level, BlockPos position){
+    public WaterSprite(Level level, BlockPos position){
         this(level, position.getX(),position.getY(),position.getZ());
     }
 
     @Override
     protected void registerGoals() { //this is its ai!
-        this.goalSelector.addGoal(0, new FloatGoal(this)); //floats in water
+        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.6D, 40)); //swimmy
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.4D)); //float is stroll speed!
+    }
+
+    @Override
+    public boolean canDrownInFluidType(FluidType type){
+        return false;
     }
 
     public static AttributeSupplier.Builder createAttributes(){
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 2).add(Attributes.MOVEMENT_SPEED, 0.25);
     }// these are its misc attributes like speed and health!
 
-    public static boolean canSpawn(EntityType<WoodSprite> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random){
+    public static boolean canSpawn(EntityType<WaterSprite> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random){
         return Mob.checkMobSpawnRules(entityType, level, spawnType, pos, random);
     }
 
 
+    @Override
+    public void absorbSprite(SpiritCap sp, Player player) {
+        Cultivation.addCXP(player, 1);
+        sp.addWater(1);
+    }
 }

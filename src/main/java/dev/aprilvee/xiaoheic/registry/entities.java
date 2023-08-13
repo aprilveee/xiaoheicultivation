@@ -1,6 +1,7 @@
 package dev.aprilvee.xiaoheic.registry;
 
 import dev.aprilvee.xiaoheic.entity.*;
+import dev.aprilvee.xiaoheic.entity.sprite.*;
 import dev.aprilvee.xiaoheic.main;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;

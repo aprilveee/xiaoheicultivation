@@ -87,7 +87,7 @@ public class commands {
             case "spellresist": sp.setSpellresist(input); return 1;
             case "spellcost": sp.setSpellcost(input); return 1;
 
-            case "exp": sp.setCultivation((int) input); return 1;
+            case "cxp": sp.setCultivation((int) input); return 1;
             case "metal": sp.setMetal((int) input); return 1;
             case "water": sp.setWater((int) input); return 1;
             case "wood": sp.setWood((int) input); return 1;
@@ -96,7 +96,7 @@ public class commands {
 
             case "elementlimit": sp.setElementlimit((int) input); return 1;
             case "state": sp.state = Datalist.states[(int) input]; return 1;
-            case "type": sp.setType(Datalist.types[(int) input]);
+            case "type": sp.setType(Datalist.types[(int) input]); return 1;
             default:
                 player.sendSystemMessage(Component.literal("Invalid input"));
                 return 1;

@@ -1,8 +1,7 @@
 package dev.aprilvee.xiaoheic.client.render.model.sprites;
 
 import dev.aprilvee.xiaoheic.client.model.SpriteModel;
-import dev.aprilvee.xiaoheic.entity.MetalSprite;
-import dev.aprilvee.xiaoheic.entity.WaterSprite;
+import dev.aprilvee.xiaoheic.entity.sprite.WaterSprite;
 import dev.aprilvee.xiaoheic.main;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

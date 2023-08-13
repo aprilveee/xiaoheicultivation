@@ -6,6 +6,7 @@ import dev.aprilvee.xiaoheic.cultivation.Cultivation;
 import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
+import dev.aprilvee.xiaoheic.entity.sprite.ISprite;
 import dev.aprilvee.xiaoheic.main;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.CultivationS2C;
@@ -107,15 +108,8 @@ public class CommonEvents {
             if(event.getSide() == LogicalSide.SERVER){ //so the sync message doesn't crash in state rewards
 
                 SpiritCap sp = event.getEntity().getCapability(SpiritProvider.SPIRITCAP).orElse(null);
-                switch(event.getTarget().getType().toString()){ //see which sprite type
-                    case "entity.xiaoheic.sprite": event.getTarget().discard(); break;
-                    case "entity.xiaoheic.metalsprite": sp.addMetal(1); break;
-                    case "entity.xiaoheic.watersprite": sp.addWater(1); break;
-                    case "entity.xiaoheic.woodsprite": sp.addWood(1); break;
-                    case "entity.xiaoheic.firesprite": sp.addFire(1); event.getEntity().sendSystemMessage(Component.literal("fire:" + sp.getFire()));break;
-                    case "entity.xiaoheic.earthsprite": sp.addEarth(1); break;
-                }
-                Cultivation.addCXP(event.getEntity(), 1);
+                ISprite sprite = (ISprite) event.getTarget(); //WILL crash if entity is not a sprite
+                sprite.absorbSprite(sp, event.getEntity());
                 event.getTarget().discard();
             }
         }

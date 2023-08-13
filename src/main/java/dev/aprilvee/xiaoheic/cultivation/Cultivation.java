@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class Cultivation {
 
-    public static void cultivate(Player player, BlockPos pos){
+    public static void cultivate(Player player){
         //idk how tihs works yet do tihs later
         //todo: decide on how cultivation score works
         //is it all at once? or upon succeeding in the minigame? and what will the minigame even be?

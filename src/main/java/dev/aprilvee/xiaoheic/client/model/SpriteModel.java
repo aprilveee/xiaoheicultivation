@@ -3,7 +3,6 @@ package dev.aprilvee.xiaoheic.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import dev.aprilvee.xiaoheic.entity.Sprite;
 import dev.aprilvee.xiaoheic.main;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;

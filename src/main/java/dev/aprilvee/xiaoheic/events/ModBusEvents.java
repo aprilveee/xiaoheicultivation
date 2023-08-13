@@ -1,16 +1,11 @@
 package dev.aprilvee.xiaoheic.events;
 
-import dev.aprilvee.xiaoheic.command.commands;
-import dev.aprilvee.xiaoheic.entity.*;
+import dev.aprilvee.xiaoheic.entity.sprite.*;
 import dev.aprilvee.xiaoheic.main;
 import dev.aprilvee.xiaoheic.registry.entities;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
