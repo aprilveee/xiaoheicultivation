@@ -1,6 +1,6 @@
 package dev.aprilvee.xiaoheic.data.datatype;
 
-import dev.aprilvee.xiaoheic.data.DataList;
+import dev.aprilvee.xiaoheic.data.Datalist;
 import net.minecraft.network.chat.Component;
 
 public abstract class SpellSlot {
@@ -14,7 +14,7 @@ public abstract class SpellSlot {
     public int sustaintick;
 
     public Element element = Element.NONE;
-    public SType type = DataList.notype;
+    public SType type = Datalist.notype;
 
     public boolean isSpell;
     public boolean holdable = false;

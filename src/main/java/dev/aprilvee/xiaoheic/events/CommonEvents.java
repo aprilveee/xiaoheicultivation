@@ -3,10 +3,9 @@ package dev.aprilvee.xiaoheic.events;
 import dev.aprilvee.xiaoheic.capability.*;
 import dev.aprilvee.xiaoheic.command.commands;
 import dev.aprilvee.xiaoheic.cultivation.Cultivation;
-import dev.aprilvee.xiaoheic.data.DataList;
+import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
-import dev.aprilvee.xiaoheic.entity.Sprite;
 import dev.aprilvee.xiaoheic.main;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.CultivationS2C;
@@ -83,7 +82,7 @@ public class CommonEvents {
     public static void onProjectileImpact(ProjectileImpactEvent event){
         if(event.getProjectile() instanceof BasicSpell){
             BasicSpell spell = (BasicSpell) event.getProjectile();
-            SpellType type = DataList.spells[spell.getIndex()];
+            SpellType type = Datalist.spells[spell.getIndex()];
 
             /*if(event.getRayTraceResult().getType() == HitResult.Type.ENTITY){
                 switch (type.id){
@@ -105,7 +104,7 @@ public class CommonEvents {
     @SubscribeEvent //give cultivation when rclicking a sprite, then despawn the sprite
     public static void onEntityRightClick(PlayerInteractEvent.EntityInteractSpecific event){
         if(event.getTarget().getType().getTags().toList().contains(tags.sprites)){ //if entity is a sprite
-            if(event.getSide() == LogicalSide.SERVER){ //so the sync message doesn't crash in addCXP
+            if(event.getSide() == LogicalSide.SERVER){ //so the sync message doesn't crash in state rewards
 
                 SpiritCap sp = event.getEntity().getCapability(SpiritProvider.SPIRITCAP).orElse(null);
                 switch(event.getTarget().getType().toString()){ //see which sprite type

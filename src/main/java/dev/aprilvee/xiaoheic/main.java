@@ -6,7 +6,7 @@ import dev.aprilvee.xiaoheic.registry.entities;
 import dev.aprilvee.xiaoheic.registry.items;
 import dev.aprilvee.xiaoheic.registry.misc;
 import com.mojang.logging.LogUtils;
-import dev.aprilvee.xiaoheic.data.DataList;
+import dev.aprilvee.xiaoheic.data.Datalist;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -54,7 +54,7 @@ public class main
         // Register the commonSetup method for modloading
         bus.addListener(this::commonSetup);
 
-        DataList.init();
+        Datalist.init();
         blocks.BLOCKS.register(bus);
         items.ITEMS.register(bus);
         entities.ENTITIES.register(bus);

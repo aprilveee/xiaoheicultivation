@@ -1,10 +1,7 @@
 package dev.aprilvee.xiaoheic.capability;
 
-import dev.aprilvee.xiaoheic.data.DataList;
-import dev.aprilvee.xiaoheic.data.datatype.SType;
-import dev.aprilvee.xiaoheic.data.datatype.SpellSlot;
-import dev.aprilvee.xiaoheic.data.datatype.SpellType;
-import dev.aprilvee.xiaoheic.data.datatype.CState;
+import dev.aprilvee.xiaoheic.data.Datalist;
+import dev.aprilvee.xiaoheic.data.datatype.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
@@ -27,21 +24,20 @@ public class SpiritCap {
 
     private String affinity = "none";
     private String affinity2 = "none";
-    private SType type = DataList.notype;
-    public CState state = DataList.mortal;
+    private SType type = Datalist.notype;
+    public IState state = Datalist.mortal;
 
     //todo: nbt save/load unlocked spells and selected spells, using index
     public Set<SpellSlot> unlockedspells = new HashSet<>();
-    public SpellSlot[] selectedspells = {DataList.fireball, DataList.snowshot, DataList.empty, DataList.empty, DataList.empty, DataList.empty};
+    public SpellSlot[] selectedspells = {Datalist.fireball, Datalist.snowshot, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty};
 
     private int cultivation;
+    private int elementlimit = 100;
     private int metalattunement;
     private int waterattunement;
     private int woodattunement;
     private int fireattunement;
     private int earthattunement;
-
-    private int elementlimit = 100;
 
     //unlocked mechanics section
     public boolean canCultivate = false;
@@ -76,6 +72,9 @@ public class SpiritCap {
         return unlockedspells;
     }
 
+    public void setState(IState state) {
+        this.state = state;
+    }
 
     public int getQiRegen(){
         return( (int)((this.maxqi/160 + (Math.pow(this.maxqi,0.48)) )* this.qiregen) - 5 );
@@ -241,7 +240,7 @@ public class SpiritCap {
         nbt.putString("affinity", affinity);
         nbt.putString("affinity2", affinity2);
         nbt.putInt("type", type.index);
-        nbt.putInt("state", state.index);
+        nbt.putInt("state", state.getIndex());
 
         nbt.putBoolean("cancultivate",canCultivate);
         nbt.putBoolean("hasspiritrealm",hasSpiritRealm);
@@ -271,8 +270,8 @@ public class SpiritCap {
 
         affinity = nbt.getString("affinity");
         affinity2 = nbt.getString("affinity2");
-        type = DataList.types[nbt.getInt("type")];
-        state = DataList.states[nbt.getInt("state")];
+        type = Datalist.types[nbt.getInt("type")];
+        state = Datalist.states[nbt.getInt("state")];
 
         canCultivate = nbt.getBoolean("cancultivate");
         hasSpiritRealm = nbt.getBoolean("hasspiritrealm");

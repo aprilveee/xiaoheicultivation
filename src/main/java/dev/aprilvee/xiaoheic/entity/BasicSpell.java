@@ -1,8 +1,8 @@
 package dev.aprilvee.xiaoheic.entity;
 
+import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.spell.SpellEffects;
 import dev.aprilvee.xiaoheic.registry.entities;
-import dev.aprilvee.xiaoheic.data.DataList;
 import net.minecraft.core.Position;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -45,7 +45,7 @@ public class BasicSpell extends Projectile {
     public void tick() { // DataList.spells[this.entityData.get(index)]
         super.tick();
 
-        if (this.lifetime >= DataList.spells[this.getIndex()].lifetime) {
+        if (this.lifetime >= Datalist.spells[this.getIndex()].lifetime) {
             this.discard();
         }
 
@@ -86,7 +86,7 @@ public class BasicSpell extends Projectile {
                 this.onHit(hitresult);
                 //this.hasImpulse = true;
             }
-                this.level().addParticle(DataList.spells[this.entityData.get(index)].particle, hitpos.x, hitpos.y, hitpos.z, velocity.x/20, velocity.y/20, velocity.z/20);
+                this.level().addParticle(Datalist.spells[this.entityData.get(index)].particle, hitpos.x, hitpos.y, hitpos.z, velocity.x/20, velocity.y/20, velocity.z/20);
 
             if (entityhitresult == null) {
                 break;
@@ -120,7 +120,7 @@ public class BasicSpell extends Projectile {
     protected void onHitEntity(EntityHitResult ray) {
         if(ray.getEntity() != this.getOwner()) {
             super.onHitEntity(ray);
-                switch (DataList.spells[this.getIndex()].id) {
+                switch (Datalist.spells[this.getIndex()].id) {
                     case "fireball" -> {
                         SpellEffects.fireballEntity(this.getOwner(), ray.getEntity());
                         this.discard();
@@ -138,7 +138,7 @@ public class BasicSpell extends Projectile {
     protected void onHitBlock(BlockHitResult hit){
         super.onHitBlock(hit);
 
-        switch (DataList.spells[this.getIndex()].id) {
+        switch (Datalist.spells[this.getIndex()].id) {
             case "fireball" -> {
                 SpellEffects.fireballBlock(this.getOwner(), hit.getBlockPos());
                 this.discard();

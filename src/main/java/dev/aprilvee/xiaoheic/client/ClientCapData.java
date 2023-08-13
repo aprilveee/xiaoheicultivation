@@ -1,6 +1,6 @@
 package dev.aprilvee.xiaoheic.client;
 
-import dev.aprilvee.xiaoheic.data.DataList;
+import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.data.datatype.SpellSlot;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -23,7 +23,7 @@ public class ClientCapData {
     private static float earthattunement;
 
     private static Set<SpellSlot> unlockedspells = new HashSet<>();
-    private static SpellSlot[] selectedspells = {DataList.fireball, DataList.snowshot, DataList.empty, DataList.empty, DataList.empty, DataList.empty};
+    private static SpellSlot[] selectedspells = {Datalist.fireball, Datalist.snowshot, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty};
 
     public static int getQi(){
         return qi;

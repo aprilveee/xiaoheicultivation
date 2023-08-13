@@ -7,8 +7,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.cultivation.EnvironmentQi;
-import dev.aprilvee.xiaoheic.data.DataList;
-import dev.aprilvee.xiaoheic.data.datatype.Element;
+import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
 import dev.aprilvee.xiaoheic.network.packet.QiSyncS2C;
@@ -96,8 +95,8 @@ public class commands {
             case "earth": sp.setEarth((int) input); return 1;
 
             case "elementlimit": sp.setElementlimit((int) input); return 1;
-            case "state": sp.state = DataList.states[(int) input]; return 1;
-            case "type": sp.setType(DataList.types[(int) input]);
+            case "state": sp.state = Datalist.states[(int) input]; return 1;
+            case "type": sp.setType(Datalist.types[(int) input]);
             default:
                 player.sendSystemMessage(Component.literal("Invalid input"));
                 return 1;

@@ -1,15 +1,14 @@
 package dev.aprilvee.xiaoheic.data;
 
 import dev.aprilvee.xiaoheic.data.datatype.*;
+import dev.aprilvee.xiaoheic.data.states.AttunementState;
+import dev.aprilvee.xiaoheic.data.states.MortalState;
+import dev.aprilvee.xiaoheic.data.states.RealmShapingState;
+import dev.aprilvee.xiaoheic.data.states.SpriteState;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 
-public class DataList {
-
-    public static CState mortal;
-    public static CState sprite;
-    public static CState attunement;
-    public static CState realmshaping;
+public class Datalist {
 
     public static SpellType empty;
     public static SpellType fireball;
@@ -25,42 +24,18 @@ public class DataList {
 
     public static Affinity[] affinities;
     public static SType[] types;
-    public static CState[] states;
     public static SpellType[] spells;
+
+    public static IState mortal = new MortalState();
+    public static IState sprite = new SpriteState();
+    public static IState attunement = new AttunementState();
+    public static IState realmshaping = new RealmShapingState();
+
+    public static IState[] states = {mortal, sprite, attunement, realmshaping};
 
     public static void init(){
         initializeSpells();
-        initializeStates();
         initializeTypes();
-    }
-
-    public static void initializeStates(){
-
-        mortal = new CState();
-
-        mortal.index = 0;
-        mortal.id = "mortal";
-        mortal.limit = 1;
-
-        sprite = new CState();
-        sprite.index = 1;
-        sprite.id = "sprite";
-        sprite.limit = 120;
-
-        attunement = new CState();
-        attunement.index = 2;
-        attunement.id = "attunement";
-        attunement.limit = 380;
-        attunement.hasLimit = true;
-
-        realmshaping = new CState();
-        realmshaping.index = 3;
-        realmshaping.id = "realmshaping";
-        realmshaping.limit = 1000;
-        realmshaping.hasLimit = true;
-
-        states = new CState[]{mortal, sprite, attunement, realmshaping};
-
     }
 
     public static void initializeSpells(){

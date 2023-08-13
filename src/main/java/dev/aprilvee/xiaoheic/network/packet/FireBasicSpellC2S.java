@@ -2,8 +2,8 @@ package dev.aprilvee.xiaoheic.network.packet;
 
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
+import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
-import dev.aprilvee.xiaoheic.data.DataList;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
@@ -20,7 +20,7 @@ public class FireBasicSpellC2S {
     }
 
     public FireBasicSpellC2S(FriendlyByteBuf buf){
-        this.type = DataList.spells[buf.readInt()];
+        this.type = Datalist.spells[buf.readInt()];
     }
 
     public void toBytes(FriendlyByteBuf buf){
