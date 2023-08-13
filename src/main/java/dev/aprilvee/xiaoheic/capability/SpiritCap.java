@@ -16,6 +16,8 @@ import java.util.Set;
 public class SpiritCap {
     private int qi;
     private int maxqi;
+    public int primalqi;
+    public int maxprimalqi;
 
     private float maxqiX = 1; //these 5 are multipliers, be careful with them! strong!
     private float qiregen = 1;
@@ -28,7 +30,8 @@ public class SpiritCap {
     private SType type = DataList.notype;
     public CState state = DataList.mortal;
 
-    public Set<SpellSlot> unlockedspells = new HashSet<>(); //todo: nbt save/load unlocked spells and selected spells, using index
+    //todo: nbt save/load unlocked spells and selected spells, using index
+    public Set<SpellSlot> unlockedspells = new HashSet<>();
     public SpellSlot[] selectedspells = {DataList.fireball, DataList.snowshot, DataList.empty, DataList.empty, DataList.empty, DataList.empty};
 
     private int cultivation;
@@ -41,7 +44,6 @@ public class SpiritCap {
     private int elementlimit = 100;
 
     //unlocked mechanics section
-    public boolean canCast = false;
     public boolean canCultivate = false;
     public boolean hasSpiritRealm = false;
 
@@ -84,23 +86,24 @@ public class SpiritCap {
 
     public void setQi(int set){
         this.qi = set;
-    }
+    } //SYNC WITH CLIENT AFTER USING!!!!
     public void addQi(int add){
         this.qi = Math.min(qi + add, Integer.MAX_VALUE);
-    }
+    } //SYNC WITH CLIENT AFTER USING!!!!
     public void subQi(int sub){
         this.qi = Math.max(qi - sub, 0);
     }
 
-    public void setMaxqi(int set){
+
+    public void setMaxQi(int set){ //SYNC WITH CLIENT AFTER USING!!!!
         this.maxqi = set;
     }
-    public void addMaxQi(int add){
+    public void addMaxQi(int add){ //SYNC WITH CLIENT AFTER USING!!!!!
         this.maxqi = Math.min(qi + add, Integer.MAX_VALUE);
     }
     public void subMaxQi(int sub){
         this.maxqi = Math.max(qi - sub, 0);
-    }
+    } //SYNC WITH CLIENT AFTER USING!!!!
 
     public void setMaxqiX(float set){this.maxqiX = set;}
     public void setQiregen(float set){this.qiregen = set;}
@@ -214,6 +217,9 @@ public class SpiritCap {
         this.selectedspells = source.selectedspells;
         this.unlockedspells = source.unlockedspells;
 
+        this.canCultivate = source.canCultivate;
+        this.hasSpiritRealm = source.hasSpiritRealm;
+
         this.cultivation = source.cultivation;
         this.metalattunement = source.metalattunement;
         this.waterattunement = source.waterattunement;
@@ -236,6 +242,9 @@ public class SpiritCap {
         nbt.putString("affinity2", affinity2);
         nbt.putInt("type", type.index);
         nbt.putInt("state", state.index);
+
+        nbt.putBoolean("cancultivate",canCultivate);
+        nbt.putBoolean("hasspiritrealm",hasSpiritRealm);
 
         nbt.putFloat("maxqiX", maxqiX);
         nbt.putFloat("qiregen", qiregen);
@@ -264,6 +273,9 @@ public class SpiritCap {
         affinity2 = nbt.getString("affinity2");
         type = DataList.types[nbt.getInt("type")];
         state = DataList.states[nbt.getInt("state")];
+
+        canCultivate = nbt.getBoolean("cancultivate");
+        hasSpiritRealm = nbt.getBoolean("hasspiritrealm");
 
         maxqiX = nbt.getFloat("maxqiX");
         qiregen = nbt.getFloat("qiregen");

@@ -7,6 +7,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.cultivation.EnvironmentQi;
+import dev.aprilvee.xiaoheic.data.DataList;
 import dev.aprilvee.xiaoheic.data.datatype.Element;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
@@ -53,7 +54,7 @@ public class commands {
     }
     public static int setmaxqi(ServerPlayer player, int input){
         SpiritCap qi = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
-        qi.setMaxqi(input);
+        qi.setMaxQi(input);
         Messages.sendToClient(new MaxQiS2C(qi.getMaxqi()), player);
         return 1;
     }
@@ -66,8 +67,6 @@ public class commands {
             case "enviroqi":
                 plaer.sendSystemMessage(Component.literal(Arrays.toString(EnvironmentQi.getQi(EnvironmentQi.getEnviroQi(plaer.blockPosition(), plaer.level(),input),input))));
                 return 1;
-            case "spawnsprite":
-                EnvironmentQi.canSpawnSprite(plaer.blockPosition(), plaer.level(), Element.NONE);
             case "channelspirit":
                 EnvironmentQi.channelSpirit(plaer.blockPosition(), plaer.level(), input);
                 return 1;
@@ -81,7 +80,7 @@ public class commands {
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         switch (value){
             case "qi": sp.setQi((int) input);Messages.sendToClient(new QiSyncS2C(sp.getQi()), player);return 1;
-            case "maxqi": sp.setMaxqi((int) input);Messages.sendToClient(new MaxQiS2C(sp.getMaxqi()), player); return 1;
+            case "maxqi": sp.setMaxQi((int) input);Messages.sendToClient(new MaxQiS2C(sp.getMaxqi()), player); return 1;
 
             case "maxqix": sp.setMaxqiX(input); return 1;
             case "qiregen": sp.setQiregen(input); return 1;
@@ -97,6 +96,8 @@ public class commands {
             case "earth": sp.setEarth((int) input); return 1;
 
             case "elementlimit": sp.setElementlimit((int) input); return 1;
+            case "state": sp.state = DataList.states[(int) input]; return 1;
+            case "type": sp.setType(DataList.types[(int) input]);
             default:
                 player.sendSystemMessage(Component.literal("Invalid input"));
                 return 1;

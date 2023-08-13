@@ -104,21 +104,23 @@ public class CommonEvents {
 
     @SubscribeEvent //give cultivation when rclicking a sprite, then despawn the sprite
     public static void onEntityRightClick(PlayerInteractEvent.EntityInteractSpecific event){
-        if(event.getTarget().getType().getTags().toList().contains(tags.sprites)){
+        if(event.getTarget().getType().getTags().toList().contains(tags.sprites)){ //if entity is a sprite
+            if(event.getSide() == LogicalSide.SERVER){ //so the sync message doesn't crash in addCXP
 
-            SpiritCap sp = event.getEntity().getCapability(SpiritProvider.SPIRITCAP).orElse(null);
-            Cultivation.addCXP(event.getEntity(), 1);
-            event.getEntity().sendSystemMessage(Component.literal(event.getTarget().getType().toString()));
-            switch(event.getTarget().getType().toString()){
-                case "entity.xiaoheic.sprite": event.getTarget().discard(); break;
-                case "entity.xiaoheic.metalsprite": sp.addMetal(1); break;
-                case "entity.xiaoheic.watersprite": sp.addWater(1); break;
-                case "entity.xiaoheic.woodsprite": sp.addWood(1); break;
-                case "entity.xiaoheic.firesprite": sp.addFire(1); event.getEntity().sendSystemMessage(Component.literal("fire:" + sp.getFire()));break;
-                case "entity.xiaoheic.earthsprite": sp.addEarth(1); break;
+                SpiritCap sp = event.getEntity().getCapability(SpiritProvider.SPIRITCAP).orElse(null);
+                switch(event.getTarget().getType().toString()){ //see which sprite type
+                    case "entity.xiaoheic.sprite": event.getTarget().discard(); break;
+                    case "entity.xiaoheic.metalsprite": sp.addMetal(1); break;
+                    case "entity.xiaoheic.watersprite": sp.addWater(1); break;
+                    case "entity.xiaoheic.woodsprite": sp.addWood(1); break;
+                    case "entity.xiaoheic.firesprite": sp.addFire(1); event.getEntity().sendSystemMessage(Component.literal("fire:" + sp.getFire()));break;
+                    case "entity.xiaoheic.earthsprite": sp.addEarth(1); break;
+                }
+                Cultivation.addCXP(event.getEntity(), 1);
+                event.getTarget().discard();
             }
-            event.getTarget().discard();
         }
+
     }
 
     @SubscribeEvent
