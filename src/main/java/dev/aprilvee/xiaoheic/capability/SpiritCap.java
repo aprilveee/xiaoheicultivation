@@ -29,9 +29,9 @@ public class SpiritCap {
 
     //todo: nbt save/load unlocked spells and selected spells, using index
     public Set<SpellSlot> unlockedspells = new HashSet<>();
-    public SpellSlot[] selectedspells = {Datalist.fireball, Datalist.snowshot, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty};
+    public SpellSlot[] selectedspells = {Datalist.fireballold, Datalist.snowshot, Datalist.emptyold, Datalist.emptyold, Datalist.emptyold, Datalist.emptyold};
 
-    private int cultivation;
+    private float cultivation;
     private int elementlimit = 100;
     private int metalattunement;
     private int waterattunement;
@@ -56,7 +56,7 @@ public class SpiritCap {
     public String getAffinty(){return affinity;}
     public String getAffinty2(){return affinity2;}
     public SType getType(){return type;}
-    public int getCultivation(){return cultivation;}
+    public float getCultivation(){return cultivation;}
     public int getMetal(){return metalattunement;}
     public int getWater(){return waterattunement;}
     public int getWood(){return woodattunement;}
@@ -132,13 +132,13 @@ public class SpiritCap {
     public void addSpell(SpellType spell){ this.unlockedspells.add(spell);}
     public boolean hasSpell(SpellType spell){return this.unlockedspells.contains(spell);}
 
-    public void setCultivation(int set){
+    public void setCultivation(float set){
         this.cultivation = set;
     }
-    public void addCultivation(int add){
+    public void addCultivation(float add){
         this.cultivation = Math.min(cultivation + add, Integer.MAX_VALUE);
     }
-    public void subCultivation(int sub){
+    public void subCultivation(float sub){
         this.cultivation = Math.max(cultivation - sub, 0);
     }
 
@@ -251,7 +251,7 @@ public class SpiritCap {
         nbt.putFloat("spellresist", spellresist);
         nbt.putFloat("spellcost", spellcost);
 
-        nbt.putInt("cultivation", cultivation);
+        nbt.putFloat("cultivation", cultivation);
         nbt.putInt("metalattunement", metalattunement);
         nbt.putInt("waterattunement", waterattunement);
         nbt.putInt("woodattunement", woodattunement);
@@ -282,7 +282,7 @@ public class SpiritCap {
         spellresist = nbt.getFloat("spellresist");
         spellcost = nbt.getFloat("spellcost");
 
-        cultivation = nbt.getInt("cultivation");
+        cultivation = nbt.getFloat("cultivation");
         metalattunement = nbt.getInt("metalattunement");
         waterattunement = nbt.getInt("waterattunement");
         woodattunement = nbt.getInt("woodattunement");

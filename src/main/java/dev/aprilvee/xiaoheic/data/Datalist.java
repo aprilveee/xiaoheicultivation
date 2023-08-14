@@ -1,17 +1,19 @@
 package dev.aprilvee.xiaoheic.data;
 
 import dev.aprilvee.xiaoheic.data.datatype.*;
-import dev.aprilvee.xiaoheic.data.states.AttunementState;
-import dev.aprilvee.xiaoheic.data.states.MortalState;
-import dev.aprilvee.xiaoheic.data.states.RealmShapingState;
-import dev.aprilvee.xiaoheic.data.states.SpriteState;
+import dev.aprilvee.xiaoheic.data.spell.EmptySpell;
+import dev.aprilvee.xiaoheic.data.spell.FireballSpell;
+import dev.aprilvee.xiaoheic.data.state.AttunementState;
+import dev.aprilvee.xiaoheic.data.state.MortalState;
+import dev.aprilvee.xiaoheic.data.state.RealmShapingState;
+import dev.aprilvee.xiaoheic.data.state.SpriteState;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 
 public class Datalist {
-
-    public static SpellType empty;
-    public static SpellType fireball;
+    //todo: rework most of these to use interfaces, clean up the messy datatype folder
+    public static SpellType emptyold;
+    public static SpellType fireballold;
     public static SpellType snowshot;
 
     public static SType notype;
@@ -22,16 +24,20 @@ public class Datalist {
     public static SType mind;
     public static SType spatial;
 
-    public static Affinity[] affinities;
-    public static SType[] types;
-    public static SpellType[] spells;
+    public static ICastable empty = new EmptySpell();
+    public static ICastable fireball = new FireballSpell();
 
     public static IState mortal = new MortalState();
     public static IState sprite = new SpriteState();
     public static IState attunement = new AttunementState();
     public static IState realmshaping = new RealmShapingState();
 
+    public static ICastable[] spells = {empty, fireball};
     public static IState[] states = {mortal, sprite, attunement, realmshaping};
+
+    public static Affinity[] affinities;
+    public static SType[] types;
+    public static SpellType[] spellsold;
 
     public static void init(){
         initializeSpells();
@@ -39,35 +45,35 @@ public class Datalist {
     }
 
     public static void initializeSpells(){
-        empty = new SpellType();
-        empty.index = 0;
-        empty.name = Component.translatable("spell.xiaoheic.none");
-        empty.id = "none";
-        empty.qiCost = 0;
-        empty.pQiCost = 0;
-        empty.isSpell = false;
-        empty.firingtype = "none";
-        empty.element = Element.NONE;
-        empty.offensive = false;
-        empty.particle = ParticleTypes.EFFECT;
+        emptyold = new SpellType();
+        emptyold.index = 0;
+        emptyold.name = Component.translatable("spell.xiaoheic.none");
+        emptyold.id = "none";
+        emptyold.qiCost = 0;
+        emptyold.pQiCost = 0;
+        emptyold.isSpell = false;
+        emptyold.firingtype = "none";
+        emptyold.element = Element.NONE;
+        emptyold.offensive = false;
+        emptyold.particle = ParticleTypes.EFFECT;
 
-        fireball = new SpellType();
-        fireball.index = 1;
-        fireball.name = Component.translatable("spell.xiaoheic.fireball");
-        fireball.id = "fireball";
-        fireball.qiCost = 250;
-        fireball.pQiCost = 0.02f;
-        fireball.isSpell = true;
-        fireball.casttype = CastType.activespell;
-        fireball.firingtype = "proj"; ////
-        fireball.projcount = 1;
-        fireball.accuracy = 2;
-        fireball.gravity = 0;
-        fireball.flyspeed = 1.5F;
-        fireball.lifetime = 400; ////
-        fireball.element = Element.FIRE;
-        fireball.offensive = true;
-        fireball.particle = ParticleTypes.FLAME;
+        fireballold = new SpellType();
+        fireballold.index = 1;
+        fireballold.name = Component.translatable("spell.xiaoheic.fireball");
+        fireballold.id = "fireball";
+        fireballold.qiCost = 250;
+        fireballold.pQiCost = 0.02f;
+        fireballold.isSpell = true;
+        fireballold.casttype = CastType.activespell;
+        fireballold.firingtype = "proj"; ////
+        fireballold.projcount = 1;
+        fireballold.accuracy = 2;
+        fireballold.gravity = 0;
+        fireballold.flyspeed = 1.5F;
+        fireballold.lifetime = 400; ////
+        fireballold.element = Element.FIRE;
+        fireballold.offensive = true;
+        fireballold.particle = ParticleTypes.FLAME;
 
         snowshot = new SpellType();
         snowshot.index = 2;
@@ -87,7 +93,7 @@ public class Datalist {
         snowshot.offensive = true;
         snowshot.particle = ParticleTypes.SNOWFLAKE;
 
-        spells = new SpellType[]{empty, fireball, snowshot};
+        spellsold = new SpellType[]{emptyold, fireballold, snowshot};
     }
 
     public static void initializeTypes(){

@@ -32,7 +32,7 @@ public class HandleCastC2S {
             ServerLevel level = player.serverLevel();
             SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
 
-            if(sp.selectedspells[key] instanceof SpellType type){
+            if(sp.selectedspells[key] instanceof SpellType type){ //todo: update spelltype to icastable
 
                 switch (type.firingtype){
                     case "proj":

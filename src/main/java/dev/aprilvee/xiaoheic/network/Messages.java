@@ -46,11 +46,6 @@ public class Messages {
                 .encoder(CultivationS2C::toBytes)
                 .consumerMainThread(CultivationS2C::handle)
                 .add();
-        net.messageBuilder(FireBasicSpellC2S.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(FireBasicSpellC2S::new)
-                .encoder(FireBasicSpellC2S::toBytes)
-                .consumerMainThread(FireBasicSpellC2S::handle)
-                .add();
         net.messageBuilder(HandleCastC2S.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(HandleCastC2S::new)
                 .encoder(HandleCastC2S::toBytes)

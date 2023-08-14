@@ -2,8 +2,8 @@ package dev.aprilvee.xiaoheic.entity;
 
 import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.data.datatype.IProjectileSpell;
-import dev.aprilvee.xiaoheic.spell.SpellEffects;
 import dev.aprilvee.xiaoheic.registry.entities;
+import dev.aprilvee.xiaoheic.spell.SpellEffects;
 import net.minecraft.core.Position;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -25,30 +25,25 @@ import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
-public class BasicSpell extends Projectile {
-    private static EntityDataAccessor<Integer> index = SynchedEntityData.defineId(BasicSpell.class, EntityDataSerializers.INT);
-    public int lifetime = 0;
+public class BasicSpellOld extends Projectile {
+    private static EntityDataAccessor<Integer> index = SynchedEntityData.defineId(BasicSpellOld.class, EntityDataSerializers.INT);
+    private int lifetime = 0;
 
-    public BasicSpell(EntityType<BasicSpell> entity, Level level) {
+    public BasicSpellOld(EntityType<BasicSpellOld> entity, Level level) {
         super(entity, level);
     }
 
-    public BasicSpell(Level level, double x, double y, double z) {
-        this(entities.BASIC_SPELL.get(), level);
-        setPos(x, y, z);
-    }
 
-    public BasicSpell(Level level, Position position, int ind) {
-        this(level, position.x(), position.y(), position.z());
-        this.entityData.set(index, ind);
-    }
 
     public void tick() { // DataList.spells[this.entityData.get(index)]
         super.tick();
 
+        if (this.lifetime >= Datalist.spellsold[this.getIndex()].lifetime) {
+            this.discard();
+        }
+
         //CRASHES IF NONPROJECTILE
-        IProjectileSpell spell = (IProjectileSpell) Datalist.spells[this.entityData.get(index)];
-        spell.basicProjTick(this);
+        IProjectileSpell spell = (IProjectileSpell) Datalist.spells[this.getIndex()];
 
         Vec3 pos = this.position();
         Vec3 velocity = this.getDeltaMovement();
@@ -87,7 +82,7 @@ public class BasicSpell extends Projectile {
                 this.onHit(hitresult);
                 //this.hasImpulse = true;
             }
-
+                this.level().addParticle(Datalist.spellsold[this.entityData.get(index)].particle, hitpos.x, hitpos.y, hitpos.z, velocity.x/20, velocity.y/20, velocity.z/20);
 
             if (entityhitresult == null) {
                 break;
@@ -95,6 +90,7 @@ public class BasicSpell extends Projectile {
 
             hitresult = null;
         }
+
 
         ProjectileUtil.rotateTowardsMovement(this, 0.2F);
         this.setPos(newpos.x, newpos.y, newpos.z);
@@ -122,8 +118,6 @@ public class BasicSpell extends Projectile {
             super.onHitEntity(ray);
 
             IProjectileSpell spell = (IProjectileSpell) Datalist.spells[this.entityData.get(index)];
-            spell.entityHit(ray.getEntity(), this.getOwner(), this);
-            this.discard();
 
             /*switch (Datalist.spellsold[this.getIndex()].id) {
                 case "fireball" -> {
@@ -143,8 +137,14 @@ public class BasicSpell extends Projectile {
     protected void onHitBlock(BlockHitResult hit){
         super.onHitBlock(hit);
 
+        switch (Datalist.spellsold[this.getIndex()].id) {
+            case "fireball" -> {
+                SpellEffects.fireballBlock(this.getOwner(), hit.getBlockPos());
                 this.discard();
-
+            }
+            case "snowshot" -> SpellEffects.snowshotB(this.getOwner(), hit.getBlockPos());
+            default -> this.discard();
+        }
     }
 
 

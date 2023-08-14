@@ -2,7 +2,6 @@ package dev.aprilvee.xiaoheic.events;
 
 import dev.aprilvee.xiaoheic.capability.*;
 import dev.aprilvee.xiaoheic.command.commands;
-import dev.aprilvee.xiaoheic.cultivation.Cultivation;
 import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
@@ -13,7 +12,6 @@ import dev.aprilvee.xiaoheic.network.packet.CultivationS2C;
 import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
 import dev.aprilvee.xiaoheic.network.packet.QiSyncS2C;
 import dev.aprilvee.xiaoheic.registry.tags;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -83,7 +81,7 @@ public class CommonEvents {
     public static void onProjectileImpact(ProjectileImpactEvent event){
         if(event.getProjectile() instanceof BasicSpell){
             BasicSpell spell = (BasicSpell) event.getProjectile();
-            SpellType type = Datalist.spells[spell.getIndex()];
+            SpellType type = Datalist.spellsold[spell.getIndex()];
 
             /*if(event.getRayTraceResult().getType() == HitResult.Type.ENTITY){
                 switch (type.id){

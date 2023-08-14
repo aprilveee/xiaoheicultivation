@@ -2,9 +2,6 @@ package dev.aprilvee.xiaoheic.cultivation;
 
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
-import dev.aprilvee.xiaoheic.data.Datalist;
-import dev.aprilvee.xiaoheic.data.states.SpriteState;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
@@ -17,7 +14,7 @@ public class Cultivation {
         //perhaps there's different methods of cultivation one can learn? maybe they have different minigames and scores?
     }
 
-    public static void addCXP(Player player, int amt){ //add cultivation xp
+    public static void addCXP(Player player, float amt){ //add cultivation xp
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         sp.addCultivation(amt);
         checkLimit(player);

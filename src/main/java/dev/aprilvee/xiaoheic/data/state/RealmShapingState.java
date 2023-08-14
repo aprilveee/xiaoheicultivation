@@ -1,37 +1,31 @@
-package dev.aprilvee.xiaoheic.data.states;
+package dev.aprilvee.xiaoheic.data.state;
 
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.data.datatype.IState;
-import dev.aprilvee.xiaoheic.network.Messages;
-import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
-public class SpriteState implements IState {
-    public int index = 1;
+public class RealmShapingState implements IState {
+    public int index = 3;
     public Component name = null;
-    public String id = "sprite";
-    public int limit = 40;
+    public String id = "realmshaping";
+    public int limit = 400;
 
     @Override
     public boolean limitBroken(Player player) {
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
-        return sp.getCultivation() >= limit;
+        return false;
     }
 
     @Override
     public void stateReached(Player player) {
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
-        sp.addMaxQi(50);
-        Messages.sendToClient(new MaxQiS2C(sp.getMaxqi()), player.getServer().getPlayerList().getPlayer(player.getUUID()));
-
     }
 
-    @Override
     public IState advanceState() {
-        return Datalist.attunement;
+        return Datalist.realmshaping;
     }
 
     @Override
@@ -56,6 +50,6 @@ public class SpriteState implements IState {
 
     @Override
     public boolean isFinalstate() {
-        return false;
+        return true;
     }
 }

@@ -87,7 +87,7 @@ public class commands {
             case "spellresist": sp.setSpellresist(input); return 1;
             case "spellcost": sp.setSpellcost(input); return 1;
 
-            case "cxp": sp.setCultivation((int) input); return 1;
+            case "cxp": sp.setCultivation(input); return 1;
             case "metal": sp.setMetal((int) input); return 1;
             case "water": sp.setWater((int) input); return 1;
             case "wood": sp.setWood((int) input); return 1;

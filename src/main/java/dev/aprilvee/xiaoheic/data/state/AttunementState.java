@@ -1,29 +1,34 @@
-package dev.aprilvee.xiaoheic.data.states;
+package dev.aprilvee.xiaoheic.data.state;
 
+import dev.aprilvee.xiaoheic.capability.SpiritCap;
+import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.data.datatype.IState;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
-public class MortalState implements IState {
-    public int index = 0;
+public class AttunementState implements IState {
+    public int index = 2;
     public Component name = null;
-    public String id = "mortal";
-    public int limit = 1;
+    public String id = "attunement";
+    public int limit = 100;
 
     @Override
     public boolean limitBroken(Player player) {
-        return true;
+        SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
+        return sp.getCultivation() >= limit &&
+        sp.getMetal() >= 100 | sp.getWater() >= 100 | sp.getWood() >= 100 | sp.getFire() >= 100 | sp.getEarth() >= 100;
     }
 
     @Override
     public void stateReached(Player player) {
-        player.sendSystemMessage(Component.literal("mortal state reached?"));
+        SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
+        sp.canCultivate = true;
     }
 
     @Override
     public IState advanceState() {
-        return Datalist.sprite;
+        return Datalist.realmshaping;
     }
 
     @Override

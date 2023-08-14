@@ -12,7 +12,7 @@ public class FireSpell {
     public static void BasicSpell(ServerPlayer player, ServerLevel level, SpellType type){
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
 
-        int qicost = sp.getSpellCost(type);
+        int qicost = sp.getSpellCost(type); //todo: update spelltype to icastable
         if(sp.getQi() >= qicost && sp.getMaxqi() >= qicost){
 
             sp.subQi(qicost);

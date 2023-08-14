@@ -23,7 +23,7 @@ public class ClientCapData {
     private static float earthattunement;
 
     private static Set<SpellSlot> unlockedspells = new HashSet<>();
-    private static SpellSlot[] selectedspells = {Datalist.fireball, Datalist.snowshot, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty};
+    private static SpellSlot[] selectedspells = {Datalist.fireballold, Datalist.snowshot, Datalist.emptyold, Datalist.emptyold, Datalist.emptyold, Datalist.emptyold};
 
     public static int getQi(){
         return qi;
