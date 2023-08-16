@@ -9,7 +9,6 @@ public class Cultivation {
 
     public static void cultivate(Player player){
         //idk how tihs works yet do tihs later
-        //todo: decide on how cultivation score works
         //is it all at once? or upon succeeding in the minigame? and what will the minigame even be?
         //perhaps there's different methods of cultivation one can learn? maybe they have different minigames and scores?
     }

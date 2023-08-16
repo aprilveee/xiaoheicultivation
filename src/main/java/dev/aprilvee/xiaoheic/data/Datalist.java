@@ -11,7 +11,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 
 public class Datalist {
-    //todo: rework most of these to use interfaces, clean up the messy datatype folder
     public static SpellType emptyold;
     public static SpellType fireballold;
     public static SpellType snowshot;

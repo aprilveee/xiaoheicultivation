@@ -223,7 +223,6 @@ public class SpiritCap {
         this.type = source.type;
         this.state = source.state;
     }
-    //todo: test nbt saving to make sure it works right
     public void saveNBTData(CompoundTag nbt){
         nbt.putInt("qi", qi);
         nbt.putInt("maxqi", maxqi);
