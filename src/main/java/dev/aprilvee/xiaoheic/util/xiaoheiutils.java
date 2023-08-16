@@ -35,7 +35,7 @@ public class xiaoheiutils {
                     case EARTH -> valid = true;
                     default -> valid = !tag.getTag(tags.lava).contains(level.getFluidState(checkpos).getType());
                 }
-            }else if (counter > 30){valid = true;}
+            }else if (counter > 40){valid = true;}
         }while(!valid);
         return checkpos;
     }

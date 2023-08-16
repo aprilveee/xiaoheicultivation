@@ -24,15 +24,15 @@ public class Datalist {
     public static SType mind;
     public static SType spatial;
 
-    public static ICastable empty = new EmptySpell();
-    public static ICastable fireball = new FireballSpell();
+    public static ISpell empty = new EmptySpell();
+    public static ISpell fireball = new FireballSpell();
 
     public static IState mortal = new MortalState();
     public static IState sprite = new SpriteState();
     public static IState attunement = new AttunementState();
     public static IState realmshaping = new RealmShapingState();
 
-    public static ICastable[] spells = {empty, fireball};
+    public static ISpell[] spells = {empty, fireball};
     public static IState[] states = {mortal, sprite, attunement, realmshaping};
 
     public static Affinity[] affinities;
@@ -44,6 +44,7 @@ public class Datalist {
         initializeTypes();
     }
 
+    @Deprecated
     public static void initializeSpells(){
         emptyold = new SpellType();
         emptyold.index = 0;

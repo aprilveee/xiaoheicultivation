@@ -28,8 +28,8 @@ public class SpiritCap {
     public IState state = Datalist.mortal;
 
     //todo: nbt save/load unlocked spells and selected spells, using index
-    public Set<SpellSlot> unlockedspells = new HashSet<>();
-    public SpellSlot[] selectedspells = {Datalist.fireballold, Datalist.snowshot, Datalist.emptyold, Datalist.emptyold, Datalist.emptyold, Datalist.emptyold};
+    public Set<ISpell> unlockedspells = new HashSet<>();
+    public ISpell[] selectedspells = {Datalist.fireball, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty};
 
     private float cultivation;
     private int elementlimit = 100;
@@ -63,24 +63,13 @@ public class SpiritCap {
     public int getFire(){return fireattunement;}
     public int getEarth(){return earthattunement;}
     public int getElementlimit(){return elementlimit;}
-    public SpellSlot getSpellslot(int index){return selectedspells[index];}
-
-    public SpellSlot[] getSelectedspells() {
-        return selectedspells;
-    }
-    public Set<SpellSlot> getSpells() {
-        return unlockedspells;
-    }
-
-    public void setState(IState state) {
-        this.state = state;
-    }
+    public ISpell getSpellslot(int index){return selectedspells[index];}
 
     public int getQiRegen(){
         return( (int)((this.maxqi/160 + (Math.pow(this.maxqi,0.48)) )* this.qiregen) - 5 );
     }
-    public int getSpellCost(SpellType type){
-        return (int) ((type.qiCost + type.pQiCost * this.maxqi) * this.spellcost);
+    public int getSpellCost(ISpell spell){
+        return (int) ((spell.getQiCost() + spell.getPerQiCost() * this.maxqi) * this.spellcost);
     }
 
     public void setQi(int set){
@@ -122,15 +111,15 @@ public class SpiritCap {
     }
     public boolean isType(SType type){return this.type == type;}
 
-    public void setSelectedspell(SpellType type, int index) {
+    public void setSelectedspell(ISpell type, int index) {
         this.selectedspells[index] = type;
     }
 
-    public void setSpells(Collection<SpellType> spells){
+    public void setSpells(Collection<ISpell> spells){
         this.unlockedspells = new HashSet<>(spells);
     }
-    public void addSpell(SpellType spell){ this.unlockedspells.add(spell);}
-    public boolean hasSpell(SpellType spell){return this.unlockedspells.contains(spell);}
+    public void addSpell(ISpell spell){ this.unlockedspells.add(spell);}
+    public boolean hasSpell(ISpell spell){return this.unlockedspells.contains(spell);}
 
     public void setCultivation(float set){
         this.cultivation = set;

@@ -37,11 +37,6 @@ public class CommonEvents {
                 event.addCapability(new ResourceLocation(main.MODID, "spiritvalues"), new SpiritProvider());
             }
         }
-        /*if(event.getObject() instanceof BasicSpell){
-            if(!event.getObject().getCapability(SpellProvider.SPELLCAP).isPresent()) {
-                event.addCapability(new ResourceLocation(main.MODID, "spelltype"), new SpellProvider());
-            }
-        }*/
     }
     @SubscribeEvent
     public static void registerComands(RegisterCommandsEvent event){
@@ -49,14 +44,14 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerCloned(PlayerEvent.Clone event){
-        if(event.isWasDeath()) {
-            event.getOriginal().getCapability(SpiritProvider.SPIRITCAP).ifPresent(oldStore -> {
-                event.getOriginal().getCapability(SpiritProvider.SPIRITCAP).ifPresent(newStore -> {
-                    newStore.copyFrom(oldStore);
-                });
-            });
-        }
+    public static void onPlayerCloned(PlayerEvent.Clone event) {
+        Player oldPlayer = event.getOriginal();
+        oldPlayer.revive();
+        oldPlayer.getCapability(SpiritProvider.SPIRITCAP).ifPresent(oldsp -> {
+            event.getEntity().getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
+                sp.copyFrom(oldsp);
+            });});
+        event.getOriginal().invalidateCaps();
     }
 
     @SubscribeEvent

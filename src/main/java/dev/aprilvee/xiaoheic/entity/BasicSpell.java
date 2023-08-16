@@ -2,7 +2,6 @@ package dev.aprilvee.xiaoheic.entity;
 
 import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.data.datatype.IProjectileSpell;
-import dev.aprilvee.xiaoheic.spell.SpellEffects;
 import dev.aprilvee.xiaoheic.registry.entities;
 import net.minecraft.core.Position;
 import net.minecraft.network.protocol.Packet;
@@ -47,6 +46,7 @@ public class BasicSpell extends Projectile {
         super.tick();
 
         //CRASHES IF NONPROJECTILE
+        //if(!(Datalist.spells[this.entityData.get(index)] instanceof IProjectileSpell)){this.discard();}
         IProjectileSpell spell = (IProjectileSpell) Datalist.spells[this.entityData.get(index)];
         spell.basicProjTick(this);
 
@@ -125,16 +125,6 @@ public class BasicSpell extends Projectile {
             spell.entityHit(ray.getEntity(), this.getOwner(), this);
             this.discard();
 
-            /*switch (Datalist.spellsold[this.getIndex()].id) {
-                case "fireball" -> {
-                        SpellEffects.fireballEntity(this.getOwner(), ray.getEntity());
-                        this.discard();
-                    }
-                    case "snowshot" -> {SpellEffects.snowshotE(this.getOwner(), ray.getEntity());
-                        this.discard();
-                    }
-                    default -> this.discard();
-                }*/
 
         }
     }
@@ -142,8 +132,9 @@ public class BasicSpell extends Projectile {
     @Override
     protected void onHitBlock(BlockHitResult hit){
         super.onHitBlock(hit);
-
-                this.discard();
+        IProjectileSpell spell = (IProjectileSpell) Datalist.spells[this.entityData.get(index)];
+        spell.blockHit(hit.getBlockPos(), this.getOwner(), this);
+        this.discard();
 
     }
 
