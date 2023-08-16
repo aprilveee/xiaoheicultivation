@@ -7,6 +7,7 @@ import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @AutoRegisterCapability
@@ -27,7 +28,6 @@ public class SpiritCap {
     private SType type = Datalist.notype;
     public IState state = Datalist.mortal;
 
-    //todo: nbt save/load unlocked spells and selected spells, using index
     public Set<ISpell> unlockedspells = new HashSet<>();
     public ISpell[] selectedspells = {Datalist.fireball, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty};
 
@@ -195,6 +195,8 @@ public class SpiritCap {
     public void copyFrom(SpiritCap source){
         this.qi = source.qi;
         this.maxqi = source.maxqi;
+        this.primalqi = source.primalqi;
+        this.maxprimalqi = source.maxprimalqi;
 
         this.maxqiX = source.maxqiX;
         this.qiregen = source.qiregen;
@@ -221,7 +223,7 @@ public class SpiritCap {
         this.type = source.type;
         this.state = source.state;
     }
-
+    //todo: test nbt saving to make sure it works right
     public void saveNBTData(CompoundTag nbt){
         nbt.putInt("qi", qi);
         nbt.putInt("maxqi", maxqi);
@@ -248,8 +250,14 @@ public class SpiritCap {
         nbt.putInt("earthattunement", earthattunement);
         nbt.putInt("elementlimit", elementlimit);
 
-        CompoundTag spells = new CompoundTag();
+        for(int i = 0; i<selectedspells.length;i++){
+            nbt.putInt("selectedspell" + i,selectedspells[i].getIndex());
+        }
 
+        List<ISpell> spells = unlockedspells.stream().toList();
+        for(int i = 0; i<spells.size();i++){
+            nbt.putInt("unlockedspell" + i,spells.get(i).getIndex());
+        }
 
     }
 
@@ -278,6 +286,15 @@ public class SpiritCap {
         fireattunement = nbt.getInt("fireattunement");
         earthattunement = nbt.getInt("earthattunement");
         elementlimit = nbt.getInt("elementlimit");
+
+        for(int i = 0; i<selectedspells.length;i++){
+            selectedspells[i] = Datalist.spells[nbt.getInt("selectedspell" + i)];
+        }
+
+        List<ISpell> spells = unlockedspells.stream().toList();
+        for(int i = 0; i<spells.size();i++){
+            unlockedspells.add( Datalist.spells[nbt.getInt("selectedspell" + i)] );
+        }
 
 
     }

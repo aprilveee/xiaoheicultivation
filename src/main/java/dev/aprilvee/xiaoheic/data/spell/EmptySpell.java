@@ -1,10 +1,13 @@
 package dev.aprilvee.xiaoheic.data.spell;
 
 import dev.aprilvee.xiaoheic.data.datatype.*;
+import dev.aprilvee.xiaoheic.entity.BasicSpell;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
-public class EmptySpell implements ICastable{
+public class EmptySpell implements IProjectileSpell{
 
 	@Override
 	public Element element() {
@@ -59,5 +62,20 @@ public class EmptySpell implements ICastable{
 	@Override
 	public boolean isSpell() {
 		return false;
+	}
+
+	@Override
+	public void basicProjTick(BasicSpell spell) {
+		spell.discard();
+	}
+
+	@Override
+	public void entityHit(Entity target, Entity caster, BasicSpell spell) {
+		spell.discard();
+	}
+
+	@Override
+	public void blockHit(BlockPos pos, Entity caster, BasicSpell spell) {
+		spell.discard();
 	}
 }
