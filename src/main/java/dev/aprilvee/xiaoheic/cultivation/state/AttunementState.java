@@ -1,9 +1,8 @@
-package dev.aprilvee.xiaoheic.data.state;
+package dev.aprilvee.xiaoheic.cultivation.state;
 
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.data.Datalist;
-import dev.aprilvee.xiaoheic.data.datatype.IState;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 

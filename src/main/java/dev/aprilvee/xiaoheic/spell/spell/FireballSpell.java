@@ -1,10 +1,9 @@
-package dev.aprilvee.xiaoheic.data.spell;
+package dev.aprilvee.xiaoheic.spell.spell;
 
-import dev.aprilvee.xiaoheic.capability.SpiritCap;
-import dev.aprilvee.xiaoheic.capability.SpiritProvider;
-import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.data.datatype.*;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
+import dev.aprilvee.xiaoheic.spell.ICastable;
+import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;

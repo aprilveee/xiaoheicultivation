@@ -1,13 +1,14 @@
-package dev.aprilvee.xiaoheic.data.spell;
+package dev.aprilvee.xiaoheic.spell.spell;
 
 import dev.aprilvee.xiaoheic.data.datatype.*;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
+import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
-public class EmptySpell implements IProjectileSpell{
+public class EmptySpell implements IProjectileSpell {
 
 	@Override
 	public Element element() {

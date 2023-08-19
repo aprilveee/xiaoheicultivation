@@ -1,5 +1,7 @@
-package dev.aprilvee.xiaoheic.data.datatype;
+package dev.aprilvee.xiaoheic.spell;
 
+import dev.aprilvee.xiaoheic.data.datatype.Element;
+import dev.aprilvee.xiaoheic.data.datatype.SType;
 import net.minecraft.network.chat.Component;
 
 public interface ISpell {

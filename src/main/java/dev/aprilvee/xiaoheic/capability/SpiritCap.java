@@ -1,7 +1,11 @@
 package dev.aprilvee.xiaoheic.capability;
 
+import dev.aprilvee.xiaoheic.cultivation.ICultivateMethod;
+import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.EmptyMethod;
+import dev.aprilvee.xiaoheic.cultivation.state.IState;
 import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.data.datatype.*;
+import dev.aprilvee.xiaoheic.spell.ISpell;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
@@ -27,9 +31,11 @@ public class SpiritCap {
     private String affinity2 = "none";
     private SType type = Datalist.notype;
     public IState state = Datalist.mortal;
+    public ICultivateMethod currentcultivation = new EmptyMethod();
 
     public Set<ISpell> unlockedspells = new HashSet<>();
     public ISpell[] selectedspells = {Datalist.fireball, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty};
+    public Set<ICultivateMethod> cultivationmethods = new HashSet<>();
 
     private float cultivation;
     private int elementlimit = 100;

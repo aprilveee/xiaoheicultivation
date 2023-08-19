@@ -41,6 +41,17 @@ public class ClientEvents {
             if (Keybinds.CAST_SLOT3_KEY.consumeClick()) {
                 Messages.sendToServer(new HandleCastC2S(2));
             }
+            if (Keybinds.CAST_SLOT4_KEY.consumeClick()) {
+                Messages.sendToServer(new HandleCastC2S(3));
+            }
+            if (Keybinds.CAST_SLOT5_KEY.consumeClick()) {
+                Messages.sendToServer(new HandleCastC2S(4));
+            }
+            if (Keybinds.CAST_SLOT6_KEY.consumeClick()) {
+                Messages.sendToServer(new HandleCastC2S(5));
+            }
+
+
         }
     }
 

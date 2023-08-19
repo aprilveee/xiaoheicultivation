@@ -58,19 +58,25 @@ public class commands {
         return 1;
     }
 
-    public static int xrun(ServerPlayer plaer, String function, int input){
+    public static int xrun(ServerPlayer player, String function, int input){
         switch(function){
             case "rawenviroqi":
-                plaer.sendSystemMessage(Component.literal(Arrays.toString(EnvironmentQi.getEnviroQi(plaer.blockPosition(), plaer.level(),input))));
+                player.sendSystemMessage(Component.literal(Arrays.toString(EnvironmentQi.getEnviroQi(player.blockPosition(), player.level(),input))));
                 return 1;
             case "enviroqi":
-                plaer.sendSystemMessage(Component.literal(Arrays.toString(EnvironmentQi.getQi(EnvironmentQi.getEnviroQi(plaer.blockPosition(), plaer.level(),input),input))));
+                player.sendSystemMessage(Component.literal(Arrays.toString(EnvironmentQi.getQi(EnvironmentQi.getEnviroQi(player.blockPosition(), player.level(),input),input))));
                 return 1;
             case "channelspirit":
-                EnvironmentQi.channelSpirit(plaer.blockPosition(), plaer.level(), input);
+                EnvironmentQi.channelSpirit(player.blockPosition(), player.level(), input);
+                return 1;
+            case "cultivate":
+                player.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
+                    sp.currentcultivation = Datalist.cultivationmethods[input].create();
+                    sp.currentcultivation.startCultivation(player);
+                });
                 return 1;
             default:
-                plaer.sendSystemMessage(Component.literal("Invalid input"));
+                player.sendSystemMessage(Component.literal("Invalid input"));
                 return 0;
         }
     }
@@ -97,6 +103,7 @@ public class commands {
             case "elementlimit": sp.setElementlimit((int) input); return 1;
             case "state": sp.state = Datalist.states[(int) input]; return 1;
             case "type": sp.setType(Datalist.types[(int) input]); return 1;
+            case "cmethod": sp.cultivationmethods.add(Datalist.cultivationmethods[(int) input]);
             default:
                 player.sendSystemMessage(Component.literal("Invalid input"));
                 return 1;

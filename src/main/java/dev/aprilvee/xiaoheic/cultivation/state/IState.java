@@ -1,4 +1,4 @@
-package dev.aprilvee.xiaoheic.data.datatype;
+package dev.aprilvee.xiaoheic.cultivation.state;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;

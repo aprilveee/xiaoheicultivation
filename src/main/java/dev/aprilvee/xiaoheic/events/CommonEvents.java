@@ -2,9 +2,6 @@ package dev.aprilvee.xiaoheic.events;
 
 import dev.aprilvee.xiaoheic.capability.*;
 import dev.aprilvee.xiaoheic.command.commands;
-import dev.aprilvee.xiaoheic.data.Datalist;
-import dev.aprilvee.xiaoheic.data.datatype.SpellType;
-import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.entity.sprite.ISprite;
 import dev.aprilvee.xiaoheic.main;
 import dev.aprilvee.xiaoheic.network.Messages;
@@ -20,7 +17,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -57,41 +53,21 @@ public class CommonEvents {
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if(event.side == LogicalSide.SERVER) {
+            event.player.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
+                sp.currentcultivation.minigameTick(event.player);
 
-            event.player.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {//grab players qi and max qi
-                        if(event.player.tickCount % 5 == 0){
-                            if (sp.getQi() < sp.getMaxqi() && sp.getMaxqi() > 0) {
+                if(event.player.tickCount % 5 == 0){//qi regen
+                    if (sp.getQi() < sp.getMaxqi() && sp.getMaxqi() > 0) {
 
-                                sp.addQi(sp.getQiRegen());
+                        sp.addQi(sp.getQiRegen());
 
-                            }if(sp.getQi() > sp.getMaxqi()){
-                                sp.setQi(sp.getMaxqi());
-                            }
-                            Messages.sendToClient(new QiSyncS2C(sp.getQi()), event.player.getServer().getPlayerList().getPlayerByName(event.player.getName().getString()));
-                        }});
-        }
-    }
+                    }if(sp.getQi() > sp.getMaxqi()){
+                        sp.setQi(sp.getMaxqi());
+                    }
+                    Messages.sendToClient(new QiSyncS2C(sp.getQi()), event.player.getServer().getPlayerList().getPlayerByName(event.player.getName().getString()));
+                }
 
-    @SubscribeEvent
-    public static void onProjectileImpact(ProjectileImpactEvent event){
-        if(event.getProjectile() instanceof BasicSpell){
-            BasicSpell spell = (BasicSpell) event.getProjectile();
-            SpellType type = Datalist.spellsold[spell.getIndex()];
-
-            /*if(event.getRayTraceResult().getType() == HitResult.Type.ENTITY){
-                switch (type.id){
-                    case "fireball":
-                        SpellEffects.fireballEntity(spell.getOwner(), event.getRayTraceResult());
-                        break;
-                    default: break;
-
-            }
-
-
-            }*/
-
-
-            //proj.remove(Entity.RemovalReason.DISCARDED);
+            });
         }
     }
 

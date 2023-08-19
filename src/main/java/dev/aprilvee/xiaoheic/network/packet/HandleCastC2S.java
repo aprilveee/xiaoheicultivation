@@ -2,7 +2,7 @@ package dev.aprilvee.xiaoheic.network.packet;
 
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
-import dev.aprilvee.xiaoheic.data.datatype.ICastable;
+import dev.aprilvee.xiaoheic.spell.ICastable;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;

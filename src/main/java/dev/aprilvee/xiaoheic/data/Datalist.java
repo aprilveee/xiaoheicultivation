@@ -1,12 +1,13 @@
 package dev.aprilvee.xiaoheic.data;
 
+import dev.aprilvee.xiaoheic.cultivation.ICultivateMethod;
+import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.EmptyMethod;
+import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.SpriteBreathing;
+import dev.aprilvee.xiaoheic.cultivation.state.*;
 import dev.aprilvee.xiaoheic.data.datatype.*;
-import dev.aprilvee.xiaoheic.data.spell.EmptySpell;
-import dev.aprilvee.xiaoheic.data.spell.FireballSpell;
-import dev.aprilvee.xiaoheic.data.state.AttunementState;
-import dev.aprilvee.xiaoheic.data.state.MortalState;
-import dev.aprilvee.xiaoheic.data.state.RealmShapingState;
-import dev.aprilvee.xiaoheic.data.state.SpriteState;
+import dev.aprilvee.xiaoheic.spell.spell.EmptySpell;
+import dev.aprilvee.xiaoheic.spell.spell.FireballSpell;
+import dev.aprilvee.xiaoheic.spell.ISpell;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 
@@ -23,8 +24,12 @@ public class Datalist {
     public static SType mind;
     public static SType spatial;
 
+
     public static ISpell empty = new EmptySpell();
     public static ISpell fireball = new FireballSpell();
+
+    public static ICultivateMethod emptymethod = new EmptyMethod();
+    public static ICultivateMethod spritebreathing = new SpriteBreathing();
 
     public static IState mortal = new MortalState();
     public static IState sprite = new SpriteState();
@@ -32,9 +37,9 @@ public class Datalist {
     public static IState realmshaping = new RealmShapingState();
 
     public static ISpell[] spells = {empty, fireball};
+    public static ICultivateMethod[] cultivationmethods = {emptymethod, spritebreathing};
     public static IState[] states = {mortal, sprite, attunement, realmshaping};
 
-    public static Affinity[] affinities;
     public static SType[] types;
     public static SpellType[] spellsold;
 
