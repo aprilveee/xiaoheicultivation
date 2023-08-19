@@ -53,4 +53,9 @@ public class EmptyMethod implements ICultivateMethod {
 	public ICultivateMethod create() {
 		return new EmptyMethod();
 	}
+
+	@Override
+	public int getIndex() {
+		return 0;
+	}
 }

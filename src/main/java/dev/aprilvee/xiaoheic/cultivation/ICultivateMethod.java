@@ -13,4 +13,5 @@ public interface ICultivateMethod { //do not use like other stuff in datalist, y
 	public float getScore();
 	public void addScore(float add);
 	public ICultivateMethod create();
+	public int getIndex();
 }

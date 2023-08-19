@@ -212,6 +212,7 @@ public class SpiritCap {
 
         this.selectedspells = source.selectedspells;
         this.unlockedspells = source.unlockedspells;
+        this.cultivationmethods = source.cultivationmethods;
 
         this.canCultivate = source.canCultivate;
         this.hasSpiritRealm = source.hasSpiritRealm;
@@ -263,7 +264,10 @@ public class SpiritCap {
         for(int i = 0; i<spells.size();i++){
             nbt.putInt("unlockedspell" + i,spells.get(i).getIndex());
         }
-
+        List<ICultivateMethod> cmethods = cultivationmethods.stream().toList();
+        for(int i = 0; i<cmethods.size();i++){
+            nbt.putInt("cultivationmethod" + i,cmethods.get(i).getIndex());
+        }
     }
 
     public void loadNBTData(CompoundTag nbt){
@@ -295,12 +299,14 @@ public class SpiritCap {
         for(int i = 0; i<selectedspells.length;i++){
             selectedspells[i] = Datalist.spells[nbt.getInt("selectedspell" + i)];
         }
-
         List<ISpell> spells = unlockedspells.stream().toList();
         for(int i = 0; i<spells.size();i++){
             unlockedspells.add( Datalist.spells[nbt.getInt("selectedspell" + i)] );
         }
-
+        List<ICultivateMethod> cmethods = cultivationmethods.stream().toList();
+        for(int i = 0; i<cmethods.size();i++){
+            cultivationmethods.add( Datalist.cultivationmethods[nbt.getInt("cultivationmethod" + i)]);
+        }
 
     }
 }

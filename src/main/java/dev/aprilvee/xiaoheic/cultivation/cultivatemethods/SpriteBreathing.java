@@ -68,4 +68,9 @@ public class SpriteBreathing implements ICultivateMethod {
 	public ICultivateMethod create() {
 		return new SpriteBreathing();
 	}
+
+	@Override
+	public int getIndex() {
+		return 1;
+	}
 }
