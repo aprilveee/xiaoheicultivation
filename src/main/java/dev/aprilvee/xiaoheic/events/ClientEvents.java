@@ -3,6 +3,7 @@ package dev.aprilvee.xiaoheic.events;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.client.ClientCapData;
 import dev.aprilvee.xiaoheic.client.gui.QiBar;
+import dev.aprilvee.xiaoheic.client.gui.XiaoheiMenu;
 import dev.aprilvee.xiaoheic.client.model.BasicSpellModel;
 import dev.aprilvee.xiaoheic.client.model.SpriteModel;
 import dev.aprilvee.xiaoheic.client.render.model.BasicSpellRenderer;
@@ -32,6 +33,9 @@ public class ClientEvents {
         @SubscribeEvent(priority = EventPriority.HIGHEST)
         public static void spellcastKeyInput(InputEvent event) {
 
+            if (Keybinds.MENU_KEY.consumeClick()) {
+                Minecraft.getInstance().setScreen(new XiaoheiMenu());
+            }
             if (Keybinds.CAST_SLOT1_KEY.consumeClick()) {
                 Messages.sendToServer(new HandleCastC2S(0));
             }
@@ -82,10 +86,14 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void onKeyRegister(RegisterKeyMappingsEvent event) {
+            event.register(Keybinds.MENU_KEY);
+            event.register(Keybinds.CASTING_TOGGLE);
             event.register(Keybinds.CAST_SLOT1_KEY);
             event.register(Keybinds.CAST_SLOT2_KEY);
             event.register(Keybinds.CAST_SLOT3_KEY);
             event.register(Keybinds.CAST_SLOT4_KEY);
+            event.register(Keybinds.CAST_SLOT5_KEY);
+            event.register(Keybinds.CAST_SLOT6_KEY);
         }
     }
 

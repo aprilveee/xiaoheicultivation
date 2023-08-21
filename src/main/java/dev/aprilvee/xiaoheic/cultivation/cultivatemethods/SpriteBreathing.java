@@ -4,6 +4,7 @@ import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.cultivation.Cultivation;
 import dev.aprilvee.xiaoheic.cultivation.EnvironmentQi;
 import dev.aprilvee.xiaoheic.cultivation.ICultivateMethod;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
@@ -12,6 +13,7 @@ public class SpriteBreathing implements ICultivateMethod {
 	int qirange = 5;
 	float score = 1;
 	float finalscore = 0;
+	int lifetime = 0;
 
 	@Override
 	public void startCultivation(Player player) {
@@ -30,8 +32,16 @@ public class SpriteBreathing implements ICultivateMethod {
 
 	@Override
 	public void minigameTick(Player player) {
-		player.sendSystemMessage(Component.literal("ticked!!!!"));
-		stopCultivation(player);
+		if(lifetime<400){
+			//do minigame tick
+		}else{
+		stopCultivation(player);}
+		lifetime++;
+	}
+
+	@Override
+	public void receiveInput(KeyMapping key) {
+
 	}
 
 	@Override

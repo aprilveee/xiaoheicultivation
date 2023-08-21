@@ -1,10 +1,7 @@
 package dev.aprilvee.xiaoheic;
 
 import dev.aprilvee.xiaoheic.network.Messages;
-import dev.aprilvee.xiaoheic.registry.blocks;
-import dev.aprilvee.xiaoheic.registry.entities;
-import dev.aprilvee.xiaoheic.registry.items;
-import dev.aprilvee.xiaoheic.registry.misc;
+import dev.aprilvee.xiaoheic.registry.*;
 import com.mojang.logging.LogUtils;
 import dev.aprilvee.xiaoheic.data.Datalist;
 import net.minecraft.client.Minecraft;
@@ -59,6 +56,7 @@ public class main
         items.ITEMS.register(bus);
         entities.ENTITIES.register(bus);
         misc.CREATIVE_MODE_TABS.register(bus);
+        menutypes.MENUS.register(bus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
