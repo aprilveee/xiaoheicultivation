@@ -6,6 +6,7 @@ import dev.aprilvee.xiaoheic.client.gui.BreathingCScreen;
 import dev.aprilvee.xiaoheic.cultivation.Cultivation;
 import dev.aprilvee.xiaoheic.cultivation.EnvironmentQi;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
@@ -38,6 +39,11 @@ public class SpriteBreathing implements ICultivateMethod {
 		}else{
 		stopCultivation(player);}
 		lifetime++;
+	}
+
+	@Override
+	public void guiTick(Player player, GuiGraphics gui) {
+
 	}
 
 	@Override

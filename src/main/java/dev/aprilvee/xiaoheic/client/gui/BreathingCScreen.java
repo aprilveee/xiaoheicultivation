@@ -1,13 +1,12 @@
 package dev.aprilvee.xiaoheic.client.gui;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
+import dev.aprilvee.xiaoheic.client.cultivation.DebugUIObject;
+import dev.aprilvee.xiaoheic.client.cultivation.IUIObject;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 
 public class BreathingCScreen extends AbstractCultivationScreen {
-	//private static final ResourceLocation MENU = new ResourceLocation(main.MODID,"textures/gui/menuplaceholder.png");
+	IUIObject testobject;
 
 	public BreathingCScreen() {
 		super(Component.literal(""));
@@ -16,7 +15,15 @@ public class BreathingCScreen extends AbstractCultivationScreen {
 	@Override
 	public void render(GuiGraphics gui, int mouseX, int mouseY, float pticks) {
 		super.renderBackground(gui);
+		testobject.tick(minecraft.player.tickCount);
+		testobject.render(gui);
 		//gui.drawCenteredString(minecraft.font, String.valueOf(minecraft.player.tickCount), minecraft.getWindow().getGuiScaledWidth()/2, minecraft.getWindow().getGuiScaledHeight()/2, 0xFFFFFF);
 		super.render(gui, mouseX, mouseY, pticks);
+	}
+
+	@Override
+	public void init(){
+		testobject = new DebugUIObject();
+		testobject.setPos(minecraft.getWindow().getGuiScaledWidth()/2, minecraft.getWindow().getGuiScaledHeight()/2);
 	}
 }

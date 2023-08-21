@@ -2,6 +2,7 @@ package dev.aprilvee.xiaoheic.cultivation.cultivatemethods;
 
 import dev.aprilvee.xiaoheic.client.gui.AbstractCultivationScreen;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.entity.player.Player;
 
 public class EmptyMethod implements ICultivateMethod {
@@ -17,6 +18,11 @@ public class EmptyMethod implements ICultivateMethod {
 
 	@Override
 	public void minigameTick(Player player) {
+
+	}
+
+	@Override
+	public void guiTick(Player player, GuiGraphics gui) {
 
 	}
 
