@@ -1,13 +1,13 @@
 package dev.aprilvee.xiaoheic.events;
 
-import dev.aprilvee.xiaoheic.capability.SpiritProvider;
-import dev.aprilvee.xiaoheic.client.ClientCapData;
 import dev.aprilvee.xiaoheic.client.gui.QiBar;
-import dev.aprilvee.xiaoheic.client.gui.XiaoheiMenu;
+import dev.aprilvee.xiaoheic.client.gui.XiaoheiScreen;
 import dev.aprilvee.xiaoheic.client.model.BasicSpellModel;
 import dev.aprilvee.xiaoheic.client.model.SpriteModel;
 import dev.aprilvee.xiaoheic.client.render.model.BasicSpellRenderer;
 import dev.aprilvee.xiaoheic.client.render.model.sprites.*;
+import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.SpriteBreathing;
+import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.HandleCastC2S;
 import dev.aprilvee.xiaoheic.registry.entities;
@@ -34,7 +34,10 @@ public class ClientEvents {
         public static void spellcastKeyInput(InputEvent event) {
 
             if (Keybinds.MENU_KEY.consumeClick()) {
-                Minecraft.getInstance().setScreen(new XiaoheiMenu());
+                Minecraft.getInstance().setScreen(new XiaoheiScreen());
+            }
+            if (Keybinds.CULTIVATION_KEY.consumeClick()) {
+                Minecraft.getInstance().setScreen(Datalist.cultivationmethods[1].createScreen());
             }
             if (Keybinds.CAST_SLOT1_KEY.consumeClick()) {
                 Messages.sendToServer(new HandleCastC2S(0));
@@ -87,6 +90,7 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onKeyRegister(RegisterKeyMappingsEvent event) {
             event.register(Keybinds.MENU_KEY);
+            event.register(Keybinds.CULTIVATION_KEY);
             event.register(Keybinds.CASTING_TOGGLE);
             event.register(Keybinds.CAST_SLOT1_KEY);
             event.register(Keybinds.CAST_SLOT2_KEY);

@@ -1,7 +1,5 @@
 package dev.aprilvee.xiaoheic.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.aprilvee.xiaoheic.main;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,12 +7,12 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-public class XiaoheiMenu extends Screen {
+public class XiaoheiScreen extends Screen {
     private static final ResourceLocation MENU = new ResourceLocation(main.MODID,"textures/gui/menuplaceholder.png");
 
     private static final Minecraft minecraft = Minecraft.getInstance();
 
-    public XiaoheiMenu() {
+    public XiaoheiScreen() {
         super(Component.literal(""));
     }
 

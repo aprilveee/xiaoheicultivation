@@ -1,6 +1,6 @@
 package dev.aprilvee.xiaoheic.cultivation.cultivatemethods;
 
-import dev.aprilvee.xiaoheic.cultivation.ICultivateMethod;
+import dev.aprilvee.xiaoheic.client.gui.AbstractCultivationScreen;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.world.entity.player.Player;
 
@@ -18,6 +18,11 @@ public class EmptyMethod implements ICultivateMethod {
 	@Override
 	public void minigameTick(Player player) {
 
+	}
+
+	@Override
+	public AbstractCultivationScreen createScreen() {
+		return null;
 	}
 
 	@Override

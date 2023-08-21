@@ -1,6 +1,6 @@
 package dev.aprilvee.xiaoheic.capability;
 
-import dev.aprilvee.xiaoheic.cultivation.ICultivateMethod;
+import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.ICultivateMethod;
 import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.EmptyMethod;
 import dev.aprilvee.xiaoheic.cultivation.state.IState;
 import dev.aprilvee.xiaoheic.data.Datalist;

@@ -18,6 +18,8 @@ public class Keybinds {
 
     public static final KeyMapping MENU_KEY = new KeyMapping(KEY_MODMENU, KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_BRACKET, KEY_CATEGORY_XIAOHEI);
+    public static final KeyMapping CULTIVATION_KEY = new KeyMapping("key.xiaoheic.cultivate", KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KEY_CATEGORY_XIAOHEI);
     public static final KeyMapping CASTING_TOGGLE = new KeyMapping(KEY_CASTINGTOGGLE, KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_B, KEY_CATEGORY_XIAOHEI);
 

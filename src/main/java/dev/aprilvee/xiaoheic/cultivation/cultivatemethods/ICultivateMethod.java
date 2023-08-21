@@ -1,5 +1,6 @@
-package dev.aprilvee.xiaoheic.cultivation;
+package dev.aprilvee.xiaoheic.cultivation.cultivatemethods;
 
+import dev.aprilvee.xiaoheic.client.gui.AbstractCultivationScreen;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.world.entity.player.Player;
 
@@ -7,6 +8,7 @@ public interface ICultivateMethod { //do not use like other stuff in datalist, y
 	public void startCultivation(Player player);
 	public void stopCultivation(Player player);
 	public void minigameTick(Player player);
+	public AbstractCultivationScreen createScreen();
 	public void receiveInput(KeyMapping key);
 	public void succeed(Player player);
 	public void fail(Player player);

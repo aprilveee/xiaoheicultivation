@@ -1,9 +1,10 @@
 package dev.aprilvee.xiaoheic.cultivation.cultivatemethods;
 
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
+import dev.aprilvee.xiaoheic.client.gui.AbstractCultivationScreen;
+import dev.aprilvee.xiaoheic.client.gui.BreathingCScreen;
 import dev.aprilvee.xiaoheic.cultivation.Cultivation;
 import dev.aprilvee.xiaoheic.cultivation.EnvironmentQi;
-import dev.aprilvee.xiaoheic.cultivation.ICultivateMethod;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -37,6 +38,11 @@ public class SpriteBreathing implements ICultivateMethod {
 		}else{
 		stopCultivation(player);}
 		lifetime++;
+	}
+
+	@Override
+	public AbstractCultivationScreen createScreen() {
+		return new BreathingCScreen();
 	}
 
 	@Override

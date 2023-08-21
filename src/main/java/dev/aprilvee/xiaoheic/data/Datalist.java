@@ -1,6 +1,6 @@
 package dev.aprilvee.xiaoheic.data;
 
-import dev.aprilvee.xiaoheic.cultivation.ICultivateMethod;
+import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.ICultivateMethod;
 import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.EmptyMethod;
 import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.SpriteBreathing;
 import dev.aprilvee.xiaoheic.cultivation.state.*;

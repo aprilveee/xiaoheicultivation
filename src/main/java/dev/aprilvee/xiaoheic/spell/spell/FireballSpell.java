@@ -57,7 +57,9 @@ public class FireballSpell implements ICastable, IProjectileSpell {
 
     @Override
     public void castSpell(Player player) {
-        BasicSpell spell = new BasicSpell(player.level(), player.getEyePosition(), this.getIndex());
+        Vec3 spawnpos = new Vec3(player.getEyePosition().x+player.getDeltaMovement().x,
+                player.getEyePosition().y+player.getDeltaMovement().y,player.getEyePosition().z+player.getDeltaMovement().z);
+        BasicSpell spell = new BasicSpell(player.level(), spawnpos, this.getIndex());
         spell.setOwner(player);
         spell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5f, 2);
         player.level().addFreshEntity(spell);
