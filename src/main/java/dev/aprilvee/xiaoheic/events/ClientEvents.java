@@ -10,6 +10,7 @@ import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.SpriteBreathing;
 import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.HandleCastC2S;
+import dev.aprilvee.xiaoheic.network.packet.StartCultivateC2S;
 import dev.aprilvee.xiaoheic.registry.entities;
 import dev.aprilvee.xiaoheic.util.Keybinds;
 import net.minecraft.client.Minecraft;
@@ -38,6 +39,7 @@ public class ClientEvents {
             }
             if (Keybinds.CULTIVATION_KEY.consumeClick()) {
                 Minecraft.getInstance().setScreen(Datalist.cultivationmethods[1].createScreen());
+                Messages.sendToServer(new StartCultivateC2S(1));
             }
             if (Keybinds.CAST_SLOT1_KEY.consumeClick()) {
                 Messages.sendToServer(new HandleCastC2S(0));

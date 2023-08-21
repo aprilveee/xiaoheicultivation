@@ -51,6 +51,16 @@ public class Messages {
                 .encoder(HandleCastC2S::toBytes)
                 .consumerMainThread(HandleCastC2S::handle)
                 .add();
+        net.messageBuilder(StopCultivateC2S.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(StopCultivateC2S::new)
+                .encoder(StopCultivateC2S::toBytes)
+                .consumerMainThread(StopCultivateC2S::handle)
+                .add();
+        net.messageBuilder(StartCultivateC2S.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(StartCultivateC2S::new)
+                .encoder(StartCultivateC2S::toBytes)
+                .consumerMainThread(StartCultivateC2S::handle)
+                .add();
         //send to server with Messages.sendToServer(new TemplateC2SPacket());
         //send to client with Messages.sendToClient(new QiSyncS2C(qi.getQi()), player);
 
