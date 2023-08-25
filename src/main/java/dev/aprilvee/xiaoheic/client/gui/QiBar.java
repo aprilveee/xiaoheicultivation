@@ -1,12 +1,9 @@
 package dev.aprilvee.xiaoheic.client.gui;
 
-import dev.aprilvee.xiaoheic.capability.SpiritCap;
-import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.client.ClientCapData;
 import dev.aprilvee.xiaoheic.main;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;

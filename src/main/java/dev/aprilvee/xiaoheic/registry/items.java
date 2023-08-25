@@ -16,6 +16,7 @@ public class items {
 
     public static final RegistryObject<ForgeSpawnEggItem> SPRITE_SPAWN_EGG = ITEMS.register("sprite_spawn_egg", () -> new ForgeSpawnEggItem(entities.SPRITE, 0xa0c4c7, 0xaaeff6, new Item.Properties()));
 
+    public static final RegistryObject<Item> JADEBLOCK = ITEMS.register("jade_block", () -> new BlockItem(blocks.JADE.get(), new Item.Properties()));
 
 
 

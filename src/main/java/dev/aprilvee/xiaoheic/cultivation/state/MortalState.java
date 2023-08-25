@@ -1,6 +1,7 @@
 package dev.aprilvee.xiaoheic.cultivation.state;
 
 import dev.aprilvee.xiaoheic.data.Datalist;
+import dev.aprilvee.xiaoheic.spell.ISpell;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
@@ -46,7 +47,8 @@ public class MortalState implements IState {
     }
 
     @Override
-    public boolean isFinalstate() {
-        return false;
+    public ISpell[] getSpells() {
+        return null;
     }
+
 }

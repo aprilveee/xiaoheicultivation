@@ -1,6 +1,8 @@
-package dev.aprilvee.xiaoheic.spell.spell;
+package dev.aprilvee.xiaoheic.spell.spells;
 
-import dev.aprilvee.xiaoheic.data.datatype.*;
+import dev.aprilvee.xiaoheic.data.datatype.CastType;
+import dev.aprilvee.xiaoheic.data.datatype.Element;
+import dev.aprilvee.xiaoheic.data.datatype.SType;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.spell.ICastable;
 import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
@@ -69,6 +71,12 @@ public class FireballSpell implements ICastable, IProjectileSpell {
     public CastType getCasttype() {
         return CastType.activespell;
     }
+
+    @Override
+    public boolean unlock() {
+        return false;
+    }
+
     public Element element() {
         return null;
     }

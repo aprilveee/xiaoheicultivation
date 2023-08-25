@@ -1,12 +1,8 @@
 package dev.aprilvee.xiaoheic.util;
 
 import com.ibm.icu.impl.Pair;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.util.Mth;
-//import net.minecraft.util.math.MathHelper;
-//import net.minecraft.util.math.vector.Vector3f;
-//import net.minecraft.util.math.vector.Vector3i;
-//import net.minecraft.util.math.vector.Vector4f;
+import net.minecraft.world.phys.Vec3;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;

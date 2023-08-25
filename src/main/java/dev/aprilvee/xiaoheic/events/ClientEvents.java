@@ -6,8 +6,8 @@ import dev.aprilvee.xiaoheic.client.model.BasicSpellModel;
 import dev.aprilvee.xiaoheic.client.model.SpriteModel;
 import dev.aprilvee.xiaoheic.client.render.model.BasicSpellRenderer;
 import dev.aprilvee.xiaoheic.client.render.model.sprites.*;
-import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.SpriteBreathing;
 import dev.aprilvee.xiaoheic.data.Datalist;
+import dev.aprilvee.xiaoheic.main;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.HandleCastC2S;
 import dev.aprilvee.xiaoheic.network.packet.StartCultivateC2S;
@@ -23,7 +23,6 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import dev.aprilvee.xiaoheic.main;
 
 public class ClientEvents {
 

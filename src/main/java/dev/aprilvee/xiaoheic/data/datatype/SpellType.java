@@ -2,7 +2,6 @@ package dev.aprilvee.xiaoheic.data.datatype;
 
 import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.network.chat.Component;
 
 public class SpellType extends SpellSlot{
  //percentage qi cost, so percentage of max qi

@@ -1,13 +1,17 @@
 package dev.aprilvee.xiaoheic.data;
 
-import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.ICultivateMethod;
 import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.EmptyMethod;
+import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.ICultivateMethod;
 import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.SpriteBreathing;
 import dev.aprilvee.xiaoheic.cultivation.state.*;
-import dev.aprilvee.xiaoheic.data.datatype.*;
-import dev.aprilvee.xiaoheic.spell.spell.EmptySpell;
-import dev.aprilvee.xiaoheic.spell.spell.FireballSpell;
+import dev.aprilvee.xiaoheic.data.datatype.CastType;
+import dev.aprilvee.xiaoheic.data.datatype.Element;
+import dev.aprilvee.xiaoheic.data.datatype.SType;
+import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import dev.aprilvee.xiaoheic.spell.ISpell;
+import dev.aprilvee.xiaoheic.spell.spells.EmptySpell;
+import dev.aprilvee.xiaoheic.spell.spells.FireballSpell;
+import dev.aprilvee.xiaoheic.spell.spells.QiBallSpell;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 
@@ -27,6 +31,7 @@ public class Datalist {
 
     public static ISpell empty = new EmptySpell();
     public static ISpell fireball = new FireballSpell();
+    public static ISpell qiball = new QiBallSpell();
 
     public static ICultivateMethod emptymethod = new EmptyMethod();
     public static ICultivateMethod spritebreathing = new SpriteBreathing();
@@ -36,7 +41,7 @@ public class Datalist {
     public static IState attunement = new AttunementState();
     public static IState realmshaping = new RealmShapingState();
 
-    public static ISpell[] spells = {empty, fireball};
+    public static ISpell[] spells = {empty, fireball, qiball};
     public static ICultivateMethod[] cultivationmethods = {emptymethod, spritebreathing};
     public static IState[] states = {mortal, sprite, attunement, realmshaping};
 

@@ -2,8 +2,6 @@ package dev.aprilvee.xiaoheic.network.packet;
 
 import dev.aprilvee.xiaoheic.client.ClientCapData;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;

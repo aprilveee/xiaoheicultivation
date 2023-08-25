@@ -1,6 +1,8 @@
-package dev.aprilvee.xiaoheic.spell.spell;
+package dev.aprilvee.xiaoheic.spell.spells;
 
-import dev.aprilvee.xiaoheic.data.datatype.*;
+import dev.aprilvee.xiaoheic.data.datatype.CastType;
+import dev.aprilvee.xiaoheic.data.datatype.Element;
+import dev.aprilvee.xiaoheic.data.datatype.SType;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
 import net.minecraft.core.BlockPos;
@@ -9,6 +11,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
 public class EmptySpell implements IProjectileSpell {
+
+	@Override
+	public boolean unlock() {
+		return false;
+	}
 
 	@Override
 	public Element element() {

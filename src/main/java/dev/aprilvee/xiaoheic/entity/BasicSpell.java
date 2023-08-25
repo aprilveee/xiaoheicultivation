@@ -1,8 +1,8 @@
 package dev.aprilvee.xiaoheic.entity;
 
 import dev.aprilvee.xiaoheic.data.Datalist;
-import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
 import dev.aprilvee.xiaoheic.registry.entities;
+import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
 import net.minecraft.core.Position;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;

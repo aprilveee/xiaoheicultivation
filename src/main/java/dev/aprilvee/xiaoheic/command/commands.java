@@ -104,6 +104,7 @@ public class commands {
             case "state": sp.state = Datalist.states[(int) input]; return 1;
             case "type": sp.setType(Datalist.types[(int) input]); return 1;
             case "cmethod": sp.cultivationmethods.add(Datalist.cultivationmethods[(int) input]);
+            case "spell": sp.selectedspells[0] = Datalist.spells[(int) input]; return 1;
             default:
                 player.sendSystemMessage(Component.literal("Invalid input"));
                 return 1;

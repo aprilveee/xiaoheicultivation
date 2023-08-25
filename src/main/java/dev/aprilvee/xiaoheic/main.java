@@ -1,9 +1,9 @@
 package dev.aprilvee.xiaoheic;
 
-import dev.aprilvee.xiaoheic.network.Messages;
-import dev.aprilvee.xiaoheic.registry.*;
 import com.mojang.logging.LogUtils;
 import dev.aprilvee.xiaoheic.data.Datalist;
+import dev.aprilvee.xiaoheic.network.Messages;
+import dev.aprilvee.xiaoheic.registry.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;

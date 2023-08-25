@@ -1,6 +1,7 @@
 package dev.aprilvee.xiaoheic.events;
 
-import dev.aprilvee.xiaoheic.capability.*;
+import dev.aprilvee.xiaoheic.capability.SpiritCap;
+import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.command.commands;
 import dev.aprilvee.xiaoheic.entity.sprite.ISprite;
 import dev.aprilvee.xiaoheic.main;

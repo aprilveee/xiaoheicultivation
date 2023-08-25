@@ -1,6 +1,6 @@
 package dev.aprilvee.xiaoheic.registry;
 
-import dev.aprilvee.xiaoheic.entity.*;
+import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.entity.sprite.*;
 import dev.aprilvee.xiaoheic.main;
 import net.minecraft.world.entity.EntityType;

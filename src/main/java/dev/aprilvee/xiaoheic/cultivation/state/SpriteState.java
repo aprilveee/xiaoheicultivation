@@ -5,6 +5,7 @@ import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
+import dev.aprilvee.xiaoheic.spell.ISpell;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
@@ -54,7 +55,8 @@ public class SpriteState implements IState {
     }
 
     @Override
-    public boolean isFinalstate() {
-        return false;
+    public ISpell[] getSpells() {
+        return new ISpell[0];
     }
+
 }

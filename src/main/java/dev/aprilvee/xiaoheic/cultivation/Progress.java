@@ -2,8 +2,8 @@ package dev.aprilvee.xiaoheic.cultivation;
 
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
-import dev.aprilvee.xiaoheic.spell.ISpell;
 import dev.aprilvee.xiaoheic.data.datatype.SType;
+import dev.aprilvee.xiaoheic.spell.ISpell;
 import net.minecraft.world.entity.player.Player;
 
 @Deprecated

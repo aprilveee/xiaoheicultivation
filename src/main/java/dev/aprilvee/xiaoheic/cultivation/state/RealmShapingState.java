@@ -3,6 +3,7 @@ package dev.aprilvee.xiaoheic.cultivation.state;
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.data.Datalist;
+import dev.aprilvee.xiaoheic.spell.ISpell;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
@@ -48,7 +49,8 @@ public class RealmShapingState implements IState {
     }
 
     @Override
-    public boolean isFinalstate() {
-        return true;
+    public ISpell[] getSpells() {
+        return new ISpell[0];
     }
+
 }

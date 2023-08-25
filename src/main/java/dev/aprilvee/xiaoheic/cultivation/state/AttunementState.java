@@ -3,14 +3,19 @@ package dev.aprilvee.xiaoheic.cultivation.state;
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.data.Datalist;
+import dev.aprilvee.xiaoheic.spell.ISpell;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
+
+import java.util.List;
 
 public class AttunementState implements IState {
     public int index = 2;
     public Component name = null;
     public String id = "attunement";
     public int limit = 100;
+    ISpell[] spells = new ISpell[]{Datalist.qiball}; //spells that can be unlocked in this stage
+    //upon progressing to this stage, add these to accessible spells
 
     @Override
     public boolean limitBroken(Player player) {
@@ -23,6 +28,7 @@ public class AttunementState implements IState {
     public void stateReached(Player player) {
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         sp.canCultivate = true;
+        sp.accessiblespells.addAll(List.of(this.spells));
     }
 
     @Override
@@ -51,7 +57,8 @@ public class AttunementState implements IState {
     }
 
     @Override
-    public boolean isFinalstate() {
-        return false;
+    public ISpell[] getSpells() {
+        return spells;
     }
+
 }

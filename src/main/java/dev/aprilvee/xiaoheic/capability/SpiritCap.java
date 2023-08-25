@@ -1,10 +1,10 @@
 package dev.aprilvee.xiaoheic.capability;
 
-import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.ICultivateMethod;
 import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.EmptyMethod;
+import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.ICultivateMethod;
 import dev.aprilvee.xiaoheic.cultivation.state.IState;
 import dev.aprilvee.xiaoheic.data.Datalist;
-import dev.aprilvee.xiaoheic.data.datatype.*;
+import dev.aprilvee.xiaoheic.data.datatype.SType;
 import dev.aprilvee.xiaoheic.spell.ISpell;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
@@ -32,10 +32,11 @@ public class SpiritCap {
     private SType type = Datalist.notype;
     public IState state = Datalist.mortal;
     public ICultivateMethod currentcultivation = new EmptyMethod();
+    public Set<ICultivateMethod> cultivationmethods = new HashSet<>();
 
     public Set<ISpell> unlockedspells = new HashSet<>();
-    public ISpell[] selectedspells = {Datalist.fireball, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty};
-    public Set<ICultivateMethod> cultivationmethods = new HashSet<>();
+    public Set<ISpell> accessiblespells = new HashSet<>();
+    public ISpell[] selectedspells = {Datalist.fireball, Datalist.qiball, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty};
 
     private float cultivation;
     private int elementlimit = 100;
@@ -87,7 +88,6 @@ public class SpiritCap {
     public void subQi(int sub){
         this.qi = Math.max(qi - sub, 0);
     }
-
 
     public void setMaxQi(int set){ //SYNC WITH CLIENT AFTER USING!!!!
         this.maxqi = set;
@@ -264,6 +264,10 @@ public class SpiritCap {
         for(int i = 0; i<spells.size();i++){
             nbt.putInt("unlockedspell" + i,spells.get(i).getIndex());
         }
+        List<ISpell> accspells = accessiblespells.stream().toList();
+        for(int i = 0; i<accspells.size();i++){
+            nbt.putInt("accessiblespell" + i,accspells.get(i).getIndex());
+        }
         List<ICultivateMethod> cmethods = cultivationmethods.stream().toList();
         for(int i = 0; i<cmethods.size();i++){
             nbt.putInt("cultivationmethod" + i,cmethods.get(i).getIndex());
@@ -302,6 +306,10 @@ public class SpiritCap {
         List<ISpell> spells = unlockedspells.stream().toList();
         for(int i = 0; i<spells.size();i++){
             unlockedspells.add( Datalist.spells[nbt.getInt("selectedspell" + i)] );
+        }
+        List<ISpell> accspells = accessiblespells.stream().toList();
+        for(int i = 0; i<accspells.size();i++){
+            accessiblespells.add( Datalist.spells[nbt.getInt("accessiblespell" + i)] );
         }
         List<ICultivateMethod> cmethods = cultivationmethods.stream().toList();
         for(int i = 0; i<cmethods.size();i++){
