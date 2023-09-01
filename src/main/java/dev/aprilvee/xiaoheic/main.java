@@ -40,6 +40,7 @@ public class main
             .displayItems((parameters, output) -> {
                 output.accept(items.QICRYSTAL.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
                 output.accept(items.SPRITE_SPAWN_EGG.get());
+                output.accept(items.JADEBLOCK.get());
             }).build());
 
 

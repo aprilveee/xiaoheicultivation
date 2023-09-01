@@ -2,6 +2,7 @@ package dev.aprilvee.xiaoheic.spell;
 
 import dev.aprilvee.xiaoheic.data.datatype.Element;
 import dev.aprilvee.xiaoheic.data.datatype.SType;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 
 public interface ISpell {
@@ -13,4 +14,6 @@ public interface ISpell {
 	public Component getName();
 	public int getQiCost();
 	public float getPerQiCost();
+	public void saveNBT(CompoundTag nbt);
+	public ISpell getNew();
 }

@@ -30,11 +30,11 @@ public class HandleCastC2S {
             ServerPlayer player = context.getSender();
             if(player.gameMode.getGameModeForPlayer() != GameType.SPECTATOR){
                 SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
-                player.sendSystemMessage(Component.literal(sp.selectedspells[key].getId()));
+                System.out.println(sp.selectedspells[key].getId());
                 if(sp.selectedspells[key] instanceof ICastable type){
 
                     int qicost = sp.getSpellCost(type);
-                    if(sp.getQi() >= qicost && sp.getMaxqi() >= qicost) {
+                    if(type.canCast(player) && sp.getQi() >= qicost && sp.getMaxqi() >= qicost) {
                         sp.subQi(qicost);
                         type.castSpell(player);
                     }

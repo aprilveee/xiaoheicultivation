@@ -58,14 +58,11 @@ public class CommonEvents {
                 sp.currentcultivation.minigameTick(event.player);
 
                 if(event.player.tickCount % 5 == 0){//qi regen
-                    if (sp.getQi() < sp.getMaxqi() && sp.getMaxqi() > 0) {
+                    if (sp.getMaxqi() > 0) {
 
                         sp.addQi(sp.getQiRegen());
-
-                    }if(sp.getQi() > sp.getMaxqi()){
-                        sp.setQi(sp.getMaxqi());
+                        Messages.sendToClient(new QiSyncS2C(sp.getQi()), event.player.getServer().getPlayerList().getPlayerByName(event.player.getName().getString()));
                     }
-                    Messages.sendToClient(new QiSyncS2C(sp.getQi()), event.player.getServer().getPlayerList().getPlayerByName(event.player.getName().getString()));
                 }
 
             });

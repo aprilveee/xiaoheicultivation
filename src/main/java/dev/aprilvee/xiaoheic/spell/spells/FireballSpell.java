@@ -6,8 +6,11 @@ import dev.aprilvee.xiaoheic.data.datatype.SType;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.spell.ICastable;
 import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
+import dev.aprilvee.xiaoheic.spell.ISpell;
+import dev.aprilvee.xiaoheic.util.xiaoheiutils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -19,8 +22,10 @@ public class FireballSpell implements ICastable, IProjectileSpell {
     public int index = 1;
     public Component name = null;
     public String id = "fireball";
-    public int qiCost = 300;
-    public float perQiCost = 0.02f;
+    final public int qiCost = 300;
+    final public float perQiCost = 0.02f;
+    final int cooldown = 20;
+    int staleTicks = -100;
 
     @Override
     public void basicProjTick(BasicSpell spell) {
@@ -59,12 +64,15 @@ public class FireballSpell implements ICastable, IProjectileSpell {
 
     @Override
     public void castSpell(Player player) {
-        Vec3 spawnpos = new Vec3(player.getEyePosition().x+player.getDeltaMovement().x,
-                player.getEyePosition().y+player.getDeltaMovement().y,player.getEyePosition().z+player.getDeltaMovement().z);
-        BasicSpell spell = new BasicSpell(player.level(), spawnpos, this.getIndex());
-        spell.setOwner(player);
-        spell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5f, 2);
-        player.level().addFreshEntity(spell);
+        xiaoheiutils.fireProjSpell(player, this, 1.5f, 2);
+        this.staleTicks = player.tickCount;
+    }
+
+    @Override
+    public boolean canCast(Player player) {
+        player.sendSystemMessage(Component.literal(String.valueOf(this.staleTicks)));
+        player.sendSystemMessage(Component.literal(String.valueOf(player.tickCount - this.staleTicks)));
+        return player.tickCount - this.staleTicks > cooldown;
     }
 
     @Override
@@ -101,6 +109,16 @@ public class FireballSpell implements ICastable, IProjectileSpell {
     @Override
     public float getPerQiCost() {
         return perQiCost;
+    }
+
+    @Override
+    public void saveNBT(CompoundTag nbt) {
+        //nbt.putInt(this.id+"cd", );
+    }
+
+    @Override
+    public ISpell getNew() {
+        return new FireballSpell();
     }
 
     @Override

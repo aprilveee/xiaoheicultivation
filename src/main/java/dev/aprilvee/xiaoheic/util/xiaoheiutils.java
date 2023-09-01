@@ -1,11 +1,16 @@
 package dev.aprilvee.xiaoheic.util;
 
 import dev.aprilvee.xiaoheic.data.datatype.Element;
+import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.registry.tags;
+import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.tags.ITagManager;
 
@@ -13,6 +18,22 @@ import java.util.Random;
 
 public class xiaoheiutils {
 
+    public static BasicSpell fireProjSpell(Player player, IProjectileSpell type, float speed, float inaccuracy){
+        Vec3 spawnpos = new Vec3(player.getEyePosition().x+player.getDeltaMovement().x,
+                player.getEyePosition().y+player.getDeltaMovement().y,player.getEyePosition().z+player.getDeltaMovement().z);
+        BasicSpell spell = new BasicSpell(player.level(), spawnpos, type.getIndex());
+
+        spell.setOwner(player);
+        spell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, speed, inaccuracy);
+
+        player.level().addFreshEntity(spell);
+
+        return spell;
+    }
+
+    public static void saveCooldown(CompoundTag nbt){
+
+    }
 
     public static BlockPos getValidRandBlockPos(BlockPos pos, LevelAccessor level, Element element, int radius){
         BlockPos checkpos;
@@ -38,6 +59,7 @@ public class xiaoheiutils {
         return checkpos;
     }
 
+    //boring meth
     public static int arrayMax(int[] array){
         int max = array[0];
         for(int i = 1; i<array.length;i++){
@@ -67,6 +89,7 @@ public class xiaoheiutils {
         }
         return sum;
     }
+
 
 
 

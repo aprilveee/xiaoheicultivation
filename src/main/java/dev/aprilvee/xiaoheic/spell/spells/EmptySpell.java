@@ -5,7 +5,9 @@ import dev.aprilvee.xiaoheic.data.datatype.Element;
 import dev.aprilvee.xiaoheic.data.datatype.SType;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
+import dev.aprilvee.xiaoheic.spell.ISpell;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -53,8 +55,23 @@ public class EmptySpell implements IProjectileSpell {
 	}
 
 	@Override
+	public void saveNBT(CompoundTag nbt) {
+
+	}
+
+	@Override
+	public ISpell getNew() {
+		return this;
+	}
+
+	@Override
 	public void castSpell(Player player) {
 
+	}
+
+	@Override
+	public boolean canCast(Player player) {
+		return false;
 	}
 
 	@Override
@@ -75,7 +92,8 @@ public class EmptySpell implements IProjectileSpell {
 	@Override
 	public void basicProjTick(BasicSpell spell) {
 		spell.discard();
-	}
+	} //emergency catches bc sometimes empty fires?
+	//these just remove it when they do
 
 	@Override
 	public void entityHit(Entity target, Entity caster, BasicSpell spell) {

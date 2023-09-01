@@ -36,7 +36,7 @@ public class SpiritCap {
 
     public Set<ISpell> unlockedspells = new HashSet<>();
     public Set<ISpell> accessiblespells = new HashSet<>();
-    public ISpell[] selectedspells = {Datalist.fireball, Datalist.qiball, Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty};
+    public ISpell[] selectedspells = {Datalist.fireball.getNew(), Datalist.qiball.getNew(), Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty};
 
     private float cultivation;
     private int elementlimit = 100;
@@ -72,7 +72,7 @@ public class SpiritCap {
     public int getElementlimit(){return elementlimit;}
     public ISpell getSpellslot(int index){return selectedspells[index];}
 
-    public int getQiRegen(){
+    public int getQiRegen() {
         return( (int)((this.maxqi/160 + (Math.pow(this.maxqi,0.48)) )* this.qiregen) - 5 );
     }
     public int getSpellCost(ISpell spell){
@@ -82,9 +82,7 @@ public class SpiritCap {
     public void setQi(int set){
         this.qi = set;
     } //SYNC WITH CLIENT AFTER USING!!!!
-    public void addQi(int add){
-        this.qi = Math.min(qi + add, Integer.MAX_VALUE);
-    } //SYNC WITH CLIENT AFTER USING!!!!
+    public void addQi(int add){this.qi = Math.min(qi + add, this.maxqi);} //SYNC WITH CLIENT AFTER USING!!!!
     public void subQi(int sub){
         this.qi = Math.max(qi - sub, 0);
     }
@@ -256,6 +254,10 @@ public class SpiritCap {
         nbt.putInt("earthattunement", earthattunement);
         nbt.putInt("elementlimit", elementlimit);
 
+        nbt.putInt("unlockedspellsize", unlockedspells.size());
+        nbt.putInt("accessiblespellsize", accessiblespells.size());
+        nbt.putInt("cultivationmethodsize", cultivationmethods.size());
+
         for(int i = 0; i<selectedspells.length;i++){
             nbt.putInt("selectedspell" + i,selectedspells[i].getIndex());
         }
@@ -300,19 +302,26 @@ public class SpiritCap {
         earthattunement = nbt.getInt("earthattunement");
         elementlimit = nbt.getInt("elementlimit");
 
-        for(int i = 0; i<selectedspells.length;i++){
-            selectedspells[i] = Datalist.spells[nbt.getInt("selectedspell" + i)];
+
+
+        for(int i = 0; i< nbt.getInt("unlockedspellsize") ;i++){
+            unlockedspells.add( Datalist.spells[nbt.getInt("unlockedspell" + i)].getNew() );
         }
-        List<ISpell> spells = unlockedspells.stream().toList();
-        for(int i = 0; i<spells.size();i++){
-            unlockedspells.add( Datalist.spells[nbt.getInt("selectedspell" + i)] );
+
+        List<ISpell> unlspells = unlockedspells.stream().toList();
+        for(int i = 0; i<6;i++){
+            for(int e=0;e<unlockedspells.size();e++){
+                if(unlspells.get(e).getIndex() == nbt.getInt("selectedspell"+i)){ //syncing selected and unlocked spells
+                    selectedspells[i] = unlspells.get(e) ;
+                }
+            }
         }
-        List<ISpell> accspells = accessiblespells.stream().toList();
-        for(int i = 0; i<accspells.size();i++){
+
+        for(int i = 0; i< nbt.getInt("accessiblespellsize") ;i++){
             accessiblespells.add( Datalist.spells[nbt.getInt("accessiblespell" + i)] );
         }
-        List<ICultivateMethod> cmethods = cultivationmethods.stream().toList();
-        for(int i = 0; i<cmethods.size();i++){
+
+        for(int i = 0; i< nbt.getInt("cultivationmethodsize") ;i++){
             cultivationmethods.add( Datalist.cultivationmethods[nbt.getInt("cultivationmethod" + i)]);
         }
 

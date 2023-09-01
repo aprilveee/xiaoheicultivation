@@ -28,7 +28,6 @@ public class Datalist {
     public static SType mind;
     public static SType spatial;
 
-
     public static ISpell empty = new EmptySpell();
     public static ISpell fireball = new FireballSpell();
     public static ISpell qiball = new QiBallSpell();
@@ -41,6 +40,7 @@ public class Datalist {
     public static IState attunement = new AttunementState();
     public static IState realmshaping = new RealmShapingState();
 
+    //ALWAYS INSTANTIATE SPELLS WHEN GIVING THEM TO PLAYERS unless you dont need to, you probably need to
     public static ISpell[] spells = {empty, fireball, qiball};
     public static ICultivateMethod[] cultivationmethods = {emptymethod, spritebreathing};
     public static IState[] states = {mortal, sprite, attunement, realmshaping};

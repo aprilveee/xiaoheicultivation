@@ -6,9 +6,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec2;
 
 public class BreathingUIObject implements IUIObject {
-	private final ResourceLocation texture = new ResourceLocation(main.MODID,"textures/gui/cultivation/breathing.png");
-	final int xsize = 48;
-	final int ysize = 48;
+	private final ResourceLocation texture1 = new ResourceLocation(main.MODID,"textures/gui/cultivation/breathing.png");
+	private final ResourceLocation texture2 = new ResourceLocation(main.MODID,"textures/gui/cultivation/breathingout.png");
+
+	final int xsize = 24;
+	final int ysize = 24;
 	final int txsize = 2*xsize;
 	final int tysize = 1*ysize;
 
@@ -17,8 +19,13 @@ public class BreathingUIObject implements IUIObject {
 	private Vec2 pos = new Vec2(0,0);
 	@Override
 	public void render(GuiGraphics gui) {
-		gui.blit(texture, (int) pos.x - xsize/2, (int) pos.y - ysize/2,
+		gui.blit(texture1, (int) pos.x - xsize/2, (int) pos.y - ysize/2,
 				xsize*frameCount, 0, xsize, ysize, txsize, tysize);
+	}
+
+	@Override
+	public void handleCollision(IUIObject collider, IUIObject collided) {
+		//this should not run
 	}
 
 	@Override
@@ -52,7 +59,22 @@ public class BreathingUIObject implements IUIObject {
 	}
 
 	@Override
+	public Vec2 getSize() {
+		return new Vec2(xsize,ysize);
+	}
+
+	@Override
+	public boolean isSolid() {
+		return false;
+	}
+
+	@Override
+	public boolean isInBoundingbox(Vec2 pos) {
+		return pos.distanceToSqr(this.getPos()) > 12;
+	}
+
+	@Override
 	public ResourceLocation getTex() {
-		return texture;
+		return texture1;
 	}
 }
