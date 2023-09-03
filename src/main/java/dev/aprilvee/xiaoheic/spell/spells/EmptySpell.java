@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 public class EmptySpell implements IProjectileSpell {
 
 	@Override
-	public boolean unlock() {
+	public boolean canUnlock() {
 		return false;
 	}
 
@@ -56,6 +56,11 @@ public class EmptySpell implements IProjectileSpell {
 
 	@Override
 	public void saveNBT(CompoundTag nbt) {
+
+	}
+
+	@Override
+	public void loadNBT(CompoundTag nbt) {
 
 	}
 

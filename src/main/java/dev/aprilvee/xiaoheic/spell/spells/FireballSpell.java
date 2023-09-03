@@ -81,7 +81,7 @@ public class FireballSpell implements ICastable, IProjectileSpell {
     }
 
     @Override
-    public boolean unlock() {
+    public boolean canUnlock() {
         return false;
     }
 
@@ -113,7 +113,12 @@ public class FireballSpell implements ICastable, IProjectileSpell {
 
     @Override
     public void saveNBT(CompoundTag nbt) {
-        //nbt.putInt(this.id+"cd", );
+
+    }
+
+    @Override
+    public void loadNBT(CompoundTag nbt) {
+
     }
 
     @Override

@@ -5,6 +5,7 @@ import dev.aprilvee.xiaoheic.client.gui.AbstractCultivationScreen;
 import dev.aprilvee.xiaoheic.client.gui.BreathingCScreen;
 import dev.aprilvee.xiaoheic.cultivation.Cultivation;
 import dev.aprilvee.xiaoheic.cultivation.EnvironmentQi;
+import dev.aprilvee.xiaoheic.data.datatype.Element;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -24,12 +25,17 @@ public class SpriteBreathing implements ICultivateMethod {
 
 	@Override
 	public void stopCultivation(Player player) {
-		player.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {sp.currentcultivation = new EmptyMethod();});
-		score = Math.min(0,score);
+		player.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> sp.currentcultivation = new EmptyMethod());
+		score = Math.max(0,score);
 		//process score
 		finalscore = (float) (score * (Math.pow(enviroqi[0] + enviroqi[1],0.8f)/4 + 1));
-		Cultivation.addCXP(player, 50);
-		player.sendSystemMessage(Component.literal("cultivated!!!!"));
+		Cultivation.addCXP(player, finalscore);
+		Cultivation.addAttunement(player, (int) (finalscore/4 * enviroqi[3]), Element.METAL);
+		Cultivation.addAttunement(player, (int) (finalscore/4 * enviroqi[4]), Element.WATER);
+		Cultivation.addAttunement(player, (int) (finalscore/4 * enviroqi[5]), Element.WOOD);
+		Cultivation.addAttunement(player, (int) (finalscore/4 * enviroqi[6]), Element.FIRE);
+		Cultivation.addAttunement(player, (int) (finalscore/4 * enviroqi[7]), Element.EARTH);
+		player.sendSystemMessage(Component.literal(String.valueOf(finalscore)));
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import dev.aprilvee.xiaoheic.network.packet.CultivationS2C;
 import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
 import dev.aprilvee.xiaoheic.network.packet.QiSyncS2C;
 import dev.aprilvee.xiaoheic.registry.tags;
+import dev.aprilvee.xiaoheic.util.xiaoheiutils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -64,6 +65,8 @@ public class CommonEvents {
                         Messages.sendToClient(new QiSyncS2C(sp.getQi()), event.player.getServer().getPlayerList().getPlayerByName(event.player.getName().getString()));
                     }
                 }
+
+                xiaoheiutils.tickPassives(event.player);
 
             });
         }

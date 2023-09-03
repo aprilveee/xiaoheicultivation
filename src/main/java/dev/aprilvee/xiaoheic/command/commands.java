@@ -11,6 +11,7 @@ import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.MaxQiS2C;
 import dev.aprilvee.xiaoheic.network.packet.QiSyncS2C;
+import dev.aprilvee.xiaoheic.spell.ICastable;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -104,7 +105,7 @@ public class commands {
             case "state": sp.state = Datalist.states[(int) input]; return 1;
             case "type": sp.setType(Datalist.types[(int) input]); return 1;
             case "cmethod": sp.cultivationmethods.add(Datalist.cultivationmethods[(int) input]);
-            case "spell": sp.selectedspells[0] = Datalist.spells[(int) input].getNew(); return 1;
+            case "spell": sp.selectedspells[0] = (ICastable) Datalist.spells[(int) input].getNew(); return 1;
             default:
                 player.sendSystemMessage(Component.literal("Invalid input"));
                 return 1;

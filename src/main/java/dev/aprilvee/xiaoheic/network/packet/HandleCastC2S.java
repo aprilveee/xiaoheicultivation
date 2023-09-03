@@ -31,14 +31,14 @@ public class HandleCastC2S {
             if(player.gameMode.getGameModeForPlayer() != GameType.SPECTATOR){
                 SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
                 System.out.println(sp.selectedspells[key].getId());
-                if(sp.selectedspells[key] instanceof ICastable type){
 
+                ICastable type = sp.selectedspells[key];
                     int qicost = sp.getSpellCost(type);
                     if(type.canCast(player) && sp.getQi() >= qicost && sp.getMaxqi() >= qicost) {
                         sp.subQi(qicost);
                         type.castSpell(player);
                     }
-                }else {throw new RuntimeException("NONCASTABLE SPELL CASTED: " + sp.selectedspells[key].getId());}
+
             }
 
         });

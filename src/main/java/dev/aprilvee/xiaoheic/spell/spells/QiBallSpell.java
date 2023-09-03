@@ -76,7 +76,7 @@ public class QiBallSpell implements IProjectileSpell, ICastable {
 	}
 
 	@Override
-	public boolean unlock() {
+	public boolean canUnlock() {
 		return true;
 	}
 
@@ -117,6 +117,11 @@ public class QiBallSpell implements IProjectileSpell, ICastable {
 
 	@Override
 	public void saveNBT(CompoundTag nbt) {
+
+	}
+
+	@Override
+	public void loadNBT(CompoundTag nbt) {
 
 	}
 

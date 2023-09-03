@@ -3,6 +3,7 @@ package dev.aprilvee.xiaoheic.cultivation;
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.data.Datalist;
+import dev.aprilvee.xiaoheic.data.datatype.Element;
 import dev.aprilvee.xiaoheic.spell.ISpell;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -11,17 +12,23 @@ import java.util.List;
 
 public class Cultivation {
 
-    public static void cultivate(Player player){
-        //idk how tihs works yet do tihs later
-        //is it all at once? or upon succeeding in the minigame? and what will the minigame even be?
-        //perhaps there's different methods of cultivation one can learn? maybe they have different minigames and scores?
-    }
-
     public static void addCXP(Player player, float amt){ //add cultivation xp
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         sp.addCultivation(amt);
         checkLimit(player);
-        checkSpell(player);
+        //checkSpell(player);
+    }
+
+    public static void addAttunement(Player player, int amt, Element element){
+        SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
+        switch (element){
+            case METAL -> sp.addMetal(amt);
+            case WATER -> sp.addWater(amt);
+            case WOOD -> sp.addWood(amt);
+            case FIRE -> sp.addFire(amt);
+            case EARTH -> sp.addEarth(amt);
+        }
+        checkLimit(player);
     }
 
     public static void checkLimit(Player player){ // IMPORTANT **call every time a limit condition changes** IMPORTANT
@@ -31,12 +38,13 @@ public class Cultivation {
         }
     }
 
+    @Deprecated //going to be changed to skill trees instead of autounlock
     public static void checkSpell(Player player){ // call every time a spell unlock condition changes
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         List<ISpell> accspells = sp.accessiblespells.stream().toList();
         for(int i =0;i<accspells.size();i++){
-            if(accspells.get(i).unlock()){
-                sp.unlockedspells.add( Datalist.spells[ accspells.get(i).getIndex() ] );
+            if(accspells.get(i).canUnlock()){
+                sp.unlockedspells.add( Datalist.spells[ accspells.get(i).getIndex() ].getNew() );
             }
         }
     }

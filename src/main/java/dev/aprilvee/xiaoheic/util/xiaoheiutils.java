@@ -1,8 +1,11 @@
 package dev.aprilvee.xiaoheic.util;
 
+import dev.aprilvee.xiaoheic.capability.SpiritCap;
+import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.data.datatype.Element;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.registry.tags;
+import dev.aprilvee.xiaoheic.spell.IPassiveSpell;
 import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,12 +30,22 @@ public class xiaoheiutils {
         spell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, speed, inaccuracy);
 
         player.level().addFreshEntity(spell);
-
         return spell;
     }
 
-    public static void saveCooldown(CompoundTag nbt){
 
+    public static void tickPassives(Player player){
+        SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
+        for(int i = 0;i<sp.passivespells.size();i++){
+            IPassiveSpell spell = sp.passivespells.get(i);
+            if(spell.shouldSustain()){
+                spell.tick(player);
+            }else {spell.deactivate(player);}
+        }
+    }
+
+    public static void saveCooldown(int tickCount, int staleTicks, int index, CompoundTag nbt){
+        nbt.putInt("spellcd"+index, tickCount - staleTicks);
     }
 
     public static BlockPos getValidRandBlockPos(BlockPos pos, LevelAccessor level, Element element, int radius){
@@ -59,7 +72,7 @@ public class xiaoheiutils {
         return checkpos;
     }
 
-    //boring meth
+    //boring meth i mean math
     public static int arrayMax(int[] array){
         int max = array[0];
         for(int i = 1; i<array.length;i++){
@@ -89,11 +102,4 @@ public class xiaoheiutils {
         }
         return sum;
     }
-
-
-
-
-
-
-
 }

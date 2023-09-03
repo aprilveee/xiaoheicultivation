@@ -5,14 +5,13 @@ import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.ICultivateMethod;
 import dev.aprilvee.xiaoheic.cultivation.state.IState;
 import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.data.datatype.SType;
+import dev.aprilvee.xiaoheic.spell.ICastable;
+import dev.aprilvee.xiaoheic.spell.IPassiveSpell;
 import dev.aprilvee.xiaoheic.spell.ISpell;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @AutoRegisterCapability
 public class SpiritCap {
@@ -36,7 +35,8 @@ public class SpiritCap {
 
     public Set<ISpell> unlockedspells = new HashSet<>();
     public Set<ISpell> accessiblespells = new HashSet<>();
-    public ISpell[] selectedspells = {Datalist.fireball.getNew(), Datalist.qiball.getNew(), Datalist.empty, Datalist.empty, Datalist.empty, Datalist.empty};
+    public List<IPassiveSpell> passivespells = new ArrayList<>();
+    public ICastable[] selectedspells = {(ICastable) Datalist.fireball.getNew(), (ICastable) Datalist.qiball.getNew(), (ICastable) Datalist.empty, (ICastable) Datalist.empty, (ICastable) Datalist.empty, (ICastable) Datalist.empty};
 
     private float cultivation;
     private int elementlimit = 100;
@@ -75,7 +75,7 @@ public class SpiritCap {
     public int getQiRegen() {
         return( (int)((this.maxqi/160 + (Math.pow(this.maxqi,0.48)) )* this.qiregen) - 5 );
     }
-    public int getSpellCost(ISpell spell){
+    public int getSpellCost(ICastable spell){
         return (int) ((spell.getQiCost() + spell.getPerQiCost() * this.maxqi) * this.spellcost);
     }
 
@@ -115,7 +115,7 @@ public class SpiritCap {
     }
     public boolean isType(SType type){return this.type == type;}
 
-    public void setSelectedspell(ISpell type, int index) {
+    public void setSelectedspell(ICastable type, int index) {
         this.selectedspells[index] = type;
     }
 
@@ -302,17 +302,16 @@ public class SpiritCap {
         earthattunement = nbt.getInt("earthattunement");
         elementlimit = nbt.getInt("elementlimit");
 
-
-
         for(int i = 0; i< nbt.getInt("unlockedspellsize") ;i++){
-            unlockedspells.add( Datalist.spells[nbt.getInt("unlockedspell" + i)].getNew() );
+            unlockedspells.add( Datalist.spells[nbt.getInt("unlockedspell" + i)].getNew());
+            //load misc data on spell
         }
 
         List<ISpell> unlspells = unlockedspells.stream().toList();
         for(int i = 0; i<6;i++){
             for(int e=0;e<unlockedspells.size();e++){
                 if(unlspells.get(e).getIndex() == nbt.getInt("selectedspell"+i)){ //syncing selected and unlocked spells
-                    selectedspells[i] = unlspells.get(e) ;
+                    selectedspells[i] = (ICastable) unlspells.get(e);
                 }
             }
         }
