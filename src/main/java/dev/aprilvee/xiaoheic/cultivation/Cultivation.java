@@ -15,7 +15,7 @@ public class Cultivation {
     public static void addCXP(Player player, float amt){ //add cultivation xp
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         sp.addCultivation(amt);
-        checkLimit(player);
+        //checkLimit(player);
         //checkSpell(player);
     }
 
@@ -28,10 +28,9 @@ public class Cultivation {
             case FIRE -> sp.addFire(amt);
             case EARTH -> sp.addEarth(amt);
         }
-        checkLimit(player);
     }
 
-    public static void checkLimit(Player player){ // IMPORTANT **call every time a limit condition changes** IMPORTANT
+    public static void checkLimit(Player player){ // call when opening ui and when player checks
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         if(sp.state.limitBroken(player)){
             advanceState(sp, player);

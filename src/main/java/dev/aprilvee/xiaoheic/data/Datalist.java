@@ -6,7 +6,6 @@ import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.SpriteBreathing;
 import dev.aprilvee.xiaoheic.cultivation.state.*;
 import dev.aprilvee.xiaoheic.data.datatype.CastType;
 import dev.aprilvee.xiaoheic.data.datatype.Element;
-import dev.aprilvee.xiaoheic.data.datatype.SType;
 import dev.aprilvee.xiaoheic.data.datatype.SpellType;
 import dev.aprilvee.xiaoheic.spell.ISpell;
 import dev.aprilvee.xiaoheic.spell.spells.EmptySpell;
@@ -19,14 +18,6 @@ public class Datalist {
     public static SpellType emptyold;
     public static SpellType fireballold;
     public static SpellType snowshot;
-
-    public static SType notype;
-    public static SType elemental;
-    public static SType instrument;
-    public static SType creation;
-    public static SType spiritual;
-    public static SType mind;
-    public static SType spatial;
 
     public static ISpell empty = new EmptySpell();
     public static ISpell fireball = new FireballSpell();
@@ -45,12 +36,10 @@ public class Datalist {
     public static ICultivateMethod[] cultivationmethods = {emptymethod, spritebreathing};
     public static IState[] states = {mortal, sprite, attunement, realmshaping};
 
-    public static SType[] types;
     public static SpellType[] spellsold;
 
     public static void init(){
         initializeSpells();
-        initializeTypes();
     }
 
     @Deprecated
@@ -105,35 +94,6 @@ public class Datalist {
 
         spellsold = new SpellType[]{emptyold, fireballold, snowshot};
     }
-
-    public static void initializeTypes(){
-        notype = new SType();
-        elemental = new SType();
-        instrument = new SType();
-        creation = new SType();
-        spiritual = new SType();
-        mind = new SType();
-        spatial = new SType();
-
-        notype.index = 0;
-        notype.id = "none";
-        elemental.index = 1;
-        elemental.id = "elemental";
-        instrument.index = 2;
-        instrument.id = "instrumental";
-        creation.index = 3;
-        creation.id = "creation";
-        spiritual.index = 4;
-        spiritual.id = "spiritual";
-        mind.index = 5;
-        mind.id = "mind";
-        spatial.index = 6;
-        spatial.id = "spatial";
-        types = new SType[]{notype, elemental, instrument, creation, spiritual, mind, spatial};
-    }
-
-
-
 
         /*public static void initializeElements(){
         none = new Elements();   // do not use this element

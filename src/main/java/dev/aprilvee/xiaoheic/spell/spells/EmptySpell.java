@@ -1,8 +1,9 @@
 package dev.aprilvee.xiaoheic.spell.spells;
 
+import dev.aprilvee.xiaoheic.capability.SpiritCap;
+import dev.aprilvee.xiaoheic.cultivation.type.IType;
 import dev.aprilvee.xiaoheic.data.datatype.CastType;
 import dev.aprilvee.xiaoheic.data.datatype.Element;
-import dev.aprilvee.xiaoheic.data.datatype.SType;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
 import dev.aprilvee.xiaoheic.spell.ISpell;
@@ -25,7 +26,7 @@ public class EmptySpell implements IProjectileSpell {
 	}
 
 	@Override
-	public SType type() {
+	public IType type() {
 		return null;
 	}
 
@@ -45,6 +46,11 @@ public class EmptySpell implements IProjectileSpell {
 	}
 
 	@Override
+	public Component getDescription() {
+		return null;
+	}
+
+	@Override
 	public int getQiCost() {
 		return 0;
 	}
@@ -55,7 +61,7 @@ public class EmptySpell implements IProjectileSpell {
 	}
 
 	@Override
-	public void saveNBT(CompoundTag nbt) {
+	public void saveNBT(CompoundTag nbt, SpiritCap sp) {
 
 	}
 

@@ -67,9 +67,10 @@ public class CommonEvents {
                 }
 
                 xiaoheiutils.tickPassives(event.player);
-
+                sp.tickCount = event.player.tickCount;
             });
         }
+
     }
 
     @SubscribeEvent //give cultivation when rclicking a sprite, then despawn the sprite

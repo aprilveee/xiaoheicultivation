@@ -14,7 +14,6 @@ public abstract class SpellSlot {
     public int sustaintick;
 
     public Element element = Element.NONE;
-    public SType type = Datalist.notype;
 
     public boolean isSpell;
     public boolean holdable = false;

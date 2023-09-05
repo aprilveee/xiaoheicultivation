@@ -1,8 +1,10 @@
 package dev.aprilvee.xiaoheic.spell.spells;
 
+import dev.aprilvee.xiaoheic.capability.SpiritCap;
+import dev.aprilvee.xiaoheic.capability.SpiritProvider;
+import dev.aprilvee.xiaoheic.cultivation.type.IType;
 import dev.aprilvee.xiaoheic.data.datatype.CastType;
 import dev.aprilvee.xiaoheic.data.datatype.Element;
-import dev.aprilvee.xiaoheic.data.datatype.SType;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.spell.ICastable;
 import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
@@ -70,8 +72,8 @@ public class FireballSpell implements ICastable, IProjectileSpell {
 
     @Override
     public boolean canCast(Player player) {
-        player.sendSystemMessage(Component.literal(String.valueOf(this.staleTicks)));
-        player.sendSystemMessage(Component.literal(String.valueOf(player.tickCount - this.staleTicks)));
+        player.sendSystemMessage(Component.literal(String.valueOf(player.tickCount)));
+        player.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> player.sendSystemMessage(Component.literal(String.valueOf(sp.tickCount))));
         return player.tickCount - this.staleTicks > cooldown;
     }
 
@@ -88,7 +90,7 @@ public class FireballSpell implements ICastable, IProjectileSpell {
     public Element element() {
         return null;
     }
-    public SType type() {
+    public IType type() {
         return null;
     }
     @Override
@@ -112,13 +114,14 @@ public class FireballSpell implements ICastable, IProjectileSpell {
     }
 
     @Override
-    public void saveNBT(CompoundTag nbt) {
-
+    public void saveNBT(CompoundTag nbt, SpiritCap sp) {
+        xiaoheiutils.saveCooldown(sp.tickCount,this.staleTicks,index,nbt);
     }
 
     @Override
     public void loadNBT(CompoundTag nbt) {
-
+        this.staleTicks = -nbt.getInt("spellcd"+index);
+        System.out.println(-nbt.getInt("spellcd"+index));
     }
 
     @Override
@@ -139,5 +142,10 @@ public class FireballSpell implements ICastable, IProjectileSpell {
     @Override
     public Component getName() {
         return name;
+    }
+
+    @Override
+    public Component getDescription() {
+        return null;
     }
 }

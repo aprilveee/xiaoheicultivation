@@ -1,10 +1,11 @@
 package dev.aprilvee.xiaoheic.capability;
 
+import dev.aprilvee.xiaoheic.cultivation.affinity.IAffinity;
 import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.EmptyMethod;
 import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.ICultivateMethod;
 import dev.aprilvee.xiaoheic.cultivation.state.IState;
+import dev.aprilvee.xiaoheic.cultivation.type.IType;
 import dev.aprilvee.xiaoheic.data.Datalist;
-import dev.aprilvee.xiaoheic.data.datatype.SType;
 import dev.aprilvee.xiaoheic.spell.ICastable;
 import dev.aprilvee.xiaoheic.spell.IPassiveSpell;
 import dev.aprilvee.xiaoheic.spell.ISpell;
@@ -26,9 +27,9 @@ public class SpiritCap {
     private float spellresist = 1;
     private float spellcost = 1;
 
-    private String affinity = "none";
-    private String affinity2 = "none";
-    private SType type = Datalist.notype;
+    private IAffinity affinity;
+    private IAffinity affinity2;
+    private IType type;
     public IState state = Datalist.mortal;
     public ICultivateMethod currentcultivation = new EmptyMethod();
     public Set<ICultivateMethod> cultivationmethods = new HashSet<>();
@@ -50,19 +51,21 @@ public class SpiritCap {
     public boolean canCultivate = false;
     public boolean hasSpiritRealm = false;
 
+    public int tickCount = 0; //this is for jankness and such
+
     public int getQi(){
         return qi;
     }
     public int getMaxqi(){return maxqi;}
-    public float getMaxqiX(){return maxqiX;}
+    public float getSpellcost(){return spellcost;}
     public float getQiregen(){return qiregen;}
+    public float getMaxqiX(){return maxqiX;}
     public float getSpelldamage(){return spelldamage;}
     public float getSpellresist(){return spellresist;}
-    public float getSpellcost(){return spellcost;}
 
-    public String getAffinty(){return affinity;}
-    public String getAffinty2(){return affinity2;}
-    public SType getType(){return type;}
+    public IAffinity getAffinty(){return affinity;}
+    public IAffinity getAffinty2(){return affinity2;}
+    public IType getType(){return type;}
     public float getCultivation(){return cultivation;}
     public int getMetal(){return metalattunement;}
     public int getWater(){return waterattunement;}
@@ -103,17 +106,17 @@ public class SpiritCap {
     public void setSpellresist(float set){this.spellresist = set;}
     public void setSpellcost(float set){this.spellcost = set;}
 
-    public void setAffinity(String affinity){
+    public void setAffinity(IAffinity affinity){
         this.affinity = affinity;
     }
-    public void setAffinity2(String affinity){
+    public void setAffinity2(IAffinity affinity){
         this.affinity2 = affinity2;
     }
 
-    public void setType(SType type){
+    public void setType(IType type){
         this.type = type;
     }
-    public boolean isType(SType type){return this.type == type;}
+    public boolean isType(IType type){return this.type == type;}
 
     public void setSelectedspell(ICastable type, int index) {
         this.selectedspells[index] = type;
@@ -232,9 +235,9 @@ public class SpiritCap {
         nbt.putInt("qi", qi);
         nbt.putInt("maxqi", maxqi);
 
-        nbt.putString("affinity", affinity);
-        nbt.putString("affinity2", affinity2);
-        nbt.putInt("type", type.index);
+        //nbt.putString("affinity", affinity);
+        //nbt.putString("affinity2", affinity2);
+        //nbt.putInt("type", type.index);
         nbt.putInt("state", state.getIndex());
 
         nbt.putBoolean("cancultivate",canCultivate);
@@ -264,7 +267,9 @@ public class SpiritCap {
 
         List<ISpell> spells = unlockedspells.stream().toList();
         for(int i = 0; i<spells.size();i++){
-            nbt.putInt("unlockedspell" + i,spells.get(i).getIndex());
+            ISpell spell = spells.get(i);
+            nbt.putInt("unlockedspell" + i,spell.getIndex());
+            spell.saveNBT(nbt, this);
         }
         List<ISpell> accspells = accessiblespells.stream().toList();
         for(int i = 0; i<accspells.size();i++){
@@ -280,9 +285,9 @@ public class SpiritCap {
         qi = nbt.getInt("qi");
         maxqi = nbt.getInt("maxqi");
 
-        affinity = nbt.getString("affinity");
-        affinity2 = nbt.getString("affinity2");
-        type = Datalist.types[nbt.getInt("type")];
+        //affinity = nbt.getString("affinity");
+        //affinity2 = nbt.getString("affinity2");
+        //type = Datalist.types[nbt.getInt("type")];
         state = Datalist.states[nbt.getInt("state")];
 
         canCultivate = nbt.getBoolean("cancultivate");
@@ -303,8 +308,9 @@ public class SpiritCap {
         elementlimit = nbt.getInt("elementlimit");
 
         for(int i = 0; i< nbt.getInt("unlockedspellsize") ;i++){
-            unlockedspells.add( Datalist.spells[nbt.getInt("unlockedspell" + i)].getNew());
-            //load misc data on spell
+            ISpell spell = Datalist.spells[nbt.getInt("unlockedspell" + i)].getNew();
+            unlockedspells.add(spell);
+            spell.loadNBT(nbt);
         }
 
         List<ISpell> unlspells = unlockedspells.stream().toList();

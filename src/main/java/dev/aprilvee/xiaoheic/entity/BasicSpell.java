@@ -63,7 +63,7 @@ public class BasicSpell extends Projectile {
         //hit detection is all in this while statement
         //why, may you ask? well, to that, my answer is
         while (!this.isRemoved()) {
-            EntityHitResult entityhitresult = this.findHitEntity(pos, newpos);
+            EntityHitResult entityhitresult = this.findHitEntity(pos, hitpos);
             if (entityhitresult != null) {
                 hitresult = entityhitresult;
             }
@@ -97,7 +97,7 @@ public class BasicSpell extends Projectile {
         }
 
         ProjectileUtil.rotateTowardsMovement(this, 0.2F);
-        this.setPos(newpos.x, newpos.y, newpos.z);
+        this.setPos(hitpos.x, hitpos.y, hitpos.z);
 
         ++this.lifetime;
     }

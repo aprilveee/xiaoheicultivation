@@ -103,9 +103,10 @@ public class commands {
 
             case "elementlimit": sp.setElementlimit((int) input); return 1;
             case "state": sp.state = Datalist.states[(int) input]; return 1;
-            case "type": sp.setType(Datalist.types[(int) input]); return 1;
-            case "cmethod": sp.cultivationmethods.add(Datalist.cultivationmethods[(int) input]);
-            case "spell": sp.selectedspells[0] = (ICastable) Datalist.spells[(int) input].getNew(); return 1;
+            //case "type": sp.setType(Datalist.types[(int) input]); return 1;
+            case "cmethod": sp.cultivationmethods.add(Datalist.cultivationmethods[(int) input]);return 1;
+            case "spell": sp.unlockedspells.add(Datalist.spells[(int) input].getNew());return 1;
+            case "spellslot": sp.selectedspells[0] = (ICastable) Datalist.spells[(int) input].getNew(); return 1;
             default:
                 player.sendSystemMessage(Component.literal("Invalid input"));
                 return 1;

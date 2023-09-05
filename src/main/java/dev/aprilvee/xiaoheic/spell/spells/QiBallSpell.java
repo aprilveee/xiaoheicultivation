@@ -1,8 +1,9 @@
 package dev.aprilvee.xiaoheic.spell.spells;
 
+import dev.aprilvee.xiaoheic.capability.SpiritCap;
+import dev.aprilvee.xiaoheic.cultivation.type.IType;
 import dev.aprilvee.xiaoheic.data.datatype.CastType;
 import dev.aprilvee.xiaoheic.data.datatype.Element;
-import dev.aprilvee.xiaoheic.data.datatype.SType;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.spell.ICastable;
 import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
@@ -23,7 +24,7 @@ public class QiBallSpell implements IProjectileSpell, ICastable {
 	public int qiCost = 100;
 	public float perQiCost = 0.01f;
 	final int cooldown = 20;
-	int staleTicks = Integer.MIN_VALUE;
+	int staleTicks = -100;
 
 	@Override
 	public void basicProjTick(BasicSpell spell) {
@@ -52,12 +53,13 @@ public class QiBallSpell implements IProjectileSpell, ICastable {
 
 	@Override
 	public void castSpell(Player player) {
-		xiaoheiutils.fireProjSpell(player, this, 1.5f, 3);
+		xiaoheiutils.fireProjSpell(player, this, 1.2f, 3);
+		this.staleTicks = player.tickCount;
 	}
 
 	@Override
 	public boolean canCast(Player player) {
-		return true;
+		return player.tickCount - this.staleTicks > cooldown;
 	}
 
 	@Override
@@ -86,7 +88,7 @@ public class QiBallSpell implements IProjectileSpell, ICastable {
 	}
 
 	@Override
-	public SType type() {
+	public IType type() {
 		return null;
 	}
 
@@ -106,6 +108,11 @@ public class QiBallSpell implements IProjectileSpell, ICastable {
 	}
 
 	@Override
+	public Component getDescription() {
+		return null;
+	}
+
+	@Override
 	public int getQiCost() {
 		return qiCost;
 	}
@@ -116,13 +123,13 @@ public class QiBallSpell implements IProjectileSpell, ICastable {
 	}
 
 	@Override
-	public void saveNBT(CompoundTag nbt) {
-
+	public void saveNBT(CompoundTag nbt, SpiritCap sp) {
+		xiaoheiutils.saveCooldown(sp.tickCount,this.staleTicks,index,nbt);
 	}
 
 	@Override
 	public void loadNBT(CompoundTag nbt) {
-
+		this.staleTicks = -nbt.getInt("spellcd"+index);
 	}
 
 	@Override
