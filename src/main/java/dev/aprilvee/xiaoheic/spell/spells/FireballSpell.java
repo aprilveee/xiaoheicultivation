@@ -28,6 +28,8 @@ public class FireballSpell implements ICastable, IProjectileSpell {
     final public float perQiCost = 0.02f;
     final int cooldown = 20;
     int staleTicks = -100;
+    float damageRes = 1;
+    float damageX = 1;
 
     @Override
     public void basicProjTick(BasicSpell spell) {
@@ -48,8 +50,15 @@ public class FireballSpell implements ICastable, IProjectileSpell {
 
     @Override
     public void entityHit(Entity target, Entity caster, BasicSpell spell) {
+
+        target.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
+            damageRes = sp.getSpellresist();
+        });
+        caster.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
+            damageX = sp.getSpelldamage();
+        });
         target.setSecondsOnFire(3);
-        target.hurt(target.damageSources().onFire(),5F);
+        target.hurt(target.damageSources().onFire(),5 * damageX* damageRes);
         Random rand = new Random();
 
         spell.level().addParticle(ParticleTypes.FLAME, spell.position().x, spell.position().y, spell.position().z, (rand.nextFloat()-0.5f)/10, (rand.nextFloat()-0.5f)/10,(rand.nextFloat()-0.5f)/10);

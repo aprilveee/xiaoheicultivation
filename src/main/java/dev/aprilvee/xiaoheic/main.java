@@ -52,7 +52,6 @@ public class main
         // Register the commonSetup method for modloading
         bus.addListener(this::commonSetup);
 
-        Datalist.init();
         blocks.BLOCKS.register(bus);
         items.ITEMS.register(bus);
         entities.ENTITIES.register(bus);

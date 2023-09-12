@@ -9,6 +9,7 @@ import dev.aprilvee.xiaoheic.data.Datalist;
 import dev.aprilvee.xiaoheic.spell.ICastable;
 import dev.aprilvee.xiaoheic.spell.IPassiveSpell;
 import dev.aprilvee.xiaoheic.spell.ISpell;
+import dev.aprilvee.xiaoheic.spell.tree.ISkillTree;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
@@ -29,10 +30,11 @@ public class SpiritCap {
 
     private IAffinity affinity;
     private IAffinity affinity2;
-    private IType type;
+    private IType type = Datalist.notype;
     public IState state = Datalist.mortal;
     public ICultivateMethod currentcultivation = new EmptyMethod();
     public Set<ICultivateMethod> cultivationmethods = new HashSet<>();
+    public List<ISkillTree> skilltrees = new ArrayList<>();
 
     public Set<ISpell> unlockedspells = new HashSet<>();
     public Set<ISpell> accessiblespells = new HashSet<>();
@@ -52,6 +54,10 @@ public class SpiritCap {
     public boolean hasSpiritRealm = false;
 
     public int tickCount = 0; //this is for jankness and such
+
+    public void recalculateStats(){
+
+    }
 
     public int getQi(){
         return qi;
@@ -235,9 +241,7 @@ public class SpiritCap {
         nbt.putInt("qi", qi);
         nbt.putInt("maxqi", maxqi);
 
-        //nbt.putString("affinity", affinity);
-        //nbt.putString("affinity2", affinity2);
-        //nbt.putInt("type", type.index);
+        nbt.putInt("type", type.getIndex());
         nbt.putInt("state", state.getIndex());
 
         nbt.putBoolean("cancultivate",canCultivate);
@@ -287,7 +291,7 @@ public class SpiritCap {
 
         //affinity = nbt.getString("affinity");
         //affinity2 = nbt.getString("affinity2");
-        //type = Datalist.types[nbt.getInt("type")];
+        type = Datalist.types[nbt.getInt("type")];
         state = Datalist.states[nbt.getInt("state")];
 
         canCultivate = nbt.getBoolean("cancultivate");

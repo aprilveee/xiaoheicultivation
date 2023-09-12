@@ -1,6 +1,7 @@
 package dev.aprilvee.xiaoheic.spell.spells;
 
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
+import dev.aprilvee.xiaoheic.capability.SpiritProvider;
 import dev.aprilvee.xiaoheic.cultivation.type.IType;
 import dev.aprilvee.xiaoheic.data.datatype.CastType;
 import dev.aprilvee.xiaoheic.data.datatype.Element;
@@ -25,6 +26,8 @@ public class QiBallSpell implements IProjectileSpell, ICastable {
 	public float perQiCost = 0.01f;
 	final int cooldown = 20;
 	int staleTicks = -100;
+	float damageRes = 1;
+	float damageX = 1;
 
 	@Override
 	public void basicProjTick(BasicSpell spell) {
@@ -43,7 +46,13 @@ public class QiBallSpell implements IProjectileSpell, ICastable {
 
 	@Override
 	public void entityHit(Entity target, Entity caster, BasicSpell spell) {
-		target.hurt(target.damageSources().generic(),2F);
+		target.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
+			damageRes = sp.getSpellresist();
+		});
+		caster.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
+			damageX = sp.getSpelldamage();
+		});
+		target.hurt(target.damageSources().generic(),2*damageX*damageRes);
 	}
 
 	@Override
