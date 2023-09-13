@@ -1,7 +1,8 @@
 package dev.aprilvee.xiaoheic;
 
 import com.mojang.logging.LogUtils;
-import dev.aprilvee.xiaoheic.data.Datalist;
+import dev.aprilvee.xiaoheic.fluid.xiaoheifluids;
+import dev.aprilvee.xiaoheic.fluid.xiaoheifluidtypes;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.registry.*;
 import net.minecraft.client.Minecraft;
@@ -53,10 +54,13 @@ public class main
         bus.addListener(this::commonSetup);
 
         blocks.BLOCKS.register(bus);
+        xiaoheifluids.FLUIDS.register(bus);
+        xiaoheifluidtypes.FLUID_TYPES.register(bus);
         items.ITEMS.register(bus);
         entities.ENTITIES.register(bus);
         misc.CREATIVE_MODE_TABS.register(bus);
         menutypes.MENUS.register(bus);
+
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

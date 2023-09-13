@@ -54,9 +54,11 @@ public class FireballSpell implements ICastable, IProjectileSpell {
         target.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
             damageRes = sp.getSpellresist();
         });
-        caster.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
-            damageX = sp.getSpelldamage();
-        });
+        if(caster != null){
+            caster.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
+                damageX = sp.getSpelldamage();
+            });
+        }
         target.setSecondsOnFire(3);
         target.hurt(target.damageSources().onFire(),5 * damageX* damageRes);
         Random rand = new Random();

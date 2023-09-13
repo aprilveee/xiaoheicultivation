@@ -47,12 +47,12 @@ public class CultivationS2C {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
-            ClientCapData.setCultivation(cultivation);
-            ClientCapData.setMetal(metalaspect);
-            ClientCapData.setWater(wateraspect);
-            ClientCapData.setWood(woodaspect);
-            ClientCapData.setFire(fireaspect);
-            ClientCapData.setEarth(earthaspect);
+            ClientCapData.cultivation = cultivation;
+            ClientCapData.metalattunement = metalaspect;
+            ClientCapData.waterattunement = wateraspect;
+            ClientCapData.woodattunement = woodaspect;
+            ClientCapData.fireattunement = fireaspect;
+            ClientCapData.earthattunement = earthaspect;
         });
         return true;
     }

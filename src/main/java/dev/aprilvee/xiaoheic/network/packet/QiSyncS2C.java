@@ -25,7 +25,7 @@ public class QiSyncS2C {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
-            ClientCapData.setQi(qi);
+            ClientCapData.qi = qi;
         });
         return true;
     }

@@ -9,15 +9,15 @@ import java.util.Set;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientCapData {
-    private static int qi;
-    private static int maxqi;
+    public static int qi;
+    public static int maxqi;
 
-    private static float cultivation;
-    private static float metalattunement;
-    private static float waterattunement;
-    private static float woodattunement;
-    private static float fireattunement;
-    private static float earthattunement;
+    public static float cultivation;
+    public static float metalattunement;
+    public static float waterattunement;
+    public static float woodattunement;
+    public static float fireattunement;
+    public static float earthattunement;
 
     public static Set<SpellSlot> unlockedspells = new HashSet<>();
 

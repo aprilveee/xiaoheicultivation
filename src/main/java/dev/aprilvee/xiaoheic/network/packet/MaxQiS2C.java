@@ -25,7 +25,7 @@ public class MaxQiS2C {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
-            ClientCapData.setMaxqi(maxqi);
+            ClientCapData.maxqi = maxqi;
         });
         return true;
     }

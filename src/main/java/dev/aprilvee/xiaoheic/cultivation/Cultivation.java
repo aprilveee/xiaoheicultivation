@@ -30,6 +30,8 @@ public class Cultivation {
         }
     }
 
+    
+
     public static void checkLimit(Player player){ // call when opening ui and when player checks
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         if(sp.state.limitBroken(player)){
