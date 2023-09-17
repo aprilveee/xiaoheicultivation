@@ -2,6 +2,7 @@ package dev.aprilvee.xiaoheic.cultivation;
 
 import dev.aprilvee.xiaoheic.data.datatype.Element;
 import dev.aprilvee.xiaoheic.entity.sprite.Sprite;
+import dev.aprilvee.xiaoheic.fluid.xiaoheifluids;
 import dev.aprilvee.xiaoheic.registry.tags;
 import dev.aprilvee.xiaoheic.util.ClinkerMathUtils;
 import dev.aprilvee.xiaoheic.util.xiaoheiutils;
@@ -169,8 +170,10 @@ public class EnvironmentQi {
             }
         }
         if(tag.getTag(tags.solid).contains(block)){qi[6] = 1;} //crampedness
-        if(fluid == Fluids.WATER) {qi[2] += low;
-        }else if(fluid == Fluids.LAVA){qi[4] += moderate;
+        if(fluid == Fluids.WATER) {qi[2] += low; qi[6] += 0.25f;
+        }else if(fluid == Fluids.LAVA){qi[4] += moderate; qi[6] += 0.25f;
+        }else if(fluid == xiaoheifluids.SOURCE_SPIRIT_WATER.get()){
+            qi[0] += moderate; qi[2] += moderate; qi[6] += 0.25f;
         }
         return qi;
     }

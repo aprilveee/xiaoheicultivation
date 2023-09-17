@@ -46,13 +46,9 @@ public class QiBallSpell implements IProjectileSpell, ICastable {
 
 	@Override
 	public void entityHit(Entity target, Entity caster, BasicSpell spell) {
-			target.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
-				damageRes = sp.getSpellresist();
-			});
+			target.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> damageRes = sp.getSpellresist());
 			if(caster != null){
-				caster.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
-					damageX = sp.getSpelldamage();
-				});
+				caster.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> damageX = sp.getSpelldamage());
 			}
 		target.hurt(target.damageSources().generic(),2*damageX*damageRes);
 	}

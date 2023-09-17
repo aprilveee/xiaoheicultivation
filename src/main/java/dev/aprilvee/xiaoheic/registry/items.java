@@ -18,6 +18,7 @@ public class items {
 
     public static final RegistryObject<Item> JADEBLOCK = ITEMS.register("jade_block", () -> new BlockItem(blocks.JADE.get(), new Item.Properties()));
 
+    public static final RegistryObject<Item> ANCIENT_LOG = ITEMS.register("ancient_log", () -> new BlockItem(blocks.ANCIENT_LOG.get(), new Item.Properties()));
 
 
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(blocks.EXAMPLE_BLOCK.get(), new Item.Properties()));

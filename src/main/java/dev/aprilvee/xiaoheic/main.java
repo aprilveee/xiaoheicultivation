@@ -1,14 +1,20 @@
 package dev.aprilvee.xiaoheic;
 
+import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
 import dev.aprilvee.xiaoheic.fluid.xiaoheifluids;
 import dev.aprilvee.xiaoheic.fluid.xiaoheifluidtypes;
 import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.registry.*;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -23,6 +29,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
+
+import java.util.Map;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(main.MODID)
@@ -110,6 +118,9 @@ public class main
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             // Some client setup code
+            ItemBlockRenderTypes.setRenderLayer(xiaoheifluids.SOURCE_SPIRIT_WATER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(xiaoheifluids.FLOWING_SPIRIT_WATER.get(), RenderType.translucent());
+
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }

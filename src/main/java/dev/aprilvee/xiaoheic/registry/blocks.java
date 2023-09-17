@@ -5,6 +5,7 @@ import dev.aprilvee.xiaoheic.main;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.registries.DeferredRegister;
@@ -16,7 +17,8 @@ public class blocks {
     public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
     public static final RegistryObject<Block> JADE = BLOCKS.register("jade",()->new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).requiresCorrectToolForDrops()
             .destroyTime(3)));
+    public static final RegistryObject<RotatedPillarBlock> ANCIENT_LOG = BLOCKS.register("ancient_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().destroyTime(3)));
 
-    public static final RegistryObject<LiquidBlock> SPIRIT_WATER_BLOCK = BLOCKS.register("spirit_water_block", () ->
+    public static final RegistryObject<LiquidBlock> SPIRIT_WATER_BLOCK = BLOCKS.register("spirit_water", () ->
             new LiquidBlock(xiaoheifluids.SOURCE_SPIRIT_WATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
 }

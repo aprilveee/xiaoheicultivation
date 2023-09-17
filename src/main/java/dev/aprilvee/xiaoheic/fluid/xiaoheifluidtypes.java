@@ -12,17 +12,16 @@ public class xiaoheifluidtypes {
 	public static final ResourceLocation water_still = new ResourceLocation("block/water_still");
 	public static final ResourceLocation water_flowing = new ResourceLocation("block/water_flow");
 	public static final ResourceLocation overlay = new ResourceLocation(main.MODID,"block/overlay");
-	//public static final ResourceLocation SOAP_OVERLAY_RL = new ResourceLocation(main.MODID, "misc/in_soap_water");
 
 	public static final DeferredRegister<FluidType> FLUID_TYPES	= DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, main.MODID);
 
 	public static final RegistryObject<FluidType> SPIRIT_WATER_TYPE = register("spirit_water_fluid", FluidType.Properties.create()
-			.lightLevel(2).density(20).viscosity(3));
+			.lightLevel(8).density(20).viscosity(3).canHydrate(false).temperature(0));
 
 
 	private static RegistryObject<FluidType> register(String name, FluidType.Properties properties){
 		return FLUID_TYPES.register(name, () -> new BaseFluidType(water_still, water_flowing, overlay,
-				0xa1c7f0, new Vector3f(84/255f, 112/255f, 222/255f), properties));
+				0xa1c7f0d0, new Vector3f(84/255f, 112/255f, 222/255f), properties));
 	}
 
 }
