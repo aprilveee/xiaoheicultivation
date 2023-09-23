@@ -1,4 +1,4 @@
-package dev.aprilvee.xiaoheic.data.datatype;
+package dev.aprilvee.xiaoheic.data;
 
 public enum Element {
         NONE,

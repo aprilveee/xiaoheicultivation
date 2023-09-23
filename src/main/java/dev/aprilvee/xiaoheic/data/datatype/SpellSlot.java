@@ -1,8 +1,8 @@
 package dev.aprilvee.xiaoheic.data.datatype;
 
-import dev.aprilvee.xiaoheic.data.Datalist;
+import dev.aprilvee.xiaoheic.data.Element;
 import net.minecraft.network.chat.Component;
-
+@Deprecated
 public abstract class SpellSlot {
     public int index;
     public Component name;

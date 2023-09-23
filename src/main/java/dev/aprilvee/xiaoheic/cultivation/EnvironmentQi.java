@@ -1,6 +1,6 @@
 package dev.aprilvee.xiaoheic.cultivation;
 
-import dev.aprilvee.xiaoheic.data.datatype.Element;
+import dev.aprilvee.xiaoheic.data.Element;
 import dev.aprilvee.xiaoheic.entity.sprite.Sprite;
 import dev.aprilvee.xiaoheic.fluid.xiaoheifluids;
 import dev.aprilvee.xiaoheic.registry.tags;

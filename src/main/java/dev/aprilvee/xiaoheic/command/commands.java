@@ -36,7 +36,6 @@ public class commands {
                         .then(Commands.argument("input", IntegerArgumentType.integer())
                                 .executes(context -> xrun(context.getSource().getPlayerOrException(), StringArgumentType.getString(context, "function"), IntegerArgumentType.getInteger(context, "input")))
                         )));
-
         dispatcher.register(Commands.literal("xset")
                 .then(Commands.argument("value", StringArgumentType.string())
                         .then(Commands.argument("amount", FloatArgumentType.floatArg())
@@ -95,6 +94,7 @@ public class commands {
             case "spellcost": sp.setSpellcost(input); return 1;
 
             case "cxp": sp.setCultivation(input); return 1;
+            case "inspiration": sp.inspiration = (int) input; return 1;
             case "metal": sp.setMetal((int) input); return 1;
             case "water": sp.setWater((int) input); return 1;
             case "wood": sp.setWood((int) input); return 1;
