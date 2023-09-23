@@ -59,7 +59,7 @@ public class CommonEvents {
                 sp.currentcultivation.minigameTick(event.player);
 
                 if(event.player.tickCount % 5 == 0){//qi regen
-                    if (sp.getMaxqi() > 0) {
+                    if (sp.maxqi > 0) {
 
                         sp.addQi(sp.getQiRegen());
                         Messages.sendToClient(new QiSyncS2C(sp.getQi()), event.player.getServer().getPlayerList().getPlayerByName(event.player.getName().getString()));
@@ -91,11 +91,11 @@ public class CommonEvents {
     public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
         if(!event.getLevel().isClientSide()) {
             if(event.getEntity() instanceof ServerPlayer player) {
-                player.getCapability(SpiritProvider.SPIRITCAP).ifPresent(spirit -> {
-                    Messages.sendToClient(new QiSyncS2C(spirit.getQi()), player);
-                    Messages.sendToClient(new MaxQiS2C(spirit.getMaxqi()), player);
-                    Messages.sendToClient(new CultivationS2C(spirit.getCultivation(),spirit.getMetal(),spirit.getWater(),
-                            spirit.getWood(),spirit.getFire(),spirit.getEarth()), player);
+                player.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> {
+                    Messages.sendToClient(new QiSyncS2C(sp.qi), player);
+                    Messages.sendToClient(new MaxQiS2C(sp.maxqi), player);
+                    Messages.sendToClient(new CultivationS2C(sp.getCultivation(),sp.getMetal(),sp.getWater(),
+                            sp.getWood(),sp.getFire(),sp.getEarth()), player);
                 });
             }
         }

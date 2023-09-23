@@ -33,7 +33,7 @@ public class HandleCastC2S {
 
                 ICastable type = sp.selectedspells[key];
                     int qicost = sp.getSpellCost(type);
-                    if(type.canCast(player) && sp.getQi() >= qicost && sp.getMaxqi() >= qicost) {
+                    if(type.canCast(player) && sp.getQi() >= qicost && sp.maxqi >= qicost) {
                         sp.subQi(qicost);
                         type.castSpell(player);
                     }

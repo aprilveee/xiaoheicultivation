@@ -54,7 +54,7 @@ public class commands {
     public static int setmaxqi(ServerPlayer player, int input){
         SpiritCap qi = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         qi.setMaxQi(input);
-        Messages.sendToClient(new MaxQiS2C(qi.getMaxqi()), player);
+        Messages.sendToClient(new MaxQiS2C(qi.maxqi), player);
         return 1;
     }
 
@@ -85,7 +85,7 @@ public class commands {
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         switch (value){
             case "qi": sp.setQi((int) input);Messages.sendToClient(new QiSyncS2C(sp.getQi()), player);return 1;
-            case "maxqi": sp.setMaxQi((int) input);Messages.sendToClient(new MaxQiS2C(sp.getMaxqi()), player); return 1;
+            case "maxqi": sp.setMaxQi((int) input);Messages.sendToClient(new MaxQiS2C(sp.maxqi), player); return 1;
 
             case "maxqix": sp.setMaxqiX(input); return 1;
             case "qiregen": sp.setQiregen(input); return 1;

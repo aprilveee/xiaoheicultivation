@@ -18,16 +18,16 @@ import java.util.*;
 
 @AutoRegisterCapability
 public class SpiritCap {
-    private int qi;
-    private int maxqi;
+    public int qi;
+    public int maxqi;
     public int primalqi;
     public int maxprimalqi;
 
-    private float maxqiX = 1; //these 5 are multipliers, be careful with them! strong!
-    private float qiregen = 1;
-    private float spelldamage = 1;
-    private float spellresist = 1;
-    private float spellcost = 1;
+    public float maxqiX = 1; //these 5 are multipliers, be careful with them! strong!
+    public float qiregen = 1;
+    public float spelldamage = 1;
+    public float spellresist = 1;
+    public float spellcost = 1;
 
     //maxqi here is NOT a multiplier unlike all the others, and generally should not be used (put it into maxqi variable instead)
     //0 maxqi, 1 qiregen, 2 spelldamage, 3 spellresist, 4 spellcost
@@ -90,18 +90,16 @@ public class SpiritCap {
             finalstats[i] = stats[i];
         }
         maxqi = (int) finalstats[0];
-
+        qiregen = finalstats[1];
+        spelldamage = finalstats[2];
+        spellresist = finalstats[3];
+        spellcost = finalstats[4];
     }
 
     public int getQi(){
         return qi;
     }
-    public int getMaxqi(){return maxqi;}
-    public float getSpellcost(){return spellcost;}
-    public float getQiregen(){return qiregen;}
-    public float getMaxqiX(){return maxqiX;}
-    public float getSpelldamage(){return spelldamage;}
-    public float getSpellresist(){return spellresist;}
+
 
     public IAffinity getAffinty(){return affinity;}
     public IAffinity getAffinty2(){return affinity2;}

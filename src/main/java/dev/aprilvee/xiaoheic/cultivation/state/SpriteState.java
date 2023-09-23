@@ -25,7 +25,7 @@ public class SpriteState implements IState {
     public void stateReached(Player player) {
         SpiritCap sp = player.getCapability(SpiritProvider.SPIRITCAP).orElse(null);
         sp.addMaxQi(50);
-        Messages.sendToClient(new MaxQiS2C(sp.getMaxqi()), player.getServer().getPlayerList().getPlayer(player.getUUID()));
+        Messages.sendToClient(new MaxQiS2C(sp.maxqi), player.getServer().getPlayerList().getPlayer(player.getUUID()));
 
     }
 

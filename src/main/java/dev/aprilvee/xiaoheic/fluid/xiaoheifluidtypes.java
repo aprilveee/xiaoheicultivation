@@ -16,12 +16,12 @@ public class xiaoheifluidtypes {
 	public static final DeferredRegister<FluidType> FLUID_TYPES	= DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, main.MODID);
 
 	public static final RegistryObject<FluidType> SPIRIT_WATER_TYPE = register("spirit_water_fluid", FluidType.Properties.create()
-			.lightLevel(8).density(20).viscosity(3).canHydrate(false).temperature(0));
+			.lightLevel(12).density(20).viscosity(3).canHydrate(false).temperature(0));
 
 
 	private static RegistryObject<FluidType> register(String name, FluidType.Properties properties){
 		return FLUID_TYPES.register(name, () -> new BaseFluidType(water_still, water_flowing, overlay,
-				0xa1c7f0d0, new Vector3f(84/255f, 112/255f, 222/255f), properties));
+				0xd05ae6f3, new Vector3f(67/255f, 232/255f, 247/255f), properties));
 	}
 
 }

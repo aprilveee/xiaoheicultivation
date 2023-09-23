@@ -51,9 +51,9 @@ public class FireballSpell implements ICastable, IProjectileSpell {
     @Override
     public void entityHit(Entity target, Entity caster, BasicSpell spell) {
 
-        target.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> damageRes = sp.getSpellresist());
+        target.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> damageRes = sp.spellresist);
         if(caster != null){
-            caster.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> damageX = sp.getSpelldamage());
+            caster.getCapability(SpiritProvider.SPIRITCAP).ifPresent(sp -> damageX = sp.spelldamage);
         }
         target.setSecondsOnFire(3);
         target.hurt(target.damageSources().onFire(),5 * damageX* damageRes);
