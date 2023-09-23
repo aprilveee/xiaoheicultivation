@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Player;
 public interface ISkillTree {
 	public void onUnlock(Player player);
 	public ITreeNode[] nodes();
-	public Boolean unlocked(Player player);
+	public boolean unlocked(Player player);
 	public int index();
 	public String id();
 	public ResourceLocation background();

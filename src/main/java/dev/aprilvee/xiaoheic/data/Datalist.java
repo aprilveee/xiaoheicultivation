@@ -11,10 +11,14 @@ import dev.aprilvee.xiaoheic.spell.ISpell;
 import dev.aprilvee.xiaoheic.spell.spells.EmptySpell;
 import dev.aprilvee.xiaoheic.spell.spells.FireballSpell;
 import dev.aprilvee.xiaoheic.spell.spells.QiBallSpell;
+import dev.aprilvee.xiaoheic.spell.tree.ISkillTree;
+import dev.aprilvee.xiaoheic.spell.tree.MetalSkillTree;
 
 public class Datalist {
     public static IType notype = new NoType();
     public static IType elemental = new ElementalType();
+
+    public static ISkillTree metal = new MetalSkillTree();
 
     public static ISpell empty = new EmptySpell();
     public static ISpell fireball = new FireballSpell();
@@ -30,6 +34,7 @@ public class Datalist {
 
     //ALWAYS INSTANTIATE SPELLS WHEN GIVING THEM TO PLAYERS unless you dont need to, you probably need to
     public static IType[] types = {notype,elemental};
+    public static ISkillTree[] skilltrees = {metal};
     public static ISpell[] spells = {empty, fireball, qiball};
     public static ICultivateMethod[] cultivationmethods = {emptymethod, spritebreathing};
     public static IState[] states = {mortal, sprite, attunement, realmshaping};

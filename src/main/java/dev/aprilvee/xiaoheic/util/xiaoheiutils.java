@@ -2,7 +2,7 @@ package dev.aprilvee.xiaoheic.util;
 
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.capability.SpiritProvider;
-import dev.aprilvee.xiaoheic.data.datatype.Element;
+import dev.aprilvee.xiaoheic.data.Element;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.registry.tags;
 import dev.aprilvee.xiaoheic.spell.IPassiveSpell;

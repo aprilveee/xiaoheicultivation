@@ -5,7 +5,7 @@ import dev.aprilvee.xiaoheic.client.gui.AbstractCultivationScreen;
 import dev.aprilvee.xiaoheic.client.gui.BreathingCScreen;
 import dev.aprilvee.xiaoheic.cultivation.Cultivation;
 import dev.aprilvee.xiaoheic.cultivation.EnvironmentQi;
-import dev.aprilvee.xiaoheic.data.datatype.Element;
+import dev.aprilvee.xiaoheic.data.Element;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;

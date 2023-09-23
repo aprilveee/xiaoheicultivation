@@ -6,6 +6,7 @@ import dev.aprilvee.xiaoheic.cultivation.cultivatemethods.ICultivateMethod;
 import dev.aprilvee.xiaoheic.cultivation.state.IState;
 import dev.aprilvee.xiaoheic.cultivation.type.IType;
 import dev.aprilvee.xiaoheic.data.Datalist;
+import dev.aprilvee.xiaoheic.data.StatValue;
 import dev.aprilvee.xiaoheic.spell.ICastable;
 import dev.aprilvee.xiaoheic.spell.IPassiveSpell;
 import dev.aprilvee.xiaoheic.spell.ISpell;
@@ -28,6 +29,12 @@ public class SpiritCap {
     private float spellresist = 1;
     private float spellcost = 1;
 
+    //maxqi here is NOT a multiplier unlike all the others, and generally should not be used (put it into maxqi variable instead)
+    //0 maxqi, 1 qiregen, 2 spelldamage, 3 spellresist, 4 spellcost
+    public float[] finalstats = new float[]{0, 1, 1, 1, 1};
+    public List<StatValue> basestats = new ArrayList<>();
+    public List<StatValue> stats = new ArrayList<>();
+
     private IAffinity affinity;
     private IAffinity affinity2;
     private IType type = Datalist.notype;
@@ -42,6 +49,7 @@ public class SpiritCap {
     public ICastable[] selectedspells = {(ICastable) Datalist.fireball.getNew(), (ICastable) Datalist.qiball.getNew(), (ICastable) Datalist.empty, (ICastable) Datalist.empty, (ICastable) Datalist.empty, (ICastable) Datalist.empty};
 
     private float cultivation;
+    public int inspiration;
     private int elementlimit = 100;
     private int metalattunement;
     private int waterattunement;
@@ -56,6 +64,32 @@ public class SpiritCap {
     public int tickCount = 0; //this is for jankness and such
 
     public void recalculateStats(){
+        //max qi, qiregen, spelldamage, spellresist, spellcost
+        float[] stats = new float[]{0, 1.0f ,1.0f ,1.0f ,1.0f};
+        float[] statsX = new float[]{1,1,1,1,1};
+
+        for(int i=0;i<basestats.size();i++){
+            StatValue stat = basestats.get(i);
+            stats[stat.stat] += stat.addvalue;
+            statsX[stat.stat] += stat.xvalue;
+        }
+
+        for(int i=0;i<stats.length;i++){
+            stats[i] *= statsX[i];
+            statsX[i] = 1;
+        }
+
+        for(int i=0;i<this.stats.size();i++){
+            StatValue stat = this.stats.get(i);
+            stats[stat.stat] += stat.addvalue;
+            statsX[stat.stat] += stat.xvalue;
+        }
+
+        for(int i=0;i<stats.length;i++){
+            stats[i] *= statsX[i];
+            finalstats[i] = stats[i];
+        }
+        maxqi = (int) finalstats[0];
 
     }
 
@@ -220,11 +254,13 @@ public class SpiritCap {
         this.selectedspells = source.selectedspells;
         this.unlockedspells = source.unlockedspells;
         this.cultivationmethods = source.cultivationmethods;
+        this.skilltrees = source.skilltrees;
 
         this.canCultivate = source.canCultivate;
         this.hasSpiritRealm = source.hasSpiritRealm;
 
         this.cultivation = source.cultivation;
+        this.inspiration = source.inspiration;
         this.metalattunement = source.metalattunement;
         this.waterattunement = source.waterattunement;
         this.woodattunement = source.woodattunement;
@@ -254,6 +290,7 @@ public class SpiritCap {
         nbt.putFloat("spellcost", spellcost);
 
         nbt.putFloat("cultivation", cultivation);
+        nbt.putInt("inspiration",inspiration);
         nbt.putInt("metalattunement", metalattunement);
         nbt.putInt("waterattunement", waterattunement);
         nbt.putInt("woodattunement", woodattunement);
@@ -261,10 +298,14 @@ public class SpiritCap {
         nbt.putInt("earthattunement", earthattunement);
         nbt.putInt("elementlimit", elementlimit);
 
+        nbt.putInt("skilltreesize", skilltrees.size());
         nbt.putInt("unlockedspellsize", unlockedspells.size());
         nbt.putInt("accessiblespellsize", accessiblespells.size());
         nbt.putInt("cultivationmethodsize", cultivationmethods.size());
 
+        for (int i = 0; i<skilltrees.size();i++){
+            nbt.putInt("skilltree"+i,skilltrees.get(i).index());
+        }
         for(int i = 0; i<selectedspells.length;i++){
             nbt.putInt("selectedspell" + i,selectedspells[i].getIndex());
         }
@@ -304,12 +345,15 @@ public class SpiritCap {
         spellcost = nbt.getFloat("spellcost");
 
         cultivation = nbt.getFloat("cultivation");
+        inspiration = nbt.getInt("inspiration");
         metalattunement = nbt.getInt("metalattunement");
         waterattunement = nbt.getInt("waterattunement");
         woodattunement = nbt.getInt("woodattunement");
         fireattunement = nbt.getInt("fireattunement");
         earthattunement = nbt.getInt("earthattunement");
         elementlimit = nbt.getInt("elementlimit");
+
+
 
         for(int i = 0; i< nbt.getInt("unlockedspellsize") ;i++){
             ISpell spell = Datalist.spells[nbt.getInt("unlockedspell" + i)].getNew();

@@ -2,7 +2,7 @@ package dev.aprilvee.xiaoheic.spell;
 
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.cultivation.type.IType;
-import dev.aprilvee.xiaoheic.data.datatype.Element;
+import dev.aprilvee.xiaoheic.data.Element;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 

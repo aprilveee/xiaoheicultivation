@@ -3,7 +3,7 @@ package dev.aprilvee.xiaoheic.spell.spells;
 import dev.aprilvee.xiaoheic.capability.SpiritCap;
 import dev.aprilvee.xiaoheic.cultivation.type.IType;
 import dev.aprilvee.xiaoheic.data.datatype.CastType;
-import dev.aprilvee.xiaoheic.data.datatype.Element;
+import dev.aprilvee.xiaoheic.data.Element;
 import dev.aprilvee.xiaoheic.entity.BasicSpell;
 import dev.aprilvee.xiaoheic.spell.IProjectileSpell;
 import dev.aprilvee.xiaoheic.spell.ISpell;
