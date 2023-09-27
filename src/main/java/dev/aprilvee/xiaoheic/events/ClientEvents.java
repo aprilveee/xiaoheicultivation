@@ -1,6 +1,7 @@
 package dev.aprilvee.xiaoheic.events;
 
 import dev.aprilvee.xiaoheic.client.gui.QiBar;
+import dev.aprilvee.xiaoheic.client.gui.SkillTreeScreen;
 import dev.aprilvee.xiaoheic.client.gui.XiaoheiScreen;
 import dev.aprilvee.xiaoheic.client.model.BasicSpellModel;
 import dev.aprilvee.xiaoheic.client.model.SpriteModel;
@@ -12,6 +13,7 @@ import dev.aprilvee.xiaoheic.network.Messages;
 import dev.aprilvee.xiaoheic.network.packet.HandleCastC2S;
 import dev.aprilvee.xiaoheic.network.packet.StartCultivateC2S;
 import dev.aprilvee.xiaoheic.registry.entities;
+import dev.aprilvee.xiaoheic.spell.tree.QiSkillTree;
 import dev.aprilvee.xiaoheic.util.Keybinds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -34,7 +36,7 @@ public class ClientEvents {
         public static void spellcastKeyInput(InputEvent event) {
 
             if (Keybinds.MENU_KEY.consumeClick()) {
-                Minecraft.getInstance().setScreen(new XiaoheiScreen());
+                Minecraft.getInstance().setScreen(new SkillTreeScreen(new QiSkillTree()));
             }
             if (Keybinds.CULTIVATION_KEY.consumeClick()) {
                 Minecraft.getInstance().setScreen(Datalist.cultivationmethods[1].createScreen());

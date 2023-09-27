@@ -29,7 +29,7 @@ public class SpiritCap {
     public float spellresist = 1;
     public float spellcost = 1;
 
-    //maxqi here is NOT a multiplier unlike all the others, and generally should not be used (put it into maxqi variable instead)
+    //maxqi here is NOT a multiplier unlike all the others
     //0 maxqi, 1 qiregen, 2 spelldamage, 3 spellresist, 4 spellcost
     public float[] finalstats = new float[]{0, 1, 1, 1, 1};
     public List<StatValue> basestats = new ArrayList<>();
@@ -63,6 +63,23 @@ public class SpiritCap {
 
     public int tickCount = 0; //this is for jankness and such
 
+    //always run recalculatestats after
+    public void addStat(float addvalue, float xvalue, int stattype, String source){
+        StatValue stat = new StatValue();
+        stat.addvalue = addvalue;
+        stat.xvalue = xvalue;
+        stat.stat = stattype;
+        stat.id = source;
+        this.stats.add(stat);
+    }
+    public void addBStat(float addvalue, float xvalue, int stattype, String source){
+        StatValue stat = new StatValue();
+        stat.addvalue = addvalue;
+        stat.xvalue = xvalue;
+        stat.stat = stattype;
+        stat.id = source;
+        this.basestats.add(stat);
+    }
     public void recalculateStats(){
         //max qi, qiregen, spelldamage, spellresist, spellcost
         float[] stats = new float[]{0, 1.0f ,1.0f ,1.0f ,1.0f};

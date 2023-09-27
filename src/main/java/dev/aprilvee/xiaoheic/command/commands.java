@@ -100,8 +100,10 @@ public class commands {
             case "wood": sp.setWood((int) input); return 1;
             case "fire": sp.setFire((int) input); return 1;
             case "earth": sp.setEarth((int) input); return 1;
-
             case "elementlimit": sp.setElementlimit((int) input); return 1;
+
+            case "node": Datalist.nodes[(int) input].unlock(player);
+
             case "state": sp.state = Datalist.states[(int) input]; return 1;
             //case "type": sp.setType(Datalist.types[(int) input]); return 1;
             case "cmethod": sp.cultivationmethods.add(Datalist.cultivationmethods[(int) input]);return 1;
